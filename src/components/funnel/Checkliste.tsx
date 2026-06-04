@@ -3,8 +3,8 @@
 import { useState } from "react";
 import {
   ChevronDown, ChevronUp, CheckSquare, Square,
-  Package, Bell, FileCheck, Home, Stethoscope,
-  Scale, FolderOpen, Heart, Calendar, Phone, Users
+  Package, Bell, FileCheck, Stethoscope,
+  Scale, Heart, Calendar, Phone, Wrench
 } from "lucide-react";
 
 interface ChecklistItem {
@@ -29,59 +29,30 @@ interface ChecklistKategorie {
 
 const KATEGORIEN: ChecklistKategorie[] = [
   {
-    id: "bescheid",
-    titel: "Direkt nach dem Pflegegrad-Bescheid",
+    id: "sofort",
+    titel: "Sofort erledigen",
     icon: <FileCheck size={18} className="text-brand" />,
     items: [
       {
         id: "bescheid_pruefen",
-        titel: "Bescheid genau prüfen",
-        erklaerung: "Welcher Pflegegrad wurde bewilligt, ab welchem Datum, welche Leistungen sind genannt? Wenn der Pflegegrad zu niedrig wirkt, kann man Widerspruch einlegen. Das lohnt sich in ca. 35% der Fälle.",
+        titel: "Pflegegrad-Bescheid genau prüfen",
+        erklaerung: "Welcher Pflegegrad wurde bewilligt, ab welchem Datum? Wenn der Pflegegrad zu niedrig wirkt, kann man Widerspruch einlegen – in ca. 35% der Fälle wird der PG dann heraufgestuft.",
         punkte: [
           "Bescheid abheften oder scannen",
           "Frist für Widerspruch prüfen (1 Monat ab Bescheid)",
-          "Pflegegutachten anfordern, falls nicht dabei",
-          "Prüfen ob der Pflegebedarf realistisch abgebildet wurde",
+          "Pflegegutachten anfordern falls nicht dabei",
           "Bei Verschlechterung später Höherstufung beantragen",
         ],
         prioritaet: "sofort",
       },
-    ],
-  },
-  {
-    id: "pflege_entscheidung",
-    titel: "Entscheiden: Pflege zu Hause, Pflegedienst oder Heim?",
-    icon: <Home size={18} className="text-brand" />,
-    items: [
-      {
-        id: "wohnform",
-        titel: "Wohnsituation und Pflegeform klären",
-        erklaerung: "Klärt ehrlich was realistisch ist. Pflegegeld und Pflegesachleistungen können auch kombiniert werden – nicht vorschnell nur eine Variante wählen.",
-        punkte: [
-          "Kann die Person noch alleine wohnen?",
-          "Gibt es Angehörige die regelmäßig helfen können?",
-          "Braucht ihr morgens/abends Hilfe?",
-          "Ist Körperpflege, Anziehen, Essen, Medikamente, Haushalt betroffen?",
-          "Gibt es Demenz, Sturzgefahr oder Weglauftendenzen?",
-          "Ist nachts Hilfe nötig?",
-        ],
-        prioritaet: "sofort",
-      },
-    ],
-  },
-  {
-    id: "leistungen",
-    titel: "Leistungen bei der Pflegekasse beantragen",
-    icon: <Package size={18} className="text-brand" />,
-    items: [
       {
         id: "pflegebox_item",
-        titel: "Pflegehilfsmittel (Pflegebox) beantragen",
+        titel: "Pflegebox beantragen",
         erklaerung: "Handschuhe, Desinfektion, Bettschutzeinlagen – jeden Monat nach Hause, vollständig von der Pflegekasse bezahlt. Geht in 5 Minuten. Ab Pflegegrad 1.",
         punkte: [
           "Pflegehilfsmittel-Anbieter kontaktieren",
-          "Formular ausfüllen: Name, Adresse, Pflegekasse, Pflegegrad",
-          "Automatische monatliche Lieferung",
+          "Kurzes Formular: Name, Adresse, Pflegekasse, Pflegegrad",
+          "Automatische monatliche Lieferung startet",
         ],
         empfehlung: { produkt: "pflegebox", text: "Pflegebox – 42 € / Monat kostenlos", info: "Vollständig von der Pflegekasse bezahlt" },
         prioritaet: "sofort",
@@ -89,11 +60,11 @@ const KATEGORIEN: ChecklistKategorie[] = [
       {
         id: "hausnotruf_item",
         titel: "Hausnotruf beantragen",
-        erklaerung: "Pflegekasse zahlt 25,50 € / Monat Zuschuss. Bei günstigen Anbietern entstehen keine Kosten. Gibt beiden Seiten Sicherheit. Ab Pflegegrad 1.",
+        erklaerung: "Pflegekasse zahlt 25,50 € / Monat Zuschuss. Bei günstigen Anbietern entstehen keine Kosten. Gibt euch beiden Sicherheit – du kannst auch mal kurz weg.",
         punkte: [
           "Anbieter anfragen",
           "Antrag bei der Pflegekasse stellen (§40 SGB XI)",
-          "Genehmigung dauert ca. 3–5 Werktage",
+          "Genehmigung in ca. 3–5 Werktagen",
         ],
         empfehlung: { produkt: "hausnotruf", text: "Hausnotruf – ab 0 € / Monat", info: "Pflegekasse zahlt 25,50 € / Monat Zuschuss" },
         prioritaet: "sofort",
@@ -101,87 +72,151 @@ const KATEGORIEN: ChecklistKategorie[] = [
       {
         id: "entlastungsbetrag_item",
         titel: "Entlastungsbetrag nutzen (131 € / Monat)",
-        erklaerung: "Für Alltagsbegleitung, Haushaltshilfe, Fahrten. Das Geld kommt nicht automatisch – es muss aktiv genutzt werden. Nicht genutzte Beträge verfallen am Jahresende. Ab Pflegegrad 1.",
+        erklaerung: "Für Alltagsbegleitung, Haushaltshilfe, Fahrten. Das Geld kommt nicht automatisch und verfällt am Jahresende – unbedingt jetzt anfangen.",
         punkte: [
           "Anerkannten Anbieter für Alltagsbegleitung finden",
           "Rechnungen einsammeln und bei Pflegekasse einreichen",
-          "Tipp: Beträge können angespart werden (bis zum nächsten Quartal)",
+          "Beträge können angespart werden (bis zum nächsten Quartal)",
         ],
         prioritaet: "sofort",
       },
       {
-        id: "weitere_leistungen",
-        titel: "Weitere Leistungen prüfen und beantragen",
-        erklaerung: "Nicht alles kommt automatisch. Bei der Pflegekasse aktiv nachfragen.",
+        id: "vollmachten_item",
+        titel: "Vollmachten regeln – solange es noch geht",
+        erklaerung: "Das wird oft zu spät gemacht. Solange die Person noch geschäftsfähig ist, unbedingt klären. Wer darf mit Ärzten, Pflegekasse, Bank und Behörden sprechen?",
         punkte: [
-          "Pflegegeld (ab PG 2 – wenn Angehörige pflegen)",
-          "Pflegesachleistungen für ambulanten Pflegedienst",
-          "Kombinationsleistung (Pflegegeld + Sachleistung)",
-          "Tagespflege / Nachtpflege",
-          "Kurzzeitpflege",
-          "Verhinderungspflege (bis 1.612 € / Jahr)",
-          "Pflegekurse für Angehörige (kostenlos)",
-          "Beratungseinsatz §37.3 (bei Pflegegeld verpflichtend)",
+          "Vorsorgevollmacht erstellen",
+          "Patientenverfügung erstellen",
+          "Bankvollmacht",
+          "Schweigepflichtentbindung für Ärzte",
+          "Zugriff auf wichtige Unterlagen sicherstellen",
+        ],
+        prioritaet: "sofort",
+      },
+    ],
+  },
+  {
+    id: "alltag",
+    titel: "Alltag & Organisation",
+    icon: <Calendar size={18} className="text-brand" />,
+    items: [
+      {
+        id: "aufgaben",
+        titel: "Aufgaben klar verteilen",
+        erklaerung: "Unklare Zuständigkeiten sind eine der häufigsten Konfliktursachen. Eine einfache Tabelle reicht: Wer macht was, wie oft? Schriftlich festhalten hilft mehr als man denkt.",
+        punkte: [
+          "Wer kauft ein?",
+          "Wer kocht und macht Wäsche?",
+          "Wer begleitet zu Ärzten?",
+          "Wer kümmert sich um Rechnungen?",
+          "Wer ruft regelmäßig an?",
+          "Wer ist Notfallkontakt und hat Schlüssel?",
+          "Gibt es Essen auf Rädern oder einen Fahrdienst?",
+        ],
+        prioritaet: "sofort",
+      },
+      {
+        id: "organisation",
+        titel: "Als Familie koordinieren",
+        erklaerung: "Gute Kommunikation spart Zeit und verhindert Missverständnisse – besonders wenn mehrere Personen involviert sind.",
+        punkte: [
+          "WhatsApp-Gruppe oder Signal für schnelle Absprachen",
+          "Geteilter Kalender (Google Calendar, iCal)",
+          "Pflegeapp nutzen (z.B. Caregiver, Pflege.de App)",
+          "Regelmäßiges kurzes Familien-Update (monatlich)",
+          "Angehörigengruppen vor Ort – z.B. für Demenz (Alzheimer Gesellschaft)",
+        ],
+        prioritaet: "bald",
+      },
+      {
+        id: "wochenplan",
+        titel: "Wochenstruktur aufbauen",
+        erklaerung: "Eine feste Tagesstruktur gibt der pflegebedürftigen Person Sicherheit und entlastet die Pflegenden durch klare Abläufe.",
+        punkte: [
+          "Feste Zeiten für Körperpflege und Mahlzeiten",
+          "Regelmäßige Arzttermine koordinieren",
+          "Tagespflege als Tagesstruktur prüfen",
+          "Soziale Kontakte einplanen – Isolation vermeiden",
         ],
         prioritaet: "bald",
       },
     ],
   },
   {
-    id: "wohnung",
-    titel: "Wohnung und Sicherheit prüfen",
-    icon: <Home size={18} className="text-brand" />,
+    id: "hilfsmittel",
+    titel: "Hilfsmittel & Wohnung",
+    icon: <Wrench size={18} className="text-brand" />,
     items: [
       {
         id: "sturzsicherheit",
         titel: "Sturzsicherheit zuhause herstellen",
-        erklaerung: "Viele Pflegefälle werden durch Stürze schlimmer. Das ist einer der wichtigsten Punkte. Für wohnumfeldverbessernde Maßnahmen gibt es bis zu 4.180 € Zuschuss – aber: VOR dem Umbau beantragen!",
+        erklaerung: "Viele Pflegefälle werden durch Stürze schlimmer. Das ist einer der wichtigsten Punkte. Für Umbauten gibt es bis zu 4.180 € Zuschuss – aber VOR dem Umbau beantragen!",
         punkte: [
           "Stolperfallen und Teppiche entfernen oder sichern",
           "Haltegriffe im Bad installieren",
           "Duschhocker und Toilettensitzerhöhung",
-          "Rutschfeste Matten überall",
+          "Rutschfeste Matten",
           "Nachtlicht",
           "Türschwellen reduzieren",
-          "Badumbau prüfen",
-          "Treppenlift, falls Treppen ein Problem sind",
-          "Pflegebett prüfen",
+          "Badumbau und Treppenlift prüfen",
         ],
         empfehlung: { produkt: "hausnotruf", text: "Hausnotruf – Sicherheitsnetz für zuhause", info: "Pflegekasse zahlt 25,50 € / Monat Zuschuss" },
         prioritaet: "sofort",
+      },
+      {
+        id: "technische_hilfsmittel",
+        titel: "Technische Hilfsmittel beantragen",
+        erklaerung: "Pflegebett, Rollstuhl, Rollator, Badewannenlifter – vieles davon wird von der Pflegekasse leihweise oder dauerhaft gestellt.",
+        punkte: [
+          "Hausarzt nach Rezept für Hilfsmittel fragen",
+          "Rollator / Rollstuhl bei Pflegekasse anfragen",
+          "Pflegebett prüfen",
+          "Badewannenlifter oder Duschstuhl",
+          "Inkontinenzmaterial auf Rezept",
+        ],
+        prioritaet: "bald",
+      },
+      {
+        id: "wohnraumanpassung",
+        titel: "Wohnraumanpassung beantragen",
+        erklaerung: "Bis zu 4.180 € Zuschuss pro Maßnahme von der Pflegekasse. Wichtig: Antrag muss VOR Beginn der Maßnahme gestellt werden.",
+        punkte: [
+          "Maßnahme planen und Kostenvoranschlag holen",
+          "Antrag bei Pflegekasse stellen (§40 SGB XI)",
+          "Genehmigung abwarten – dann erst umbauen",
+          "Rechnung einreichen, Zuschuss wird erstattet",
+        ],
+        prioritaet: "bald",
       },
     ],
   },
   {
     id: "medizin",
-    titel: "Medizinische Versorgung organisieren",
+    titel: "Medizinische Versorgung",
     icon: <Stethoscope size={18} className="text-brand" />,
     items: [
       {
         id: "medizin_uebersicht",
         titel: "Medizinische Übersicht erstellen",
-        erklaerung: "Eine einfache Übersicht aller medizinischen Informationen hilft im Alltag und ist im Notfall Gold wert.",
+        erklaerung: "Eine einfache Übersicht aller medizinischen Informationen – im Notfall Gold wert.",
         punkte: [
           "Hausarzt und Fachärzte notieren",
           "Diagnosen dokumentieren",
           "Medikamentenplan mit Dosierung erstellen",
           "Allergien festhalten",
-          "Krankenkassen- / Pflegekassendaten",
-          "Notfallkontakte",
+          "Notfallkontakte zusammenstellen",
           "Letzte Arztbriefe sammeln",
-          "Hilfsmittel wie Rollator, Rollstuhl, Inkontinenzmaterial klären",
         ],
         prioritaet: "sofort",
       },
       {
         id: "medizin_check",
-        titel: "Medikamente und Therapien prüfen",
-        erklaerung: "Regelmäßige Kontrolle verhindert Fehler und spart Aufwand.",
+        titel: "Medikamente und Therapien im Griff haben",
+        erklaerung: "Regelmäßige Kontrolle verhindert Fehler – besonders bei vielen Medikamenten oder Demenz.",
         punkte: [
-          "Medikamentenplan aktuell?",
-          "Werden Medikamente richtig eingenommen?",
+          "Medikamentenplan aktuell halten",
           "Braucht ihr Pflegedienst für Medikamentengabe?",
-          "Gibt es Physio, Ergo, Logopädie?",
+          "Physio, Ergo, Logopädie – alles beantragt?",
           "Hilfsmittel auf Rezept vorhanden?",
         ],
         prioritaet: "bald",
@@ -189,47 +224,21 @@ const KATEGORIEN: ChecklistKategorie[] = [
     ],
   },
   {
-    id: "vollmachten",
-    titel: "Vollmachten und rechtliche Themen",
+    id: "rechtliches",
+    titel: "Rechtliches & Unterlagen",
     icon: <Scale size={18} className="text-brand" />,
-    items: [
-      {
-        id: "vollmachten_item",
-        titel: "Vollmachten und Verfügungen regeln",
-        erklaerung: "Das wird oft zu spät gemacht. Solange die Person noch geschäftsfähig ist, unbedingt klären. Ihr solltet wissen, wer mit Ärzten, Pflegekasse, Bank und Behörden sprechen darf.",
-        punkte: [
-          "Vorsorgevollmacht erstellen",
-          "Patientenverfügung erstellen",
-          "Betreuungsverfügung",
-          "Bankvollmacht",
-          "Schweigepflichtentbindung für Ärzte",
-          "Zugriff auf Krankenkasse / Pflegekasse klären",
-          "Zugriff auf wichtige Unterlagen sicherstellen",
-          "Testament, falls relevant",
-        ],
-        prioritaet: "sofort",
-      },
-    ],
-  },
-  {
-    id: "unterlagen",
-    titel: "Finanzen und Unterlagen sammeln",
-    icon: <FolderOpen size={18} className="text-brand" />,
     items: [
       {
         id: "ordner",
         titel: "Pflege-Ordner anlegen",
-        erklaerung: "Lege einen Pflege-Ordner an – digital oder physisch. Alles an einem Ort spart im Ernstfall viel Zeit und Stress.",
+        erklaerung: "Alles an einem Ort spart im Ernstfall viel Zeit und Stress – digital oder physisch.",
         punkte: [
           "Pflegegrad-Bescheid und Pflegegutachten",
-          "Pflegekassen-/Krankenkassenbriefe",
+          "Pflegekassen- / Krankenkassenbriefe",
           "Arztbriefe und Medikamentenplan",
-          "Rechnungen und Rezepte",
-          "Pflegedienstverträge",
-          "Vollmachten",
+          "Rechnungen, Rezepte, Pflegedienstverträge",
+          "Vollmachten und Patientenverfügung",
           "Rentenbescheid",
-          "Schwerbehindertenausweis (falls vorhanden)",
-          "Mietvertrag / Wohnsituation",
           "Kontaktdaten aller Beteiligten",
         ],
         prioritaet: "bald",
@@ -237,7 +246,7 @@ const KATEGORIEN: ChecklistKategorie[] = [
       {
         id: "schwerbehinderung",
         titel: "Schwerbehindertenausweis prüfen",
-        erklaerung: "Oft unbekannt: Ein Schwerbehindertenausweis kann zusätzliche Vergünstigungen bringen (z.B. Steuervorteile, kostenloser ÖPNV). Das Verfahren läuft über das Versorgungsamt.",
+        erklaerung: "Oft unbekannt: Ein Schwerbehindertenausweis kann zusätzliche Vergünstigungen bringen (Steuervorteile, kostenloser ÖPNV). Antrag beim Versorgungsamt.",
         punkte: [
           "Beim Versorgungsamt beantragen",
           "Ärztliche Atteste einreichen",
@@ -249,60 +258,30 @@ const KATEGORIEN: ChecklistKategorie[] = [
   },
   {
     id: "entlastung",
-    titel: "Entlastung für Angehörige einplanen",
+    titel: "Entlastung für Angehörige",
     icon: <Heart size={18} className="text-brand" />,
     items: [
       {
         id: "auszeit",
-        titel: "Auszeiten und Entlastung einplanen",
-        erklaerung: "Viele unterschätzen wie belastend Pflege wird. Plant direkt Entlastung ein – nicht erst wenn alle fertig sind. Pflege ist ein Marathon, kein Sprint.",
+        titel: "Auszeiten einplanen – nicht erst wenn alle fertig sind",
+        erklaerung: "Pflege ist ein Marathon. Wer dauerhaft pflegt ohne Pausen brennt aus. Die Verhinderungspflege ist genau dafür da – damit du Urlaub machen kannst, krank sein darfst, oder einfach mal Luft holst.",
         punkte: [
+          "Verhinderungspflege bei der Pflegekasse anfragen (bis 1.612 € / Jahr)",
+          "Kurzzeitpflege nach Krankenhaus oder bei Krisen",
           "Ambulanten Pflegedienst für Teile der Pflege anfragen",
-          "Tagespflege als Tagesstruktur einplanen",
-          "Anerkannte Alltagsbegleiter und Nachbarschaftshilfe suchen",
-          "Verhinderungspflege für Urlaub/Krankheit der Pflegeperson planen",
-          "Kurzzeitpflege nach Krankenhaus oder in Krisen",
-          "Pflegekurse für Angehörige nutzen (kostenlos)",
-          "Angehörigengruppen suchen – z.B. für Demenz",
-          "Klare Aufgabenverteilung in der Familie festlegen",
-        ],
-        prioritaet: "sofort",
-      },
-    ],
-  },
-  {
-    id: "alltag",
-    titel: "Alltag strukturieren",
-    icon: <Calendar size={18} className="text-brand" />,
-    items: [
-      {
-        id: "aufgaben",
-        titel: "Aufgaben klären und aufteilen",
-        erklaerung: "Eine einfache Tabelle reicht völlig: Wer macht was, wie oft? Das verhindert Missverständnisse und ungleiche Verteilung.",
-        punkte: [
-          "Wer kauft ein?",
-          "Wer kocht?",
-          "Wer macht Wäsche und putzt?",
-          "Wer begleitet zu Ärzten?",
-          "Wer kümmert sich um Rechnungen?",
-          "Wer ruft regelmäßig an?",
-          "Wer ist Notfallkontakt und hat Schlüssel?",
-          "Gibt es Essen auf Rädern oder einen Fahrdienst?",
-          "Gibt es einen Wochenplan?",
+          "Tagespflege als regelmäßige Entlastung prüfen",
         ],
         prioritaet: "sofort",
       },
       {
-        id: "organisation",
-        titel: "Wie organisiert ihr euch als Familie?",
-        erklaerung: "Kommunikation und Koordination sind entscheidend – gerade wenn mehrere Personen beteiligt sind.",
+        id: "unterstuetzung",
+        titel: "Unterstützung suchen und annehmen",
+        erklaerung: "Unterstützung annehmen ist kein Versagen. Es ist klug. Und es gibt mehr Möglichkeiten als die meisten wissen.",
         punkte: [
-          "WhatsApp-Gruppe oder Signal für schnelle Absprachen",
-          "Pflegeapp nutzen (z.B. Caregiver, Pflege.de App)",
-          "Geteilter Kalender (Google Calendar, iCal)",
-          "Angehörigengruppen vor Ort – z.B. für Demenz (Alzheimer Gesellschaft)",
-          "Online-Foren und Selbsthilfegruppen für pflegende Angehörige",
-          "Regelmäßiges Familien-Update (kurz, monatlich)",
+          "Anerkannte Alltagsbegleiter und Nachbarschaftshilfe",
+          "Pflegekurse für Angehörige (kostenlos)",
+          "Angehörigengruppen vor Ort – z.B. für Demenz",
+          "Online-Selbsthilfegruppen für pflegende Angehörige",
         ],
         prioritaet: "bald",
       },
@@ -310,42 +289,20 @@ const KATEGORIEN: ChecklistKategorie[] = [
   },
   {
     id: "beratung",
-    titel: "Pflegeberatung nutzen",
+    titel: "Beratung nutzen",
     icon: <Phone size={18} className="text-brand" />,
     items: [
       {
         id: "beratung_item",
         titel: "Kostenlose Pflegeberatung anfragen",
-        erklaerung: "Die Pflegekasse muss kostenlose Beratung anbieten – auch zuhause. Das ist kein Verkaufsgespräch, sondern euer Recht. Frag aktiv nach.",
+        erklaerung: "Die Pflegekasse muss kostenlose Beratung anbieten – auch zuhause. Das ist kein Verkaufsgespräch, das ist euer Recht. Frag aktiv nach §7a SGB XI.",
         punkte: [
           "Pflegeberatung §7a bei der Pflegekasse anfragen",
           "Pflegestützpunkt in der Region suchen",
           "Liste zugelassener Pflegedienste anfordern",
           "Liste anerkannter Entlastungsangebote anfordern",
-          "Leistungsübersicht passend zum Pflegegrad anfragen",
         ],
         prioritaet: "bald",
-      },
-    ],
-  },
-  {
-    id: "begutachtung",
-    titel: "Falls der Pflegegrad noch nicht final ist",
-    icon: <Users size={18} className="text-brand" />,
-    items: [
-      {
-        id: "mdk_vorbereitung",
-        titel: "Vorbereitung auf den MDK-Besuch",
-        erklaerung: "Der MDK-Besuch entscheidet über den Pflegegrad. Mit der richtigen Vorbereitung bekommt ihr den Pflegegrad der wirklich zutrifft. Nicht den guten Tag zeigen – den realen.",
-        punkte: [
-          "Pflegetagebuch führen (mind. 1–2 Wochen vorher)",
-          "Alle Einschränkungen ehrlich dokumentieren",
-          "Arztbriefe und Medikamente bereitlegen",
-          "Angehöriger sollte beim MDK-Termin dabei sein",
-          "Konkrete Beispiele nennen: Was klappt nicht mehr alleine?",
-          "Nicht nur gute Tage zeigen – den Alltag zeigen",
-        ],
-        prioritaet: "sofort",
       },
     ],
   },
@@ -366,7 +323,7 @@ const PRIORITAET_LABEL: Record<string, string> = {
 export default function Checkliste() {
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [openKat, setOpenKat] = useState<string | null>("bescheid");
+  const [openKat, setOpenKat] = useState<string | null>("sofort");
 
   const allItems = KATEGORIEN.flatMap((k) => k.items);
   const total = allItems.length;
@@ -378,10 +335,6 @@ export default function Checkliste() {
       if (next.has(id)) { next.delete(id); } else { next.add(id); }
       return next;
     });
-  }
-
-  function toggleExpand(id: string) {
-    setExpanded((prev) => prev === id ? null : id);
   }
 
   return (
@@ -401,14 +354,12 @@ export default function Checkliste() {
         </span>
       </div>
 
-      {/* Kategorien */}
       {KATEGORIEN.map((kat) => {
         const katChecked = kat.items.filter((i) => checked.has(i.id)).length;
         const isOpen = openKat === kat.id;
 
         return (
           <div key={kat.id} className="border border-[#E0EDE7] rounded-[12px] overflow-hidden bg-white">
-            {/* Kategorie Header */}
             <button
               onClick={() => setOpenKat(isOpen ? null : kat.id)}
               className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-gray-50 transition-colors"
@@ -423,7 +374,6 @@ export default function Checkliste() {
               {isOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
             </button>
 
-            {/* Items */}
             {isOpen && (
               <div className="border-t border-[#E0EDE7] divide-y divide-[#E0EDE7]">
                 {kat.items.map((item) => {
@@ -432,7 +382,6 @@ export default function Checkliste() {
 
                   return (
                     <div key={item.id} className={isChecked ? "bg-brand-light/20" : "bg-white"}>
-                      {/* Item Header */}
                       <div className="flex items-start gap-3 px-4 py-3.5">
                         <button onClick={() => toggleCheck(item.id)} className="flex-shrink-0 mt-0.5">
                           {isChecked
@@ -451,18 +400,16 @@ export default function Checkliste() {
                           </div>
                         </div>
                         <button
-                          onClick={() => toggleExpand(item.id)}
+                          onClick={() => setExpanded(isExpanded ? null : item.id)}
                           className="flex-shrink-0 text-gray-400 hover:text-brand transition-colors mt-0.5"
                         >
                           {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                         </button>
                       </div>
 
-                      {/* Aufgeklappt */}
                       {isExpanded && (
                         <div className="px-4 pb-4 bg-gray-50/50">
                           <p className="text-sm text-gray-600 leading-relaxed mb-3">{item.erklaerung}</p>
-
                           <ul className="space-y-1.5 mb-3">
                             {item.punkte.map((p, i) => (
                               <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
@@ -471,14 +418,10 @@ export default function Checkliste() {
                               </li>
                             ))}
                           </ul>
-
                           {item.empfehlung && (
                             <div className="flex items-center gap-3 bg-brand-light rounded-xl p-3">
                               <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center text-white flex-shrink-0">
-                                {item.empfehlung.produkt === "pflegebox"
-                                  ? <Package size={16} />
-                                  : <Bell size={16} />
-                                }
+                                {item.empfehlung.produkt === "pflegebox" ? <Package size={16} /> : <Bell size={16} />}
                               </div>
                               <div>
                                 <p className="text-xs font-semibold text-brand">{item.empfehlung.text}</p>
