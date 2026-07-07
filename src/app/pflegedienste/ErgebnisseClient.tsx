@@ -2,6 +2,7 @@
 
 import { MapPin, ArrowRight, Bell, Package } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import PflegedienstCard from "@/components/vergleich/PflegedienstCard";
 import type { PflegedienstResult } from "./page";
 
@@ -30,11 +31,21 @@ function filterByKategorie(results: PflegedienstResult[], kategorie: Kategorie):
   });
 }
 
+type SortMode = "distanz" | "bewertung";
+
 export default function ErgebnisseClient({ plz, pflegegrad, fuerWen, leistung, results }: Props) {
   const kategorie = leistung as Kategorie;
   const isKategorie = kategorie in KATEGORIE_FILTER;
+  const [sortMode, setSortMode] = useState<SortMode>("distanz");
 
-  const gefiltert = isKategorie ? filterByKategorie(results, kategorie) : results;
+  const gefiltert = (isKategorie ? filterByKategorie(results, kategorie) : results).slice().sort((a, b) => {
+    if (sortMode === "bewertung") {
+      const ra = a.bewertung ?? -1;
+      const rb = b.bewertung ?? -1;
+      return rb - ra;
+    }
+    return a.distanzKm - b.distanzKm;
+  });
   const noResults = results.length === 0;
 
   const subtitle = isKategorie ? kategorie : "Pflegeeinrichtungen";
@@ -65,6 +76,24 @@ export default function ErgebnisseClient({ plz, pflegegrad, fuerWen, leistung, r
             </>
           )}
         </p>
+        {!noResults && (
+          <div className="flex items-center gap-2 mt-3">
+            <span className="text-xs text-gray-400">Sortieren:</span>
+            {(["distanz", "bewertung"] as SortMode[]).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setSortMode(mode)}
+                className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                  sortMode === mode
+                    ? "bg-brand text-white border-brand"
+                    : "border-gray-200 text-gray-500 hover:border-brand hover:text-brand"
+                }`}
+              >
+                {mode === "distanz" ? "Nächste zuerst" : "Beste Bewertung"}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Ergebnisse */}
