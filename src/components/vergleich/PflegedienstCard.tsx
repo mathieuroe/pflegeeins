@@ -138,7 +138,7 @@ export default function PflegedienstCard({ pd, plz, pflegegrad, activeLeistung, 
             onClick={() => setShowModal(true)}
             className="w-full btn-primary justify-center py-3 text-sm"
           >
-            Ergebnis zusenden <ArrowRight size={15} />
+            Kostenlos anfragen <ArrowRight size={15} />
           </button>
         </div>
       </div>

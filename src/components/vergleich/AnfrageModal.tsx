@@ -154,7 +154,7 @@ export default function AnfrageModal({ pd, plz, pflegegrad, activeLeistung, onCl
                   />
                 </div>
                 <button type="submit" disabled={submitting} className="btn-primary w-full justify-center py-3 text-sm">
-                  {submitting ? "Wird gesendet…" : <><span>Ergebnis zusenden</span> <ArrowRight size={15} /></>}
+                  {submitting ? "Wird gesendet…" : <><span>Kostenlos anfragen</span> <ArrowRight size={15} /></>}
                 </button>
               </form>
               <p className="text-[11px] text-gray-400 text-center mt-3">Kostenlos · Unverbindlich · DSGVO-konform</p>
