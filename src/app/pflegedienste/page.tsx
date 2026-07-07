@@ -106,11 +106,18 @@ async function googleTextSearch(query: string, lat: number, lng: number, apiKey:
         languageCode: "de",
         regionCode: "DE",
       }),
-      next: { revalidate: 3600 },
+      cache: "no-store",
     });
     const data = await res.json();
+    if (data.error) {
+      console.error("[Google Places] API error:", JSON.stringify(data.error));
+    }
+    if (!data.places?.length) {
+      console.error("[Google Places] Keine Ergebnisse. Status:", res.status, "Body:", JSON.stringify(data).slice(0, 300));
+    }
     return (data.places as any[]) || [];
-  } catch {
+  } catch (err) {
+    console.error("[Google Places] fetch Fehler:", err);
     return [];
   }
 }
