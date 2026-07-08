@@ -167,16 +167,20 @@ async function fetchGooglePflegedienste(plz: string): Promise<PflegedienstResult
   if (!coords) return [];
   const { lat, lng } = coords;
 
-  const [heime, dienste, residenzen] = await Promise.all([
-    googleTextSearch("Pflegeheim Altenheim", lat, lng, apiKey),
-    googleTextSearch("ambulanter Pflegedienst Sozialstation", lat, lng, apiKey),
+  const [heime, pflegezentren, dienste, krankenpflege, residenzen, seniorenheime, pflege24h] = await Promise.all([
+    googleTextSearch("Pflegeheim Altenheim Kurzzeitpflege", lat, lng, apiKey),
+    googleTextSearch("Pflegezentrum Seniorenzentrum Pflegestift stationäre Pflege", lat, lng, apiKey),
+    googleTextSearch("ambulanter Pflegedienst Sozialstation Hauspflege", lat, lng, apiKey),
+    googleTextSearch("häusliche Krankenpflege Behandlungspflege Grundpflege", lat, lng, apiKey),
     googleTextSearch("Seniorenresidenz Seniorenstift Seniorenwohnanlage", lat, lng, apiKey),
+    googleTextSearch("Seniorenheim Altersheim Feierabendheim Feierabendhaus Pensionistenheim", lat, lng, apiKey),
+    googleTextSearch("24 Stunden Pflege 24h Pflege 24h Betreuung 24 Stunden Betreuung 24 Stunden Pflegekraft Intensivpflege", lat, lng, apiKey),
   ]);
 
   const seen = new Set<string>();
   const results: PflegedienstResult[] = [];
 
-  for (const p of [...heime, ...dienste, ...residenzen]) {
+  for (const p of [...heime, ...pflegezentren, ...dienste, ...krankenpflege, ...residenzen, ...seniorenheime, ...pflege24h]) {
     if (!p?.id || seen.has(p.id)) continue;
     seen.add(p.id);
 
