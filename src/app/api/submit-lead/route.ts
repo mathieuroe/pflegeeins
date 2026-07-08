@@ -19,15 +19,15 @@ export async function POST(req: NextRequest) {
 
   // Interne Benachrichtigung
   try {
-    await sendInternalLeadNotification({ email, phone, plz, pflegegrad, source, timestamp: ts });
+    await sendInternalLeadNotification({ email, phone, plz, pflegegrad, tags: resolvedTags ?? undefined, source, timestamp: ts });
   } catch (err) {
     console.error("[submit-lead] interne E-Mail fehlgeschlagen:", err);
   }
 
-  // Ergebnis-Email an den Lead
+  // Bestätigungs-E-Mail an den Lead
   if (email) {
     try {
-      await sendLeadConfirmation({ email, pflegegrad, einrichtung });
+      await sendLeadConfirmation({ email, pflegegrad, tags: resolvedTags ?? undefined, einrichtung });
     } catch (err) {
       console.error("[submit-lead] Bestätigungs-E-Mail fehlgeschlagen:", err);
     }

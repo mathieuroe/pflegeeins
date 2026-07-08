@@ -55,6 +55,7 @@ export async function sendInternalLeadNotification(data: {
   phone?: string;
   plz?: string;
   pflegegrad?: string;
+  tags?: string;
   source: string;
   timestamp: string;
 }) {
@@ -71,6 +72,7 @@ export async function sendInternalLeadNotification(data: {
       ${row("Telefon", data.phone || "–")}
       ${row("PLZ", data.plz || "–")}
       ${row("Pflegegrad", data.pflegegrad || "–")}
+      ${row("Interesse", data.tags || "–")}
       ${row("Herkunft", data.source)}
       ${row("Zeitstempel", data.timestamp)}
     </table>
@@ -83,7 +85,7 @@ export async function sendInternalLeadNotification(data: {
   await transporter.sendMail({
     from: `"liva Leads" <${process.env.SMTP_USER}>`,
     to: process.env.SMTP_USER,
-    subject: `Neuer Lead – ${data.pflegegrad ?? "kein PG"} – ${data.source}`,
+    subject: `Neuer Lead – ${data.tags ?? data.pflegegrad ?? "–"} – ${data.source}`,
     html,
     text: [
       "Neuer Lead eingegangen:",
@@ -92,6 +94,7 @@ export async function sendInternalLeadNotification(data: {
       `Telefon:     ${data.phone || "–"}`,
       `PLZ:         ${data.plz || "–"}`,
       `Pflegegrad:  ${data.pflegegrad || "–"}`,
+      `Interesse:   ${data.tags || "–"}`,
       `Herkunft:    ${data.source}`,
       `Zeitstempel: ${data.timestamp}`,
     ].join("\n"),
@@ -101,6 +104,7 @@ export async function sendInternalLeadNotification(data: {
 export async function sendLeadConfirmation(data: {
   email: string;
   pflegegrad?: string;
+  tags?: string;
   einrichtung?: {
     name: string;
     adresse: string;
@@ -112,28 +116,68 @@ export async function sendLeadConfirmation(data: {
     reaktionszeit: string;
   };
 }) {
-  const { einrichtung } = data;
+  const { einrichtung, tags, pflegegrad } = data;
 
-  const einrichtungBlock = einrichtung ? `
-    <div style="margin:24px 0;background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;">
-      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.05em;">Deine angefragte Einrichtung</p>
-      <h3 style="margin:0 0 8px;font-size:17px;color:#0F1F1A;font-family:Georgia,serif;">${einrichtung.name}</h3>
-      ${einrichtung.bewertung ? `<p style="margin:0 0 8px;font-size:13px;color:#5C7A6F;">⭐ ${einrichtung.bewertung.toFixed(1)} / 5 (${einrichtung.anzahlBewertungen} Google-Bewertungen)</p>` : ""}
-      <p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">📍 ${einrichtung.adresse}</p>
-      ${einrichtung.telefon ? `<p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">📞 <a href="tel:${einrichtung.telefon}" style="color:${BRAND};text-decoration:none;">${einrichtung.telefon}</a></p>` : ""}
-      ${einrichtung.website ? `<p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">🌐 <a href="${einrichtung.website}" style="color:${BRAND};text-decoration:none;">${einrichtung.website}</a></p>` : ""}
-      ${einrichtung.leistungen.length ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Leistungen: ${einrichtung.leistungen.join(" · ")}</p>` : ""}
-      <p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Antwortet meist innerhalb von ${einrichtung.reaktionszeit}</p>
+  // Pflegedienst-Vergleich: Einrichtungsdetails anzeigen
+  if (einrichtung) {
+    const einrichtungBlock = `
+      <div style="margin:24px 0;background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;">
+        <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.05em;">Deine angefragte Einrichtung</p>
+        <h3 style="margin:0 0 8px;font-size:17px;color:#0F1F1A;font-family:Georgia,serif;">${einrichtung.name}</h3>
+        ${einrichtung.bewertung ? `<p style="margin:0 0 8px;font-size:13px;color:#5C7A6F;">⭐ ${einrichtung.bewertung.toFixed(1)} / 5 (${einrichtung.anzahlBewertungen} Google-Bewertungen)</p>` : ""}
+        <p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">📍 ${einrichtung.adresse}</p>
+        ${einrichtung.telefon ? `<p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">📞 <a href="tel:${einrichtung.telefon}" style="color:${BRAND};text-decoration:none;">${einrichtung.telefon}</a></p>` : ""}
+        ${einrichtung.website ? `<p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">🌐 <a href="${einrichtung.website}" style="color:${BRAND};text-decoration:none;">${einrichtung.website}</a></p>` : ""}
+        ${einrichtung.leistungen.length ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Leistungen: ${einrichtung.leistungen.join(" · ")}</p>` : ""}
+        <p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Antwortet meist innerhalb von ${einrichtung.reaktionszeit}</p>
+      </div>`;
+
+    const html = wrapEmail(`
+      <h2 style="margin:0 0 16px;font-size:20px;color:#0F1F1A;font-family:Georgia,serif;">Dein Ergebnis von liva</h2>
+      <p style="margin:0 0 16px;">
+        Hier sind die Informationen zur Einrichtung, die du angefragt hast${pflegegrad ? ` (Pflegegrad ${pflegegrad})` : ""}:
+      </p>
+      ${einrichtungBlock}
+      <p style="margin:16px 0 0;color:#5C7A6F;font-size:13px;">
+        Falls du Fragen hast oder weitere Einrichtungen vergleichen möchtest, antworte einfach auf diese E-Mail oder besuche uns auf <a href="https://www.liva-pflege.de" style="color:${BRAND};">liva-pflege.de</a>.
+      </p>
+    `);
+
+    const transporter = getTransporter();
+    await transporter.sendMail({
+      from: `"liva" <${process.env.SMTP_USER}>`,
+      to: data.email,
+      subject: `Dein Ergebnis: ${einrichtung.name}`,
+      html,
+      text: `Dein Ergebnis von liva\n\n${einrichtung.name}\n${einrichtung.adresse}\nliva-pflege.de`,
+    });
+    return;
+  }
+
+  // Alle anderen Funnels: generische Bestätigung mit Kontext aus Tags
+  const tagList = tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
+
+  const interestBlock = tagList.length ? `
+    <div style="margin:20px 0;background:#F6FAF8;border-radius:12px;padding:16px 20px;border:1px solid #C8E6D8;">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.05em;">Das hast du angefragt</p>
+      ${tagList.map((t) => `<p style="margin:0 0 4px;font-size:14px;color:#0F1F1A;">✓ ${t}</p>`).join("")}
+      ${pflegegrad ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Pflegegrad: ${pflegegrad}</p>` : ""}
     </div>` : "";
 
   const html = wrapEmail(`
-    <h2 style="margin:0 0 16px;font-size:20px;color:#0F1F1A;font-family:Georgia,serif;">Dein Ergebnis von liva</h2>
-    <p style="margin:0 0 16px;">
-      Hier sind die Informationen zur Einrichtung, die du angefragt hast${data.pflegegrad ? ` (Pflegegrad ${data.pflegegrad})` : ""}:
+    <h2 style="margin:0 0 12px;font-size:20px;color:#0F1F1A;font-family:Georgia,serif;">Danke, dass du liva nutzt.</h2>
+    <p style="margin:0 0 16px;color:#374151;">
+      Wir haben deine Anfrage erhalten und melden uns in Kürze bei dir.
     </p>
-    ${einrichtungBlock}
-    <p style="margin:16px 0 0;color:#5C7A6F;font-size:13px;">
-      Falls du Fragen hast oder weitere Einrichtungen vergleichen möchtest, antworte einfach auf diese E-Mail oder besuche uns auf <a href="https://www.liva-pflege.de" style="color:${BRAND};">liva-pflege.de</a>.
+    ${interestBlock}
+    <p style="margin:16px 0;color:#374151;">
+      In der Zwischenzeit kannst du auf <a href="https://www.liva-pflege.de" style="color:${BRAND};text-decoration:none;">liva-pflege.de</a> weitere Leistungen entdecken, die dir zustehen.
+    </p>
+    <div style="margin-top:24px;">
+      <a href="https://www.liva-pflege.de/leistungen" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600;">Alle Leistungen ansehen →</a>
+    </div>
+    <p style="margin:24px 0 0;color:#5C7A6F;font-size:13px;">
+      Fragen? Antworte einfach auf diese E-Mail.
     </p>
   `);
 
@@ -141,20 +185,16 @@ export async function sendLeadConfirmation(data: {
   await transporter.sendMail({
     from: `"liva" <${process.env.SMTP_USER}>`,
     to: data.email,
-    subject: `Dein Ergebnis: ${einrichtung?.name ?? "Pflegeeinrichtung"}`,
+    subject: tagList.length ? `Deine Anfrage: ${tagList.join(", ")}` : "Deine Anfrage bei liva",
     html,
     text: [
-      "Dein Ergebnis von liva",
+      "Danke, dass du liva nutzt.",
       "",
-      einrichtung ? [
-        einrichtung.name,
-        einrichtung.adresse,
-        einrichtung.telefon ?? "",
-        einrichtung.website ?? "",
-        `Leistungen: ${einrichtung.leistungen.join(", ")}`,
-      ].filter(Boolean).join("\n") : "",
+      "Wir haben deine Anfrage erhalten und melden uns in Kürze.",
+      tagList.length ? `\nDein Interesse: ${tagList.join(", ")}` : "",
+      pflegegrad ? `Pflegegrad: ${pflegegrad}` : "",
       "",
       "liva-pflege.de",
-    ].join("\n"),
+    ].filter(Boolean).join("\n"),
   });
 }

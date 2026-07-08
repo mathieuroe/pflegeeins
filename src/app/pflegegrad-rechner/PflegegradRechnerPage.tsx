@@ -2,9 +2,56 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Shield, Clock, Lock, Mail } from "lucide-react";
+import { ArrowRight, Shield, Clock, Lock, Mail, ChevronDown, ExternalLink, CheckCircle2 } from "lucide-react";
 import PflegegradRechner from "@/components/funnel/PflegegradRechner";
-import { LeistungenListe, ErgebnisModal } from "@/components/funnel/ErgebnisModal";
+
+const AFFILIATE_LEISTUNGEN = [
+  {
+    id: "pflegebox",
+    name: "Pflegehilfsmittelbox",
+    emoji: "📦",
+    betrag: "42 € / Monat – kostenlos",
+    beschreibung: "Handschuhe, Einlagen, Desinfektion und mehr – jeden Monat neu geliefert. Vollständig von der Pflegekasse übernommen. Unser Partner stellt den Antrag kostenlos für dich.",
+    affiliateUrl: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=pflegegrad_rechner_pflegebox&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    affiliateCta: "Jetzt kostenlos bestellen",
+    minPg: 1,
+  },
+  {
+    id: "hausnotruf",
+    name: "Hausnotruf",
+    emoji: "🔔",
+    betrag: "27 € / Monat – kostenlos",
+    beschreibung: "24/7 Notrufzentrale mit Sturzerkennung. Die Pflegekasse übernimmt die Kosten vollständig. Bei unseren Partnern entstehen für dich keine Kosten – in wenigen Minuten beantragt.",
+    affiliateUrl: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=pflegegrad_rechner_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    affiliateCta: "Jetzt kostenlos beantragen",
+    minPg: 1,
+  },
+];
+
+const WEITERE_LEISTUNGEN: Record<number, { name: string; betrag: string; schritte: string[] }[]> = {
+  1: [
+    { name: "Entlastungsbetrag", betrag: "125 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Quittungen von anerkannten Dienstleistern sammeln", "Monatlich bis zu 125 € erstattet bekommen"] },
+  ],
+  2: [
+    { name: "Pflegegeld", betrag: "332 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen (Angehörige oder Ehrenamtliche)", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Entlastungsbetrag", betrag: "131 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Anerkannte Dienstleister nutzen", "Monatlich bis zu 131 € erstattet bekommen"] },
+  ],
+  3: [
+    { name: "Pflegegeld", betrag: "572 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegesachleistungen", betrag: "bis 1.363 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 1.363 € / Monat werden übernommen"] },
+    { name: "Verhinderungs- & Kurzzeitpflege", betrag: "bis 3.539 € / Jahr", schritte: ["Bei Urlaub oder Krankheit der Pflegeperson beantragen", "Antrag bei deiner Pflegekasse stellen", "Wird rückwirkend erstattet"] },
+  ],
+  4: [
+    { name: "Pflegegeld", betrag: "764 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegesachleistungen", betrag: "bis 1.693 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 1.693 € / Monat werden übernommen"] },
+    { name: "Verhinderungs- & Kurzzeitpflege", betrag: "bis 3.539 € / Jahr", schritte: ["Bei Urlaub oder Krankheit der Pflegeperson beantragen", "Antrag bei deiner Pflegekasse stellen", "Wird rückwirkend erstattet"] },
+  ],
+  5: [
+    { name: "Pflegegeld", betrag: "946 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegesachleistungen", betrag: "bis 2.095 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 2.095 € / Monat werden übernommen"] },
+    { name: "Tagespflege", betrag: "bis 1.995 € / Monat", schritte: ["Tagespflegeeinrichtung in deiner Nähe finden", "Antrag bei deiner Pflegekasse stellen", "Kosten werden direkt übernommen"] },
+  ],
+};
 
 const PFLEGEGRAD_LABELS: Record<number, { titel: string; farbe: string; beschreibung: string }> = {
   0: { titel: "Kein Pflegegrad", farbe: "#6B7280", beschreibung: "Aktuell reicht die Punktzahl noch nicht – aber das kann sich ändern. Wir zeigen dir, was jetzt sinnvoll ist." },
@@ -18,11 +65,36 @@ const PFLEGEGRAD_LABELS: Record<number, { titel: string; farbe: string; beschrei
 
 export default function PflegegradRechnerPage() {
   const [ergebnis, setErgebnis] = useState<{ pflegegrad: number; punkte: number } | null>(null);
-  const [showModal, setShowModal] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   function handleErgebnis(pflegegrad: number, gesamtpunkte: number) {
     setErgebnis({ pflegegrad, punkte: gesamtpunkte });
     setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
+  }
+
+  async function handleFormSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!ergebnis) return;
+    setSubmitting(true);
+    try {
+      await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          pflegegrad: ergebnis.pflegegrad.toString(),
+          tags: "Ergebnis-Email",
+          path: "/pflegegrad-rechner",
+          timestamp: new Date().toISOString(),
+        }),
+      });
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const pg = ergebnis ? PFLEGEGRAD_LABELS[ergebnis.pflegegrad] : null;
@@ -74,24 +146,160 @@ export default function PflegegradRechnerPage() {
               <p className="text-sm font-semibold uppercase tracking-widest opacity-80 mb-2">Dein geschätztes Ergebnis</p>
               <h2 className="font-serif text-4xl font-bold mb-1">{pg!.titel}</h2>
               <p className="text-sm opacity-70">{ergebnis.punkte} von 100 Punkten</p>
+              <p className="text-sm opacity-90 mt-3 leading-relaxed">{pg!.beschreibung}</p>
             </div>
 
-            {/* Das steht dir zu */}
-            <LeistungenListe pflegegrad={ergebnis.pflegegrad} />
+            {/* Leistungen */}
+            {ergebnis.pflegegrad === 0 ? (
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+                <p className="font-semibold text-amber-900 mb-2">Noch kein Pflegegrad – was jetzt?</p>
+                <p className="text-sm text-amber-800 leading-relaxed mb-4">
+                  Die Punktzahl reicht aktuell noch nicht – aber das kann sich ändern. Viele Menschen unterschätzen den Hilfebedarf beim ersten Anlauf. Ein Widerspruch oder eine Neubewertung lohnt sich oft.
+                </p>
+                <Link href="/pflegegrad-rechner" className="btn-secondary inline-flex items-center gap-2 text-sm">
+                  Rechner nochmal starten <ArrowRight size={14} />
+                </Link>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Das steht dir zu</p>
+                  <div className="space-y-3">
 
-            {/* CTA: Ergebnis erhalten */}
-            <button
-              onClick={() => setShowModal(true)}
-              className="w-full bg-brand text-white font-semibold rounded-2xl py-4 px-6 flex items-center justify-center gap-2 hover:bg-brand-hover transition-colors text-base shadow-sm"
-            >
-              <Mail size={18} />
-              Ergebnis kostenlos erhalten
-            </button>
+                    {/* Affiliate Leistungen: Pflegebox + Hausnotruf immer zuerst */}
+                    {AFFILIATE_LEISTUNGEN.filter((l) => ergebnis.pflegegrad >= l.minPg).map((l) => {
+                      const open = expandedId === l.id;
+                      return (
+                        <div key={l.id} className="bg-white border border-[#E0EDE7] rounded-2xl overflow-hidden">
+                          <button
+                            type="button"
+                            onClick={() => setExpandedId(open ? null : l.id)}
+                            className="w-full flex items-center justify-between gap-3 p-4 text-left"
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="text-2xl">{l.emoji}</span>
+                              <div>
+                                <p className="font-semibold text-gray-900 text-sm">{l.name}</p>
+                                <p className="text-xs text-brand font-medium">{l.betrag}</p>
+                              </div>
+                            </div>
+                            <ChevronDown size={18} className={`text-gray-400 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+                          </button>
+                          {open && (
+                            <div className="px-4 pb-5 border-t border-[#E0EDE7] pt-4">
+                              <p className="text-sm text-gray-600 leading-relaxed mb-4">{l.beschreibung}</p>
+                              <a
+                                href={l.affiliateUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-primary inline-flex items-center gap-2 text-sm"
+                              >
+                                {l.affiliateCta} <ExternalLink size={14} />
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+
+                    {/* Weitere Leistungen je nach PG */}
+                    {(WEITERE_LEISTUNGEN[ergebnis.pflegegrad] ?? []).map((l) => {
+                      const id = l.name;
+                      const open = expandedId === id;
+                      return (
+                        <div key={id} className="bg-white border border-[#E0EDE7] rounded-2xl overflow-hidden">
+                          <button
+                            type="button"
+                            onClick={() => setExpandedId(open ? null : id)}
+                            className="w-full flex items-center justify-between gap-3 p-4 text-left"
+                          >
+                            <div>
+                              <p className="font-semibold text-gray-900 text-sm">{l.name}</p>
+                              <p className="text-xs text-brand font-medium">{l.betrag}</p>
+                            </div>
+                            <ChevronDown size={18} className={`text-gray-400 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+                          </button>
+                          {open && (
+                            <div className="px-4 pb-5 border-t border-[#E0EDE7] pt-4">
+                              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Wie beantragen?</p>
+                              <ol className="space-y-2">
+                                {l.schritte.map((s, i) => (
+                                  <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
+                                    <span className="w-5 h-5 rounded-full bg-brand-light text-brand text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+                                    {s}
+                                  </li>
+                                ))}
+                              </ol>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Inline Kontaktformular */}
+            <div className="bg-white border border-[#E0EDE7] rounded-2xl p-6">
+              {!submitted ? (
+                <>
+                  <p className="text-xs font-bold text-brand uppercase tracking-widest mb-1.5">Kostenlos & unverbindlich</p>
+                  <h3 className="font-serif text-xl text-gray-900 mb-1">Ergebnis kostenlos erhalten</h3>
+                  <p className="text-sm text-gray-500 mb-4 leading-relaxed">
+                    Wir schicken dir deine persönliche Leistungsübersicht per E-Mail – mit konkreten Beträgen und nächsten Schritten.
+                  </p>
+                  <form onSubmit={handleFormSubmit} className="space-y-3">
+                    <input
+                      type="text"
+                      placeholder="Dein Name"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className="input w-full"
+                    />
+                    <input
+                      required
+                      type="email"
+                      placeholder="E-Mail-Adresse *"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="input w-full"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Telefonnummer (optional)"
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      className="input w-full"
+                    />
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="btn-primary w-full py-3.5 justify-center text-base"
+                    >
+                      {submitting ? "Wird gesendet…" : <><Mail size={16} /> Ergebnis kostenlos erhalten</>}
+                    </button>
+                    <p className="text-xs text-gray-400 text-center flex items-center justify-center gap-1">
+                      <Lock size={10} /> DSGVO-konform · Kein Spam · Jederzeit abmeldbar
+                    </p>
+                  </form>
+                </>
+              ) : (
+                <div className="text-center py-4">
+                  <div className="w-12 h-12 rounded-full bg-brand flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle2 size={24} className="text-white" />
+                  </div>
+                  <h3 className="font-serif text-xl text-gray-900 mb-1">Unterwegs zu dir.</h3>
+                  <p className="text-sm text-gray-500">Schau in dein Postfach – deine Übersicht ist auf dem Weg.</p>
+                </div>
+              )}
+            </div>
 
             {/* Neu berechnen */}
             <div className="text-center">
               <button
-                onClick={() => setErgebnis(null)}
+                onClick={() => { setErgebnis(null); setSubmitted(false); setForm({ name: "", email: "", phone: "" }); }}
                 className="text-sm text-gray-400 hover:text-brand underline underline-offset-2 transition-colors"
               >
                 Rechner neu starten
@@ -216,9 +424,6 @@ export default function PflegegradRechnerPage() {
         </section>
       )}
 
-      {showModal && ergebnis && (
-        <ErgebnisModal pflegegrad={ergebnis.pflegegrad} path="/pflegegrad-rechner" onClose={() => setShowModal(false)} />
-      )}
 
     </main>
   );
