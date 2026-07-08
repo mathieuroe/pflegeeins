@@ -59,7 +59,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${BASE}/ratgeber/pflegegrad-1-vs-2`,
+      url: `${BASE}/ratgeber/was-ist-pflegegrad-1`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/ratgeber/pflegegrad-beantragen`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE}/ratgeber/hausnotruf-kosten`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
