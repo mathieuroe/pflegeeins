@@ -30,7 +30,7 @@ const AFFILIATE_LEISTUNGEN = [
 
 const WEITERE_LEISTUNGEN: Record<number, { name: string; betrag: string; schritte: string[] }[]> = {
   1: [
-    { name: "Entlastungsbetrag", betrag: "125 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Quittungen von anerkannten Dienstleistern sammeln", "Monatlich bis zu 125 € erstattet bekommen"] },
+    { name: "Entlastungsbetrag", betrag: "131 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Quittungen von anerkannten Dienstleistern sammeln", "Monatlich bis zu 131 € erstattet bekommen"] },
   ],
   2: [
     { name: "Pflegegeld", betrag: "332 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen (Angehörige oder Ehrenamtliche)", "Monatliche Auszahlung auf dein Konto"] },
@@ -359,7 +359,7 @@ export default function PflegegradRechnerPage() {
                 },
                 {
                   q: "Was bekomme ich mit Pflegegrad 1?",
-                  a: "Mehr als die meisten erwarten: Entlastungsbetrag (125 € / Monat für Alltagshilfe), die kostenlose Pflegebox (bis 42 € / Monat), und den Hausnotruf-Zuschuss (27 € / Monat). Pflegegeld gibt es erst ab Pflegegrad 2 – aber auch PG 1 bringt echte monatliche Entlastung.",
+                  a: "Mehr als die meisten erwarten: Entlastungsbetrag (131 € / Monat für Alltagshilfe), die kostenlose Pflegebox (bis 42 € / Monat), und den Hausnotruf-Zuschuss (27 € / Monat). Pflegegeld gibt es erst ab Pflegegrad 2 – aber auch PG 1 bringt echte monatliche Entlastung.",
                 },
                 {
                   q: "Was, wenn das Ergebnis niedriger ist als erwartet?",

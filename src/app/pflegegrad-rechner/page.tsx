@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pflegegrad Rechner 2026 – Kostenlos & anonym",
     description:
-      "Ermittle in 5 Minuten welcher Pflegegrad für dich oder deine Angehörigen in Frage kommt. Kostenlos, anonym, auf Basis des offiziellen MDK-Verfahrens.",
+      "Ermittle in 5 Minuten welcher Pflegegrad für dich oder deine Angehörigen in Frage kommt. Kostenlos, anonym, auf Basis des offiziellen NBA-Begutachtungsverfahrens.",
     url: "https://liva-pflege.de/pflegegrad-rechner",
     siteName: "liva",
     locale: "de_DE",
@@ -101,7 +101,7 @@ const schemaFAQ = {
       name: "Was bekomme ich mit Pflegegrad 1?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Mit Pflegegrad 1 hast du Anspruch auf: Entlastungsbetrag (125 € / Monat für Alltagshilfe), die kostenlose Pflegehilfsmittelbox (bis 42 € / Monat) und den Hausnotruf-Zuschuss der Pflegekasse (27 € / Monat + einmalig bis zu 10,49 €). Pflegegeld gibt es erst ab Pflegegrad 2.",
+        text: "Mit Pflegegrad 1 hast du Anspruch auf: Entlastungsbetrag (131 € / Monat für Alltagshilfe), die kostenlose Pflegehilfsmittelbox (bis 42 € / Monat) und den Hausnotruf-Zuschuss der Pflegekasse (27 € / Monat + einmalig bis zu 10,49 €). Pflegegeld gibt es erst ab Pflegegrad 2.",
       },
     },
     {

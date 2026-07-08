@@ -15,6 +15,33 @@ export const metadata: Metadata = {
   },
 };
 
+const schemaFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Was ist der Entlastungsbetrag?",
+      acceptedAnswer: { "@type": "Answer", text: "Der Entlastungsbetrag beträgt 2026 monatlich 131 Euro. Anspruch haben Pflegebedürftige mit Pflegegrad 1 bis 5, die zu Hause gepflegt werden. Er wird für anerkannte Entlastungsleistungen wie Alltagsbegleitung oder Haushaltshilfe eingesetzt. Rechtsgrundlage: § 45b SGB XI." },
+    },
+    {
+      "@type": "Question",
+      name: "Wie hoch ist das Pflegegeld 2026?",
+      acceptedAnswer: { "@type": "Answer", text: "Das Pflegegeld beträgt je nach Pflegegrad: Pflegegrad 2: 332 €, Pflegegrad 3: 572 €, Pflegegrad 4: 764 €, Pflegegrad 5: 946 € pro Monat. Es wird ausgezahlt wenn Angehörige oder ehrenamtliche Pflegepersonen die Pflege übernehmen. Rechtsgrundlage: § 37 SGB XI." },
+    },
+    {
+      "@type": "Question",
+      name: "Ist die Pflegehilfsmittelbox wirklich kostenlos?",
+      acceptedAnswer: { "@type": "Answer", text: "Ja. Die Pflegekasse übernimmt bis zu 42 Euro pro Monat für Pflegehilfsmittel zum Verbrauch (Handschuhe, Einlagen, Desinfektion). Ab Pflegegrad 1. Der Anbieter stellt den Antrag direkt bei der Pflegekasse – für dich entstehen keine Kosten. Rechtsgrundlage: § 40 Abs. 2 SGB XI." },
+    },
+    {
+      "@type": "Question",
+      name: "Wer hat Anspruch auf einen Hausnotruf?",
+      acceptedAnswer: { "@type": "Answer", text: "Pflegebedürftige ab Pflegegrad 1, die alleine leben oder zeitweise alleine sind, haben Anspruch auf einen Hausnotruf. Die Pflegekasse übernimmt die monatlichen Kosten (ca. 23–30 €). Rechtsgrundlage: § 40 Abs. 1 SGB XI." },
+    },
+  ],
+};
+
 const schemaItemList = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -35,10 +62,8 @@ const schemaItemList = {
 export default function LeistungenPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFaq) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       <main>
 
         {/* ── Hero ────────────────────────────────────────────────── */}
@@ -151,7 +176,7 @@ export default function LeistungenPage() {
             <Link href="/pflegegrad-rechner" className="btn-primary inline-flex text-sm px-6 py-3">
               Kostenlos Pflegegrad ermitteln <ArrowRight size={15} />
             </Link>
-            <p className="text-xs text-gray-400 mt-3">Anonym · Kein Login · Basiert auf dem MDK-Verfahren</p>
+            <p className="text-xs text-gray-400 mt-3">Anonym · Kein Login · Basiert auf dem offiziellen NBA-Begutachtungsverfahren</p>
           </div>
         </section>
 

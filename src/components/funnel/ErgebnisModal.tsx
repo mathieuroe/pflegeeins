@@ -12,7 +12,7 @@ export const LEISTUNGEN_PG: Record<number, Leistung[]> = {
   ],
   1: [
     { name: "Pflegehilfsmittel + Hausnotruf – 0 € / Monat", anchor: "pflegebox-karte" },
-    { name: "Entlastungsbetrag – 125 € / Monat", anchor: "entlastung" },
+    { name: "Entlastungsbetrag – 131 € / Monat", anchor: "entlastung" },
   ],
   2: [
     { name: "Pflegehilfsmittel + Hausnotruf – 0 € / Monat", anchor: "pflegebox-karte" },

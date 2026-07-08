@@ -22,6 +22,21 @@ export const metadata: Metadata = {
   title: "Pflegedienste vergleichen & Pflegeleistungen beantragen | liva",
   description: "Pflegedienste in deiner Nähe vergleichen, Hausnotruf & Pflegebox kostenlos beantragen. Pflegegrad ermitteln – in 2 Minuten. Bundesweit, unverbindlich.",
   keywords: "Pflegedienst Vergleich, Pflegebox beantragen, Hausnotruf Vergleich, Pflegegrad ermitteln, ambulante Pflege",
+  openGraph: {
+    type: "website",
+    locale: "de_DE",
+    siteName: "liva",
+    title: "Pflegedienste vergleichen & Pflegeleistungen beantragen | liva",
+    description: "Pflegedienste in deiner Nähe vergleichen, Hausnotruf & Pflegebox kostenlos beantragen. Pflegegrad ermitteln – in 2 Minuten. Bundesweit, unverbindlich.",
+    url: "https://liva-pflege.de",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "liva – Pflegeleistungen einfach beantragen" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pflegedienste vergleichen & Pflegeleistungen beantragen | liva",
+    description: "Pflegedienste vergleichen, Hausnotruf & Pflegebox kostenlos beantragen. Pflegegrad ermitteln – in 2 Minuten.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,24 +61,49 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "liva",
-              legalName: "RegioCare UG (haftungsbeschränkt)",
-              url: "https://liva-pflege.de",
-              logo: "https://liva-pflege.de/hero.jpg",
-              email: "info@liva-pflege.de",
-              telephone: "+4976188785990",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Zita-Kaiser-Straße 3",
-                addressLocality: "Freiburg im Breisgau",
-                postalCode: "79106",
-                addressCountry: "DE",
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "@id": "https://liva-pflege.de/#organization",
+                name: "liva",
+                legalName: "RegioCare UG (haftungsbeschränkt)",
+                url: "https://liva-pflege.de",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://liva-pflege.de/og-image.jpg",
+                  width: 1200,
+                  height: 630,
+                },
+                email: "info@liva-pflege.de",
+                telephone: "+4976188785990",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Zita-Kaiser-Straße 3",
+                  addressLocality: "Freiburg im Breisgau",
+                  postalCode: "79106",
+                  addressCountry: "DE",
+                },
+                description: "liva hilft pflegenden Angehörigen, Pflegeleistungen wie Hausnotruf und Pflegebox kostenlos zu beantragen und Pflegedienste in ihrer Nähe zu vergleichen.",
+                foundingDate: "2024",
+                areaServed: "DE",
               },
-              sameAs: ["https://github.com/mathieuroe/pflegeeins"],
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "@id": "https://liva-pflege.de/#website",
+                url: "https://liva-pflege.de",
+                name: "liva",
+                description: "Pflegeleistungen beantragen, Pflegedienste vergleichen, Pflegegrad ermitteln.",
+                publisher: { "@id": "https://liva-pflege.de/#organization" },
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: { "@type": "EntryPoint", urlTemplate: "https://liva-pflege.de/pflegedienste?plz={search_term_string}" },
+                  "query-input": "required name=search_term_string",
+                },
+                inLanguage: "de-DE",
+              },
+            ]),
           }}
         />
         <SiteShell>{children}</SiteShell>
