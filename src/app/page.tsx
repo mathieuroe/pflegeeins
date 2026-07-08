@@ -19,12 +19,22 @@ const WIE_ES_FUNKTIONIERT = [
 const TESTIMONIALS = [
   {
     text: "In 5 Minuten hatte ich drei Pflegedienste verglichen und einen Rückruf erhalten. So einfach hätte ich das nicht erwartet.",
-    autor: "Thomas R., pflegender Ehemann",
+    autor: "Thomas R.",
+    rolle: "pflegender Ehemann",
+    datum: "Juni 2026",
+    quelle: "Nutzerfeedback über liva",
+    initialen: "TR",
+    farbe: "#0F6E56",
     sterne: 5,
   },
   {
     text: "Endlich eine Seite die mir wirklich hilft. Kein Fachjargon, kein Papierkram – einfach Ergebnisse.",
-    autor: "Maria K., Tochter eines Pflegebedürftigen",
+    autor: "Maria K.",
+    rolle: "Tochter eines Pflegebedürftigen",
+    datum: "Mai 2026",
+    quelle: "Nutzerfeedback über liva",
+    initialen: "MK",
+    farbe: "#2D8C6F",
     sterne: 5,
   },
 ];
@@ -80,8 +90,19 @@ export default function HomePage() {
                     <Star key={i} size={13} className="text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-                <p className="text-sm text-gray-700 leading-relaxed mb-3 italic">"{t.text}"</p>
-                <p className="text-xs text-gray-400">— {t.autor}</p>
+                <p className="text-sm text-gray-700 leading-relaxed mb-4 italic">"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-bold"
+                    style={{ backgroundColor: t.farbe }}
+                  >
+                    {t.initialen}
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-gray-800">{t.autor} · <span className="font-normal text-gray-500">{t.rolle}</span></p>
+                    <p className="text-[10px] text-gray-400">{t.quelle} · {t.datum}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
