@@ -96,7 +96,7 @@ export default function RatgeberPage() {
               Wie beantrage ich einen Pflegegrad? Was passiert beim MDK? Welche Leistungen stehen mir zu? Hier findest du alles – in einfacher Sprache, ohne Bürokratie-Deutsch.
             </p>
             <Link href="/pflegegrad-rechner" className="btn-secondary">
-              Pflegegrad kostenlos einschätzen <ArrowRight size={15} />
+              Pflegegrad kostenlos berechnen <ArrowRight size={15} />
             </Link>
           </div>
         </section>

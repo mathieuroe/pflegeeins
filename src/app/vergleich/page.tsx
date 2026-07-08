@@ -332,14 +332,17 @@ function VergleichTabelle({
               {/* CTA */}
               <div className="flex-shrink-0 hidden sm:block">
                 {e.affiliate ? (
-                  <a
-                    href={e.affiliate}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary whitespace-nowrap"
-                  >
-                    Jetzt kostenlos beantragen <ArrowRight size={14} />
-                  </a>
+                  <div className="flex flex-col items-center">
+                    <a
+                      href={e.affiliate}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary whitespace-nowrap"
+                    >
+                      Jetzt kostenlos beantragen <ArrowRight size={14} />
+                    </a>
+                    <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner {e.name}</p>
+                  </div>
                 ) : (
                   <span className="inline-block text-xs text-gray-400 text-center px-3 py-2 rounded-xl border border-[#E0EDE7] whitespace-nowrap">
                     Kein<br />Direktlink
@@ -359,6 +362,7 @@ function VergleichTabelle({
                 >
                   Jetzt kostenlos beantragen <ArrowRight size={14} />
                 </a>
+                <p className="text-[10px] text-gray-400 mt-1 text-center">Über unseren Partner {e.name}</p>
               </div>
             )}
           </div>
@@ -527,6 +531,7 @@ export default function VergleichPage() {
               >
                 Jetzt kostenlos beantragen <ArrowRight size={14} />
               </a>
+              <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner smartversorgt</p>
             </div>
           </section>
 
@@ -562,6 +567,7 @@ export default function VergleichPage() {
               >
                 Jetzt kostenlos beantragen <ArrowRight size={14} />
               </a>
+              <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner blubox</p>
             </div>
           </section>
 
@@ -602,12 +608,12 @@ export default function VergleichPage() {
           {/* Pflegedienst CTA */}
           <section className="rounded-2xl bg-brand-light/20 border border-[#E0EDE7] p-6 text-center mb-6">
             <p className="text-sm font-semibold text-brand mb-1">Mehr Unterstützung gewünscht?</p>
-            <h2 className="font-serif text-2xl text-gray-900 mb-2">Auch ambulante Pflegedienste vergleichen</h2>
+            <h2 className="font-serif text-2xl text-gray-900 mb-2">Auch Pflegeeinrichtungen vergleichen</h2>
             <p className="text-sm text-gray-500 mb-4">
-              Vergleiche Pflegedienste in deiner Region – kostenlos, unverbindlich, direkt mit Angeboten.
+              Vergleiche Pflegedienste, Pflegeheime und Seniorenresidenzen
             </p>
             <Link href="/" className="btn-primary inline-flex text-sm px-6 py-3">
-              Pflegedienste vergleichen <ArrowRight size={15} />
+              Pflegeeinrichtung vergleichen <ArrowRight size={15} />
             </Link>
           </section>
 

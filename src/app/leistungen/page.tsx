@@ -94,7 +94,7 @@ export default function LeistungenPage() {
                 Was steht mir zu? <ArrowRight size={15} />
               </Link>
               <Link href="/pflegegrad-rechner" className="btn-secondary inline-flex items-center gap-2">
-                Pflegegrad noch unklar? Jetzt ermitteln <ArrowRight size={15} />
+                Pflegegrad kostenlos berechnen <ArrowRight size={15} />
               </Link>
             </div>
           </div>
@@ -174,22 +174,9 @@ export default function LeistungenPage() {
             <p className="text-sm font-semibold text-brand mb-2">Du kennst deinen Pflegegrad noch nicht?</p>
             <h2 className="font-serif text-2xl text-gray-900 mb-3">In 5 Minuten weißt du, welche Leistungen dir zustehen.</h2>
             <Link href="/pflegegrad-rechner" className="btn-primary inline-flex text-sm px-6 py-3">
-              Kostenlos Pflegegrad ermitteln <ArrowRight size={15} />
+              Pflegegrad kostenlos berechnen <ArrowRight size={15} />
             </Link>
-            <p className="text-xs text-gray-400 mt-3">Anonym · Kein Login · Basiert auf dem offiziellen NBA-Begutachtungsverfahren</p>
-          </div>
-        </section>
-
-        {/* ── Bottom CTA ──────────────────────────────────────────── */}
-        <section className="py-16 px-4 sm:px-6 bg-brand-hover">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-serif text-4xl text-white mb-4">Welche Leistungen stehen dir konkret zu?</h2>
-            <p className="text-white/70 mb-8 leading-relaxed">
-              Starte mit dem Pflegegrad-Rechner – du siehst sofort dein Ergebnis und welche Beträge du beantragen kannst.
-            </p>
-            <Link href="/pflegegrad-rechner" className="inline-flex items-center gap-2 bg-white text-brand font-semibold px-8 py-4 rounded-full hover:bg-gray-50 transition-colors">
-              Pflegegrad & Leistungen prüfen <ArrowRight size={18} />
-            </Link>
+            <p className="text-xs text-gray-400 mt-3">Anonym · Kein Login · Orientiert am neuen Begutachtungsassessment (NBA)</p>
           </div>
         </section>
 

@@ -347,7 +347,7 @@ export default function PflegegradRechnerPage() {
               {[
                 {
                   q: "Wie genau ist das Ergebnis?",
-                  a: "Unser Rechner nutzt das gleiche Verfahren wie der Medizinische Dienst (MDK) – das offizielle NBA-Begutachtungsinstrument. Das Ergebnis ist eine fundierte Einschätzung, kein Bescheid. In der Praxis liegt es oft sehr nah am offiziellen Ergebnis – manchmal um einen halben Pflegegrad daneben. Als Vorbereitung auf den MDK-Termin ist es sehr gut geeignet.",
+                  a: "Der Rechner orientiert sich am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien. Das Ergebnis ist eine unverbindliche Selbsteinschätzung und kann von der Begutachtung des Medizinischen Dienstes abweichen. Als Vorbereitung auf den Begutachtungstermin ist er dennoch sehr hilfreich.",
                 },
                 {
                   q: "Muss ich meinen Namen oder meine Daten angeben?",
@@ -412,7 +412,7 @@ export default function PflegegradRechnerPage() {
           <div className="max-w-xl mx-auto px-4 sm:px-6 text-center">
             <h2 className="font-serif text-3xl text-white mb-3">In 5 Minuten weißt du, wo du stehst.</h2>
             <p className="text-white/70 mb-6 text-sm leading-relaxed">
-              Anonym, kostenlos – mit dem gleichen Verfahren, das der MDK bei der Begutachtung nutzt.
+              Anonym, kostenlos – orientiert am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien.
             </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

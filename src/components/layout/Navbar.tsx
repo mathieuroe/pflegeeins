@@ -37,7 +37,7 @@ export default function Navbar() {
           </Link>
           <Link href="/leistungen#leistungen-sofort" className="btn-primary text-xs px-2.5 py-2 md:text-sm md:px-5 md:py-2.5">
             <span className="md:hidden">Leistungen</span>
-            <span className="hidden md:inline">Kostenlose Leistungen</span>
+            <span className="hidden md:inline">Pflegeleistungen</span>
             <ArrowRight size={13} />
           </Link>
           <button className="md:hidden p-2 ml-0.5 text-gray-600 rounded-lg hover:bg-gray-100" onClick={() => setOpen(!open)}>
@@ -57,7 +57,7 @@ export default function Navbar() {
             <Calculator size={15} /> Pflegegrad-Rechner
           </Link>
           <Link href="/leistungen#leistungen-sofort" className="btn-primary mt-2 text-center justify-center" onClick={() => setOpen(false)}>
-            Kostenlose Leistungen <ArrowRight size={15} />
+            Leistungen <ArrowRight size={15} />
           </Link>
         </div>
       )}

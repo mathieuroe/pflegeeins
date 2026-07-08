@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, PhoneCall, Wifi, ShieldCheck, ArrowRight } from "lucide-react";
+import { CheckCircle2, PhoneCall, Wifi, ShieldCheck, ArrowRight, Bell } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import HausnotrufLeadForm from "@/components/HausnotrufLeadForm";
 
@@ -33,14 +33,17 @@ export default function HausnotrufPage() {
                 >
                   Jetzt kostenlos beantragen <ArrowRight size={16} />
                 </a>
-                <a href="#anfrage" className="btn-secondary inline-flex items-center gap-2">
+                <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner</p>
+                <a href="#anfrage" className="btn-secondary inline-flex items-center gap-2 mt-2">
                   Erst Fragen stellen
                 </a>
               </div>
             </div>
             <div className="flex justify-center">
               <div className="bg-brand-light rounded-[20px] p-8 text-center w-full max-w-sm">
-                <div className="text-7xl mb-4">🔔</div>
+                <div className="w-16 h-16 rounded-2xl bg-brand flex items-center justify-center mx-auto mb-4">
+                  <Bell size={32} className="text-white" />
+                </div>
                 <p className="font-serif text-3xl text-brand mb-1">27 € / Monat</p>
                 <p className="text-brand/70 text-sm mb-4">Zuschuss von der Pflegekasse</p>
                 <div className="bg-white rounded-xl p-4 text-left">

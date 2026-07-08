@@ -78,12 +78,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   <h3 className="font-semibold text-gray-900 mb-2">Jetzt direkt beantragen</h3>
                   <p className="text-gray-600 text-sm mb-4">100% kostenlos – die Pflegekasse übernimmt. Antrag dauert ca. 5 Minuten.</p>
                   <a href={article.affiliate} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm">Jetzt kostenlos beantragen <ArrowRight size={15} /></a>
+                  <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner</p>
                 </>
               ) : (
                 <>
                   <h3 className="font-semibold text-gray-900 mb-2">Bereit loszulegen?</h3>
                   <p className="text-gray-600 text-sm mb-4">Prüfe was dir mit deinem Pflegegrad zusteht – in 2 Minuten, kostenlos.</p>
-                  <Link href="/" className="btn-primary text-sm">Jetzt starten <ArrowRight size={15} /></Link>
+                  <Link href="/leistungen-check" className="btn-primary text-sm">Was steht mir zu? <ArrowRight size={15} /></Link>
                 </>
               )}
             </div>
@@ -97,12 +98,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                     <h3 className="font-semibold text-gray-900 mb-2 text-sm">Direkt beantragen</h3>
                     <p className="text-gray-500 text-xs mb-4 leading-relaxed">100% kostenlos – Pflegekasse übernimmt. Antrag in 5 Minuten fertig.</p>
                     <a href={article.affiliate} target="_blank" rel="noopener noreferrer" className="btn-primary w-full justify-center text-xs py-2.5">Jetzt kostenlos beantragen <ArrowRight size={14} /></a>
+                    <p className="text-[10px] text-gray-400 mt-1 text-center">Über unseren Partner</p>
                   </>
                 ) : (
                   <>
                     <h3 className="font-semibold text-gray-900 mb-2 text-sm">Was steht dir zu?</h3>
                     <p className="text-gray-500 text-xs mb-4 leading-relaxed">Wähle deinen Pflegegrad – wir zeigen dir in 2 Minuten alle Leistungen.</p>
-                    <Link href="/" className="btn-primary w-full justify-center text-xs py-2.5">Jetzt prüfen <ArrowRight size={14} /></Link>
+                    <Link href="/leistungen-check" className="btn-primary w-full justify-center text-xs py-2.5">Was steht mir zu? <ArrowRight size={14} /></Link>
                   </>
                 )}
               </div>

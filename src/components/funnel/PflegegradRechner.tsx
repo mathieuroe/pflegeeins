@@ -9,19 +9,19 @@ interface Props {
 
 /* ─── Farb-Tokens ─────────────────────────────────────────────────────────── */
 const C = {
-  primary:       "#2F5D4F",
-  primaryLight:  "#3F7565",
-  primarySoft:   "#E7F0EA",
-  primaryBorder: "#C5DBD0",
-  accent:        "#BF6B38",
-  accentSoft:    "#F6E7D8",
-  ink:           "#262219",
-  inkSoft:       "#5E594D",
-  inkFaint:      "#8C8678",
-  bg:            "#F6F2EA",
+  primary:       "#0F6E56",
+  primaryLight:  "#1D9E75",
+  primarySoft:   "#E1F5EE",
+  primaryBorder: "#9FE1CB",
+  accent:        "#0F6E56",
+  accentSoft:    "#E1F5EE",
+  ink:           "#0F1F1A",
+  inkSoft:       "#2D4A3E",
+  inkFaint:      "#5C7A6F",
+  bg:            "#F6FAF8",
   surface:       "#FFFFFF",
-  line:          "#E5DECF",
-  lineSoft:      "#EFE9DC",
+  line:          "#E0EDE7",
+  lineSoft:      "#EDF3F1",
 };
 
 /* ─── Antwort-Sets ────────────────────────────────────────────────────────── */
@@ -330,7 +330,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
         style={{ ...sBtn.primary, fontSize:"1.06rem", padding:"15px 36px",
           transform: hov ? "translateY(-2px)" : "none",
           boxShadow: hov ? `0 8px 24px ${C.primary}55` : `0 4px 16px ${C.primary}44` }}>
-        Einschätzung starten <ArrowRight size={18}/>
+        Jetzt kostenlos berechnen <ArrowRight size={18}/>
       </button>
       <p style={{ marginTop:20, fontSize:".81rem", color:C.inkFaint, lineHeight:1.5 }}>
         Deine Angaben werden nur in deinem Browser verarbeitet – keine Speicherung oder Übertragung.

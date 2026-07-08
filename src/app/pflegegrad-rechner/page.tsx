@@ -5,7 +5,7 @@ import PflegegradRechnerPage from "./PflegegradRechnerPage";
 export const metadata: Metadata = {
   title: "Pflegegrad Rechner 2026 – Kostenlos & anonym | liva",
   description:
-    "Pflegegrad berechnen in 5 Minuten – kostenlos und anonym. Nutzt dasselbe Verfahren wie der MDK. Ergebnis sofort, ohne Anmeldung.",
+    "Pflegegrad berechnen in 5 Minuten – kostenlos und anonym. Orientiert am neuen Begutachtungsassessment (NBA). Ergebnis sofort, ohne Anmeldung.",
   keywords: [
     "Pflegegrad Rechner",
     "Pflegegrad berechnen",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pflegegrad Rechner 2026 – Kostenlos & anonym",
     description:
-      "Ermittle in 5 Minuten welcher Pflegegrad für dich oder deine Angehörigen in Frage kommt. Kostenlos, anonym, auf Basis des offiziellen NBA-Begutachtungsverfahrens.",
+      "Ermittle in 5 Minuten welcher Pflegegrad für dich oder deine Angehörigen in Frage kommt. Kostenlos, anonym, orientiert am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien.",
     url: "https://liva-pflege.de/pflegegrad-rechner",
     siteName: "liva",
     locale: "de_DE",
@@ -42,10 +42,10 @@ const schemaWebApp = {
     priceCurrency: "EUR",
   },
   description:
-    "Kostenloser Pflegegrad-Rechner – ermittle in 5 Minuten welcher Pflegegrad in Frage kommt. Basiert auf dem gleichen Verfahren wie der MDK. Anonym, ohne Anmeldung.",
+    "Kostenloser Pflegegrad-Rechner – ermittle in 5 Minuten welcher Pflegegrad in Frage kommt. Orientiert am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien. Anonym, ohne Anmeldung.",
   featureList: [
     "Anonym und kostenlos",
-    "Basiert auf dem offiziellen MDK-Begutachtungsverfahren (NBA)",
+    "Orientiert am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien",
     "Ergebnis sofort – kein Warten",
     "Kein Login, keine persönlichen Daten nötig",
     "Persönliche Leistungsübersicht nach Ergebnis",
@@ -77,7 +77,7 @@ const schemaFAQ = {
       name: "Wie genau ist das Ergebnis des Pflegegrad Rechners?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Der Pflegegrad Rechner nutzt das gleiche Verfahren wie der Medizinische Dienst (MDK) – das offizielle NBA-Begutachtungsinstrument. Das Ergebnis ist eine fundierte Einschätzung, kein offizieller Bescheid. In der Praxis liegt es oft sehr nah am tatsächlichen MDK-Ergebnis – manchmal um einen halben Pflegegrad daneben. Als Vorbereitung auf den MDK-Termin ist er sehr gut geeignet.",
+        text: "Der Rechner orientiert sich am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien. Das Ergebnis ist eine unverbindliche Selbsteinschätzung und kann von der Begutachtung des Medizinischen Dienstes abweichen. Als Vorbereitung auf den Begutachtungstermin ist er dennoch sehr hilfreich.",
       },
     },
     {

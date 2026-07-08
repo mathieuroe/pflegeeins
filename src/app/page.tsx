@@ -115,10 +115,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-semibold text-brand mb-1">Pflegegrad noch unklar?</p>
             <h2 className="font-serif text-2xl text-gray-900 mb-1">In 5 Minuten weißt du deinen voraussichtlichen Pflegegrad.</h2>
-            <p className="text-xs text-gray-400">Anonym · Kein Login · Basiert auf dem offiziellen NBA-Begutachtungsverfahren</p>
+            <p className="text-xs text-gray-400">Anonym · Kein Login · Orientiert am neuen Begutachtungsassessment (NBA)</p>
           </div>
           <Link href="/pflegegrad-rechner" className="btn-primary inline-flex text-sm px-6 py-3 whitespace-nowrap flex-shrink-0">
-            Kostenlos ermitteln <ArrowRight size={15} />
+            Kostenlos berechnen <ArrowRight size={15} />
           </Link>
         </div>
       </section>

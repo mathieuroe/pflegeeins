@@ -89,7 +89,7 @@ export default function PfadA() {
             <p className="section-label">Pflegegrad ermitteln</p>
             <h2 className="font-serif text-3xl text-gray-900 mb-2">Welcher Pflegegrad könnte passen?</h2>
             <p className="text-gray-500 mb-8 leading-relaxed">
-              Beantworte die Fragen so ehrlich wie möglich – wir orientieren uns am offiziellen NBA-Begutachtungsinstrument des MDK.
+              Beantworte die Fragen so ehrlich wie möglich – wir orientieren uns am neuen Begutachtungsassessment (NBA) und den Begutachtungs-Richtlinien.
             </p>
             <PflegegradRechner onErgebnis={handleRechnerErgebnis} />
           </motion.div>

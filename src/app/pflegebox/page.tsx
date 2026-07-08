@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, Package } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import PflegeboxFunnel from "@/components/PflegeboxFunnel";
 
@@ -44,14 +44,17 @@ export default function PflegeboxPage() {
                 >
                   Jetzt kostenlos bestellen <ArrowRight size={16} />
                 </a>
-                <a href="#anfrage" className="btn-secondary inline-flex items-center gap-2">
+                <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner</p>
+                <a href="#anfrage" className="btn-secondary inline-flex items-center gap-2 mt-2">
                   Erst Fragen stellen
                 </a>
               </div>
             </div>
             <div className="flex justify-center">
               <div className="bg-brand-light rounded-[20px] p-10 text-center w-full max-w-sm">
-                <div className="text-7xl mb-4">📦</div>
+                <div className="w-16 h-16 rounded-2xl bg-brand flex items-center justify-center mx-auto mb-4">
+                  <Package size={32} className="text-white" />
+                </div>
                 <p className="font-serif text-3xl text-brand mb-1">42 € / Monat</p>
                 <p className="text-brand/70 text-sm">vollständig kostenlos</p>
                 <div className="mt-6 bg-white rounded-xl p-4 text-left">
