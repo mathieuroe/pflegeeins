@@ -74,7 +74,7 @@ const HAUSNOTRUF = [
     highlight: false,
   },
   {
-    rang: 5,
+    rang: 4,
     name: "Pflegerufset",
     badge: null,
     bewertung: 4.5,
@@ -91,7 +91,7 @@ const HAUSNOTRUF = [
     highlight: false,
   },
   {
-    rang: 6,
+    rang: 5,
     name: "Deutsches Rotes Kreuz",
     badge: null,
     bewertung: 4.3,
@@ -108,7 +108,7 @@ const HAUSNOTRUF = [
     highlight: false,
   },
   {
-    rang: 7,
+    rang: 6,
     name: "Malteser",
     badge: null,
     bewertung: 4.2,
