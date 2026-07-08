@@ -76,7 +76,7 @@ const KATEGORIEN: ChecklistKategorie[] = [
         punkte: [
           "Anerkannten Anbieter für Alltagsbegleitung finden",
           "Rechnungen einsammeln und bei Pflegekasse einreichen",
-          "Beträge können angespart werden (bis zum nächsten Quartal)",
+          "Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden",
         ],
         prioritaet: "sofort",
       },

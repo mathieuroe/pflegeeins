@@ -31,7 +31,7 @@ Der Pflegegrad-Bescheid ist da. Herzlichen Glückwunsch – auch wenn das seltsa
 
 ### Woche 2: Geld nicht verfallen lassen
 
-**Entlastungsbetrag nutzen** – 131 € / Monat für Alltagshilfe. Nicht ausgegebene Beträge können ins nächste Quartal mitgenommen werden.
+**Entlastungsbetrag nutzen** – 131 € / Monat für Alltagshilfe. Nicht ausgegebene Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.
 
 **Pflegegeld prüfen (ab PG 2)** – wenn Angehörige pflegen: 332–946 € / Monat direkt aufs Konto.
 
@@ -89,7 +89,7 @@ Nichts. Die Pflegekasse zahlt direkt an den Anbieter.`,
 
 131 € pro Monat für qualifizierte Unterstützung im Alltag. Über 12 Monate sind das **1.572 €**.
 
-Das Besondere: **Nicht genutzte Beträge können ins nächste Quartal mitgenommen werden.**
+Das Besondere: **Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.**
 
 ### Wofür kann ich ihn nutzen?
 
@@ -446,7 +446,7 @@ Die Pflegekasse zahlt bis zu 27 € pro Monat für einen Hausnotruf. Bei günsti
 Bis zu 42 € pro Monat für Pflegeverbrauchsmittel: Einmalhandschuhe, Desinfektionsmittel, Mundschutz, Bettschutzeinlagen. Wird direkt vom Anbieter mit der Pflegekasse abgerechnet.
 
 ### Entlastungsbetrag – 131 € monatlich
-Für Alltagsunterstützung durch anerkannte Dienste: Begleitung, Haushaltshilfe, Einkäufe. Nicht genutzte Beträge können ins nächste Quartal übertragen werden.
+Für Alltagsunterstützung durch anerkannte Dienste: Begleitung, Haushaltshilfe, Einkäufe. Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.
 
 ### Wohnraumanpassung – bis 4.000 €
 Zuschuss für barrierefreie Umbauten: Haltegriffe, Duschumbau, Türverbreiterungen. Antrag muss vor Baubeginn gestellt werden.

@@ -84,7 +84,7 @@ Nichts. Die Pflegekasse zahlt direkt an den Anbieter. Du zahlst keinen Eigenante
 
 131 € pro Monat für qualifizierte Unterstützung im Alltag. Über 12 Monate summiert das sich auf **1.572 €**.
 
-Das Besondere: **Nicht genutzte Beträge können ins nächste Quartal mitgenommen werden.**
+Das Besondere: **Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.**
 
 ### Wofür kann ich ihn nutzen?
 
