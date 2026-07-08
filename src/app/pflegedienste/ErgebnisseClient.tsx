@@ -17,9 +17,9 @@ interface Props {
 type Kategorie = "Ambulante Pflege" | "24/7 Pflege" | "Stationäre Pflege" | "Senioren Residenz";
 
 const KATEGORIE_FILTER: Record<Kategorie, { include: string[]; exclude: string[] }> = {
-  "Ambulante Pflege":  { include: ["Grundpflege", "Betreuung", "Arztbegleitung", "Verhinderungspflege", "Demenzbetreuung"], exclude: ["Stationäre Pflege", "Senioren Residenz", "24h-Pflege"] },
+  "Ambulante Pflege":  { include: ["Grundpflege", "Betreuung", "Arztbegleitung", "Verhinderungspflege", "Demenzbetreuung", "Häusliche Krankenpflege", "Hauswirtschaft"], exclude: ["Stationäre Pflege", "Senioren Residenz", "24h-Pflege"] },
   "24/7 Pflege":       { include: ["24h-Pflege"], exclude: [] },
-  "Stationäre Pflege": { include: ["Stationäre Pflege", "Demenzbetreuung"], exclude: ["Senioren Residenz"] },
+  "Stationäre Pflege": { include: ["Stationäre Pflege", "Kurzzeitpflege", "Demenzbetreuung"], exclude: ["Senioren Residenz"] },
   "Senioren Residenz": { include: ["Senioren Residenz"], exclude: [] },
 };
 

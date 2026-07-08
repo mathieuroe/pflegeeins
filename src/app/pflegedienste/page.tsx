@@ -53,35 +53,70 @@ function guessLeistungen(types: string[], name: string): string[] {
   const n = name.toLowerCase();
   const result: string[] = [];
 
-  if (n.includes("residenz") || n.includes("stift") || n.includes("seniorenwohn")) {
-    result.push("Senioren Residenz");
-  }
-  if (n.includes("24h") || n.includes("24 h") || n.includes("rund um die uhr")) {
-    result.push("24h-Pflege");
-  }
-  if (
-    types.includes("nursing_home") ||
-    n.includes("pflegeheim") ||
-    n.includes("altenheim") ||
-    n.includes("altenpflege") ||
-    n.includes("pflegeeinrichtung")
-  ) {
+  // Google Place Types
+  const isNursingHomeType = types.includes("nursing_home") || types.includes("elder_care_facility");
+  const isHomeHealthType = types.includes("home_health_care_agency");
+  const isAssistedLivingType = types.includes("assisted_living_facility");
+
+  // Senioren Residenz
+  const isSeniorenResidenz =
+    isAssistedLivingType ||
+    n.includes("residenz") || n.includes("seniorenresidenz") || n.includes("seniorenstift") ||
+    n.includes("seniorenheim") || n.includes("altenheim") || n.includes("altersheim") ||
+    n.includes("feierabendheim") || n.includes("feierabendhaus") || n.includes("pensionistenheim") ||
+    n.includes("stift");
+
+  // Stationäre Pflege
+  const isStationaer =
+    isNursingHomeType ||
+    n.includes("pflegeheim") || n.includes("pflegeeinrichtung") || n.includes("pflegezentrum") ||
+    n.includes("pflegestift") || n.includes("altenpflege") || n.includes("seniorenzentrum") ||
+    n.includes("kurzzeitpflege") || n.includes("wohnpflegeheim") || n.includes("pflegewohnheim");
+
+  // 24/7 Pflege
+  const is24h =
+    n.includes("24h") || n.includes("24 h") || n.includes("24-h") ||
+    n.includes("24 stunden") || n.includes("24-stunden") ||
+    n.includes("rund um die uhr") || n.includes("nachtpflege") || n.includes("intensivpflege");
+
+  // Ambulante Pflege
+  const isAmbulant =
+    isHomeHealthType ||
+    n.includes("ambulant") || n.includes("pflegedienst") || n.includes("sozialstation") ||
+    n.includes("hauspflege") || n.includes("häusliche pflege") || n.includes("pflegeteam") ||
+    n.includes("mobiler pflege") || n.includes("pflegebotschaft") || n.includes("pflegestation");
+
+  // Demenz
+  const isDemenz = n.includes("demenz") || n.includes("alzheimer") || n.includes("gedächtnispflege");
+
+  if (isSeniorenResidenz) result.push("Senioren Residenz");
+
+  if (isStationaer) {
     result.push("Stationäre Pflege");
-    result.push("Demenzbetreuung");
-  }
-  if (
-    n.includes("ambulant") ||
-    n.includes("pflegedienst") ||
-    n.includes("sozialstation") ||
-    n.includes("hauspflege") ||
-    n.includes("pflegeteam")
-  ) {
-    result.push("Grundpflege");
-    result.push("Betreuung");
+    result.push("Kurzzeitpflege");
   }
 
+  if (is24h) result.push("24h-Pflege");
+
+  if (isAmbulant) {
+    result.push("Grundpflege");
+    result.push("Betreuung");
+    result.push("Arztbegleitung");
+    result.push("Häusliche Krankenpflege");
+    result.push("Hauswirtschaft");
+  }
+
+  if (isDemenz) result.push("Demenzbetreuung");
+
+  // Fallback
   if (result.length === 0) {
-    result.push(types.includes("nursing_home") ? "Stationäre Pflege" : "Grundpflege");
+    if (isNursingHomeType) {
+      result.push("Stationäre Pflege");
+      result.push("Kurzzeitpflege");
+    } else {
+      result.push("Grundpflege");
+      result.push("Betreuung");
+    }
   }
 
   return result.filter((v, i, a) => a.indexOf(v) === i);
