@@ -164,7 +164,7 @@ export default function LeistungenPage() {
               ))}
             </div>
             <PflegegradTabelle />
-            <p className="text-[10px] text-gray-400 mt-3 ml-1">Quellen: §§ 36–45b SGB XI · GKV-Spitzenverband · Bundesministerium für Gesundheit (Stand 2025)</p>
+            <p className="text-[10px] text-gray-400 mt-3 ml-1">Quellen: §§ 36–45b SGB XI · GKV-Spitzenverband · Bundesministerium für Gesundheit (Stand Juli 2026)</p>
           </div>
         </section>
 
