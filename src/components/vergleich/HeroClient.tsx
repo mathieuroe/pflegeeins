@@ -260,11 +260,12 @@ export default function HeroClient() {
                     />
                   </div>
                   <select
+                    required
                     value={pflegegrad}
                     onChange={(e) => setPflegegrad(e.target.value)}
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 outline-none focus:border-brand transition-colors bg-white"
                   >
-                    <option value="">Pflegegrad (optional)</option>
+                    <option value="">Pflegegrad wählen *</option>
                     <option value="Kein Pflegegrad">Kein Pflegegrad</option>
                     <option value="Pflegegrad 1">Pflegegrad 1</option>
                     <option value="Pflegegrad 2">Pflegegrad 2</option>
