@@ -11,7 +11,7 @@ const LEISTUNGEN = [
   {
     id: "hausnotruf",
     label: "Hausnotruf",
-    desc: "27 € / Monat",
+    desc: "100% Übernahme der Pflegekasse",
     filterLabel: null,
     icon: Bell,
     affiliate: "/vergleich#hausnotruf",
@@ -21,7 +21,7 @@ const LEISTUNGEN = [
   {
     id: "pflegebox",
     label: "Pflegebox",
-    desc: "bis 42 € / Monat",
+    desc: "100% Übernahme der Pflegekasse",
     filterLabel: null,
     icon: Package,
     affiliate: "/vergleich#pflegebox",
