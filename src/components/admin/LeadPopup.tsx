@@ -15,6 +15,9 @@ type Lead = {
   tags: string | null;
   created_at: string;
   status: Status;
+  consent_beratung: boolean | null;
+  consent_weitergabe: boolean | null;
+  consent_timestamp: string | null;
 };
 
 type Note = {
