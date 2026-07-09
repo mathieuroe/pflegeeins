@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Bell, Package, Heart, Clock, Building2, Star,
-  Search, CheckCircle2, ArrowRight, Phone, Mail, MapPin, ChevronLeft, Lock,
+  Search, CheckCircle2, ArrowRight, Phone, Mail, MapPin, ChevronLeft, ChevronDown, Lock,
 } from "lucide-react";
 
 const LEISTUNGEN = [
@@ -86,6 +86,7 @@ export default function HeroClient() {
   const [pflegegrad, setPflegegrad] = useState("");
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
+  const [einverstaendnis, setEinverstaendnis] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   function handleSelect(l: Leistung) {
@@ -116,6 +117,9 @@ export default function HeroClient() {
           path: "pflegedienst-vergleich",
           tags: selected.label,
           timestamp: new Date().toISOString(),
+          consent_beratung: einverstaendnis,
+          consent_weitergabe: false,
+          consent_timestamp: new Date().toISOString(),
         }),
       });
       sessionStorage.setItem("liva_tel", tel);
@@ -259,20 +263,6 @@ export default function HeroClient() {
                       className="w-full outline-none text-sm text-gray-800 placeholder-gray-400 bg-transparent"
                     />
                   </div>
-                  <select
-                    required
-                    value={pflegegrad}
-                    onChange={(e) => setPflegegrad(e.target.value)}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 outline-none focus:border-brand transition-colors bg-white"
-                  >
-                    <option value="">Pflegegrad wählen *</option>
-                    <option value="Kein Pflegegrad">Kein Pflegegrad</option>
-                    <option value="Pflegegrad 1">Pflegegrad 1</option>
-                    <option value="Pflegegrad 2">Pflegegrad 2</option>
-                    <option value="Pflegegrad 3">Pflegegrad 3</option>
-                    <option value="Pflegegrad 4">Pflegegrad 4</option>
-                    <option value="Pflegegrad 5">Pflegegrad 5</option>
-                  </select>
                   <div className="flex items-center gap-2.5 border border-gray-200 rounded-xl px-4 py-3 focus-within:border-brand transition-colors">
                     <Phone size={15} className="text-brand flex-shrink-0" />
                     <input
@@ -295,6 +285,24 @@ export default function HeroClient() {
                       className="w-full outline-none text-sm text-gray-800 placeholder-gray-400 bg-transparent"
                     />
                   </div>
+                  <div className="flex items-center gap-2.5 border border-gray-200 rounded-xl px-4 py-3 focus-within:border-brand transition-colors">
+                    <Star size={15} className="text-brand flex-shrink-0" />
+                    <select
+                      required
+                      value={pflegegrad}
+                      onChange={(e) => setPflegegrad(e.target.value)}
+                      className="w-full outline-none text-sm bg-transparent appearance-none text-gray-800"
+                    >
+                      <option value="">Pflegegrad</option>
+                      <option value="Kein Pflegegrad">Kein Pflegegrad</option>
+                      <option value="Pflegegrad 1">Pflegegrad 1</option>
+                      <option value="Pflegegrad 2">Pflegegrad 2</option>
+                      <option value="Pflegegrad 3">Pflegegrad 3</option>
+                      <option value="Pflegegrad 4">Pflegegrad 4</option>
+                      <option value="Pflegegrad 5">Pflegegrad 5</option>
+                    </select>
+                    <ChevronDown size={14} className="text-gray-400 flex-shrink-0 pointer-events-none" />
+                  </div>
                   {plzError && (
                     <p className="text-red-500 text-xs px-1">{plzError}</p>
                   )}
@@ -305,6 +313,20 @@ export default function HeroClient() {
                   >
                     {submitting ? "Wird geladen…" : <>Ergebnisse anzeigen <ArrowRight size={16} /></>}
                   </button>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <div
+                      onClick={() => setEinverstaendnis(!einverstaendnis)}
+                      className={`w-3.5 h-3.5 rounded flex-shrink-0 border flex items-center justify-center mt-0.5 transition-colors ${
+                        einverstaendnis ? "bg-brand border-brand" : "border-gray-300"
+                      }`}
+                    >
+                      {einverstaendnis && <CheckCircle2 size={9} className="text-white" />}
+                    </div>
+                    <span className="text-[10px] text-gray-400 leading-relaxed">
+                      Ich bin einverstanden, dass mich ein geprüfter Partner zu meiner Anfrage kontaktiert.{" "}
+                      <a href="/datenschutz" className="underline hover:text-brand">Datenschutz</a>
+                    </span>
+                  </label>
                   <p className="text-[10px] text-gray-400 text-center flex items-center justify-center gap-1 pt-0.5">
                     <Lock size={9} /> Kostenlos · Unverbindlich · DSGVO-konform
                   </p>

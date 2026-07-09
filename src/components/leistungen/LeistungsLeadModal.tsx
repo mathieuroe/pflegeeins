@@ -30,8 +30,8 @@ export default function LeistungsLeadModal({ leistung, onClose }: Props) {
     email: "",
     pflegegrad: "",
     interessen: [] as string[],
-    einverstaendnis: true,
   });
+  const [einverstaendnis, setEinverstaendnis] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -64,6 +64,9 @@ export default function LeistungsLeadModal({ leistung, onClose }: Props) {
           path: `leistungen-anfrage (${leistung})`,
           tags: [leistung, ...form.interessen].join(", "),
           timestamp: new Date().toISOString(),
+          consent_beratung: einverstaendnis,
+          consent_weitergabe: false,
+          consent_timestamp: new Date().toISOString(),
         }),
       });
       sessionStorage.setItem("liva_tel", form.phone);
@@ -187,21 +190,21 @@ export default function LeistungsLeadModal({ leistung, onClose }: Props) {
               {/* CTA */}
               <button
                 type="submit"
-                disabled={submitting || !form.einverstaendnis}
-                className="btn-primary w-full justify-center py-3.5 text-sm mt-1 disabled:opacity-50"
+                disabled={submitting}
+                className="btn-primary w-full justify-center py-3.5 text-sm mt-1"
               >
                 {submitting ? "Wird gesendet…" : <>Anbieter kostenlos anfordern <ArrowRight size={16} /></>}
               </button>
 
-              {/* Einverständnis — unauffällig */}
+              {/* Einverständnis */}
               <label className="flex items-start gap-2 cursor-pointer">
                 <div
-                  onClick={() => setForm({ ...form, einverstaendnis: !form.einverstaendnis })}
+                  onClick={() => setEinverstaendnis(!einverstaendnis)}
                   className={`w-3.5 h-3.5 rounded flex-shrink-0 border flex items-center justify-center mt-0.5 transition-colors ${
-                    form.einverstaendnis ? "bg-brand border-brand" : "border-gray-300"
+                    einverstaendnis ? "bg-brand border-brand" : "border-gray-300"
                   }`}
                 >
-                  {form.einverstaendnis && <CheckCircle2 size={9} className="text-white" />}
+                  {einverstaendnis && <CheckCircle2 size={9} className="text-white" />}
                 </div>
                 <span className="text-[10px] text-gray-400 leading-relaxed">
                   Ich bin einverstanden, dass mich ein geprüfter Partner zu meiner Anfrage kontaktiert.{" "}

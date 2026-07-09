@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Lock } from "lucide-react";
+import ConsentCheckboxes from "@/components/ConsentCheckboxes";
 
 interface Props {
   title: string;
@@ -14,17 +15,32 @@ interface Props {
 
 export default function LeadForm({ title, subtitle, cta, path, pflegegrad }: Props) {
   const [form, setForm] = useState({ email: "", phone: "", plz: "", pflegegradInput: pflegegrad || "" });
+  const [consentBeratung, setConsentBeratung] = useState(false);
+  const [consentWeitergabe, setConsentWeitergabe] = useState(false);
+  const [showConsentError, setShowConsentError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!consentBeratung) {
+      setShowConsentError(true);
+      return;
+    }
     setSubmitting(true);
     try {
       await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, path, pflegegrad: form.pflegegradInput || pflegegrad, timestamp: new Date().toISOString() }),
+        body: JSON.stringify({
+          ...form,
+          path,
+          pflegegrad: form.pflegegradInput || pflegegrad,
+          timestamp: new Date().toISOString(),
+          consent_beratung: consentBeratung,
+          consent_weitergabe: consentWeitergabe,
+          consent_timestamp: new Date().toISOString(),
+        }),
       });
       setSubmitted(true);
     } finally {
@@ -70,11 +86,20 @@ export default function LeadForm({ title, subtitle, cta, path, pflegegrad }: Pro
             <option value="Pflegegrad 5">Pflegegrad 5</option>
           </select>
         )}
+
+        <ConsentCheckboxes
+          consentBeratung={consentBeratung}
+          consentWeitergabe={consentWeitergabe}
+          onChangeBeratung={(v) => { setConsentBeratung(v); if (v) setShowConsentError(false); }}
+          onChangeWeitergabe={setConsentWeitergabe}
+          showError={showConsentError}
+        />
+
         <button type="submit" disabled={submitting} className="btn-primary w-full justify-center py-3.5 text-base mt-2">
           {submitting ? "Wird gesendet..." : <>{cta} <ArrowRight size={18} /></>}
         </button>
-        <p className="text-xs text-gray-400 text-center pt-1">
-          100% kostenlos · Kein Spam · DSGVO-konform
+        <p className="text-xs text-gray-400 text-center pt-1 flex items-center justify-center gap-1">
+          <Lock size={10} /> Kostenlos · Unverbindlich · DSGVO-konform
         </p>
       </form>
     </div>

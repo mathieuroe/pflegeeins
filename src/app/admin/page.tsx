@@ -17,6 +17,9 @@ export type Lead = {
   tags: string | null;
   created_at: string;
   status: Status;
+  consent_beratung: boolean | null;
+  consent_weitergabe: boolean | null;
+  consent_timestamp: string | null;
 };
 
 const STATUS: Record<Status, { label: string; className: string }> = {
@@ -142,7 +145,7 @@ export default function AdminPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[#E0EDE7] bg-gray-50">
-                    {["Datum", "E-Mail", "Telefon", "PLZ", "PG", "Herkunft", "Tags", "Status"].map((h) => (
+                    {["Datum", "E-Mail", "Telefon", "PLZ", "PG", "Herkunft", "Tags", "Weitergabe", "Status"].map((h) => (
                       <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider whitespace-nowrap">
                         {h}
                       </th>
@@ -175,6 +178,12 @@ export default function AdminPage() {
                             : <span className="text-gray-300 text-xs">–</span>
                           }
                         </div>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {lead.consent_weitergabe
+                          ? <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✓ Weitergabe OK</span>
+                          : <span className="text-[11px] text-gray-300">–</span>
+                        }
                       </td>
                       <td className="px-4 py-3">
                         <button

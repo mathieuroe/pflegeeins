@@ -3,19 +3,25 @@ import { sql } from "@vercel/postgres";
 async function initLeadsTable() {
   await sql`
     CREATE TABLE IF NOT EXISTS leads (
-      id         SERIAL PRIMARY KEY,
-      email      TEXT NOT NULL,
-      phone      TEXT,
-      plz        TEXT,
-      source     TEXT,
-      pflegegrad TEXT,
-      tags       TEXT,
-      created_at TIMESTAMPTZ DEFAULT NOW(),
-      status     TEXT DEFAULT 'neu'
+      id                  SERIAL PRIMARY KEY,
+      email               TEXT NOT NULL,
+      phone               TEXT,
+      plz                 TEXT,
+      source              TEXT,
+      pflegegrad          TEXT,
+      tags                TEXT,
+      created_at          TIMESTAMPTZ DEFAULT NOW(),
+      status              TEXT DEFAULT 'neu',
+      consent_beratung    BOOLEAN DEFAULT FALSE,
+      consent_weitergabe  BOOLEAN DEFAULT FALSE,
+      consent_timestamp   TIMESTAMPTZ
     )
   `;
-  // tags-Spalte nachrüsten falls Tabelle schon existiert
+  // Spalten nachrüsten falls Tabelle schon existiert
   await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS tags TEXT`;
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS consent_beratung BOOLEAN DEFAULT FALSE`;
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS consent_weitergabe BOOLEAN DEFAULT FALSE`;
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS consent_timestamp TIMESTAMPTZ`;
 }
 
 async function initNotesTable() {
@@ -38,12 +44,25 @@ export async function insertLead(data: {
   source?: string | null;
   pflegegrad?: string | null;
   tags?: string | null;
+  consent_beratung?: boolean | null;
+  consent_weitergabe?: boolean | null;
+  consent_timestamp?: string | null;
 }) {
   if (!process.env.POSTGRES_URL) return;
   await initLeadsTable();
   await sql`
-    INSERT INTO leads (email, phone, plz, source, pflegegrad, tags)
-    VALUES (${data.email}, ${data.phone ?? null}, ${data.plz ?? null}, ${data.source ?? null}, ${data.pflegegrad ?? null}, ${data.tags ?? null})
+    INSERT INTO leads (email, phone, plz, source, pflegegrad, tags, consent_beratung, consent_weitergabe, consent_timestamp)
+    VALUES (
+      ${data.email},
+      ${data.phone ?? null},
+      ${data.plz ?? null},
+      ${data.source ?? null},
+      ${data.pflegegrad ?? null},
+      ${data.tags ?? null},
+      ${data.consent_beratung ?? false},
+      ${data.consent_weitergabe ?? false},
+      ${data.consent_timestamp ?? null}
+    )
   `;
 }
 

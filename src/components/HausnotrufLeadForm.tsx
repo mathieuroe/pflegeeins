@@ -1,24 +1,41 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Lock } from "lucide-react";
+import ConsentCheckboxes from "@/components/ConsentCheckboxes";
 
 const pgLabels = ["Kein PG", "PG 1", "PG 2", "PG 3", "PG 4", "PG 5"];
 
 export default function HausnotrufLeadForm() {
   const [pflegegrad, setPflegegrad] = useState<number | null>(null);
   const [form, setForm] = useState({ name: "", telefon: "", plz: "", email: "" });
+  const [consentBeratung, setConsentBeratung] = useState(false);
+  const [consentWeitergabe, setConsentWeitergabe] = useState(false);
+  const [showConsentError, setShowConsentError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!consentBeratung) {
+      setShowConsentError(true);
+      return;
+    }
     setSubmitting(true);
     try {
       await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, phone: form.telefon, pflegegrad: pflegegrad !== null ? `PG ${pflegegrad}` : "", funnel: "hausnotruf", tags: "Hausnotruf" }),
+        body: JSON.stringify({
+          ...form,
+          phone: form.telefon,
+          pflegegrad: pflegegrad !== null ? `PG ${pflegegrad}` : "",
+          funnel: "hausnotruf",
+          tags: "Hausnotruf",
+          consent_beratung: consentBeratung,
+          consent_weitergabe: consentWeitergabe,
+          consent_timestamp: new Date().toISOString(),
+        }),
       });
       setSubmitted(true);
     } finally { setSubmitting(false); }
@@ -70,10 +87,21 @@ export default function HausnotrufLeadForm() {
             <input type="email" placeholder="maria@beispiel.de" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input" />
           </div>
         </div>
+
+        <ConsentCheckboxes
+          consentBeratung={consentBeratung}
+          consentWeitergabe={consentWeitergabe}
+          onChangeBeratung={(v) => { setConsentBeratung(v); if (v) setShowConsentError(false); }}
+          onChangeWeitergabe={setConsentWeitergabe}
+          showError={showConsentError}
+        />
+
         <button type="submit" disabled={submitting} className="btn-primary w-full justify-center py-3.5">
           {submitting ? "Wird gesendet..." : "Kostenloses Angebot anfordern →"}
         </button>
-        <p className="text-xs text-gray-400 text-center">Kostenlos & unverbindlich.</p>
+        <p className="text-xs text-gray-400 text-center flex items-center justify-center gap-1">
+          <Lock size={10} /> Kostenlos & unverbindlich · DSGVO-konform
+        </p>
       </form>
     </div>
   );
