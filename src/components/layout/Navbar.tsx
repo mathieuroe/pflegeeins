@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, ArrowRight, Calculator } from "lucide-react";
+import { Menu, X, ArrowRight, Calculator, Phone, Mail } from "lucide-react";
 
 const links = [
   { href: "/leistungen", label: "Leistungen" },
@@ -16,7 +16,20 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-[#E0EDE7]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      {/* Contact bar – desktop only */}
+      <div className="hidden md:flex justify-end items-center gap-5 max-w-6xl mx-auto px-4 sm:px-6 py-1.5 border-b border-[#E0EDE7]/60">
+        <span className="text-xs text-gray-400 font-medium">Kostenlose Beratung:</span>
+        <a href="tel:+4976188785999" className="flex items-center gap-1.5 text-xs text-brand font-medium hover:text-brand-hover transition-colors">
+          <Phone size={12} />
+          0761 88785999
+        </a>
+        <a href="mailto:info@liva-pflege.de" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand transition-colors font-medium">
+          <Mail size={12} />
+          info@liva-pflege.de
+        </a>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <Link href="/" className="font-serif text-[1.6rem] text-brand leading-none">
           liva.
         </Link>
@@ -30,6 +43,10 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1.5">
+          {/* Phone icon – mobile only */}
+          <a href="tel:+4976188785999" className="md:hidden p-2 text-brand rounded-lg hover:bg-brand-light transition-colors" aria-label="Anrufen">
+            <Phone size={20} />
+          </a>
           <Link href="/pflegegrad-rechner" className="btn-secondary text-xs px-2.5 py-2 md:text-sm md:px-4 md:py-2.5">
             <Calculator size={14} />
             <span className="md:hidden">Rechner</span>
@@ -53,6 +70,9 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
+          <a href="mailto:info@liva-pflege.de" className="flex items-center gap-2 text-sm text-gray-500 font-medium py-2 border-b border-gray-50">
+            <Mail size={14} /> info@liva-pflege.de
+          </a>
           <Link href="/pflegegrad-rechner" className="btn-secondary mt-3 text-center justify-center" onClick={() => setOpen(false)}>
             <Calculator size={15} /> Pflegegrad-Rechner
           </Link>
