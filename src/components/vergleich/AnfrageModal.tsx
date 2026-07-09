@@ -17,6 +17,7 @@ export default function AnfrageModal({ pd, plz, pflegegrad, activeLeistung, onCl
   const pflegedienstOrt = pd.ort;
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
+  const [pflegegradLocal, setPflegegradLocal] = useState(pflegegrad || "");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [hasStoredData, setHasStoredData] = useState(false);
@@ -36,7 +37,7 @@ export default function AnfrageModal({ pd, plz, pflegegrad, activeLeistung, onCl
       email: emailVal,
       phone: telVal,
       plz,
-      pflegegrad,
+      pflegegrad: pflegegradLocal || pflegegrad,
       path: leistungLabel ? `pflegedienst-anfrage (${leistungLabel})` : "pflegedienst-anfrage",
       tags: [pflegedienstName, leistungLabel].filter(Boolean).join(", "),
       timestamp: new Date().toISOString(),
@@ -130,6 +131,21 @@ export default function AnfrageModal({ pd, plz, pflegegrad, activeLeistung, onCl
                 Wir schicken dir alle Infos zu <strong className="text-gray-700">{pflegedienstName}</strong> direkt ins Postfach.
               </p>
               <form onSubmit={handleSubmit} className="space-y-3">
+                {!pflegegrad && (
+                  <select
+                    value={pflegegradLocal}
+                    onChange={(e) => setPflegegradLocal(e.target.value)}
+                    className="input text-sm"
+                  >
+                    <option value="">Pflegegrad (optional)</option>
+                    <option value="Kein Pflegegrad">Kein Pflegegrad</option>
+                    <option value="Pflegegrad 1">Pflegegrad 1</option>
+                    <option value="Pflegegrad 2">Pflegegrad 2</option>
+                    <option value="Pflegegrad 3">Pflegegrad 3</option>
+                    <option value="Pflegegrad 4">Pflegegrad 4</option>
+                    <option value="Pflegegrad 5">Pflegegrad 5</option>
+                  </select>
+                )}
                 <div className="relative">
                   <Phone size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-brand" />
                   <input
