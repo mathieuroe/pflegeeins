@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function LeadForm({ title, subtitle, cta, path, pflegegrad }: Props) {
-  const [form, setForm] = useState({ email: "", phone: "", plz: "" });
+  const [form, setForm] = useState({ email: "", phone: "", plz: "", pflegegradInput: pflegegrad || "" });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -24,7 +24,7 @@ export default function LeadForm({ title, subtitle, cta, path, pflegegrad }: Pro
       await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, path, pflegegrad, timestamp: new Date().toISOString() }),
+        body: JSON.stringify({ ...form, path, pflegegrad: form.pflegegradInput || pflegegrad, timestamp: new Date().toISOString() }),
       });
       setSubmitted(true);
     } finally {
@@ -55,6 +55,21 @@ export default function LeadForm({ title, subtitle, cta, path, pflegegrad }: Pro
           onChange={(e) => setForm({ ...form, phone: e.target.value })} className="input" />
         <input type="text" placeholder="PLZ (optional)" maxLength={5} value={form.plz}
           onChange={(e) => setForm({ ...form, plz: e.target.value })} className="input" />
+        {!pflegegrad && (
+          <select
+            value={form.pflegegradInput}
+            onChange={(e) => setForm({ ...form, pflegegradInput: e.target.value })}
+            className="input"
+          >
+            <option value="">Pflegegrad (optional)</option>
+            <option value="Kein Pflegegrad">Kein Pflegegrad</option>
+            <option value="Pflegegrad 1">Pflegegrad 1</option>
+            <option value="Pflegegrad 2">Pflegegrad 2</option>
+            <option value="Pflegegrad 3">Pflegegrad 3</option>
+            <option value="Pflegegrad 4">Pflegegrad 4</option>
+            <option value="Pflegegrad 5">Pflegegrad 5</option>
+          </select>
+        )}
         <button type="submit" disabled={submitting} className="btn-primary w-full justify-center py-3.5 text-base mt-2">
           {submitting ? "Wird gesendet..." : <>{cta} <ArrowRight size={18} /></>}
         </button>
