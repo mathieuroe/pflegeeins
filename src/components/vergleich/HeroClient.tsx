@@ -83,6 +83,7 @@ export default function HeroClient() {
   });
   const [plz, setPlz] = useState("");
   const [plzError, setPlzError] = useState("");
+  const [pflegegrad, setPflegegrad] = useState("");
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -111,7 +112,7 @@ export default function HeroClient() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email, phone: tel, plz,
+          email, phone: tel, plz, pflegegrad,
           path: "pflegedienst-vergleich",
           tags: selected.label,
           timestamp: new Date().toISOString(),
@@ -258,6 +259,19 @@ export default function HeroClient() {
                       className="w-full outline-none text-sm text-gray-800 placeholder-gray-400 bg-transparent"
                     />
                   </div>
+                  <select
+                    value={pflegegrad}
+                    onChange={(e) => setPflegegrad(e.target.value)}
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 outline-none focus:border-brand transition-colors bg-white"
+                  >
+                    <option value="">Pflegegrad (optional)</option>
+                    <option value="Kein Pflegegrad">Kein Pflegegrad</option>
+                    <option value="Pflegegrad 1">Pflegegrad 1</option>
+                    <option value="Pflegegrad 2">Pflegegrad 2</option>
+                    <option value="Pflegegrad 3">Pflegegrad 3</option>
+                    <option value="Pflegegrad 4">Pflegegrad 4</option>
+                    <option value="Pflegegrad 5">Pflegegrad 5</option>
+                  </select>
                   <div className="flex items-center gap-2.5 border border-gray-200 rounded-xl px-4 py-3 focus-within:border-brand transition-colors">
                     <Phone size={15} className="text-brand flex-shrink-0" />
                     <input
