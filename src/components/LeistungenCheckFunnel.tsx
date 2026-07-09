@@ -84,7 +84,7 @@ const LEISTUNGEN: Leistung[] = [
   {
     id: "pflegegeld",
     name: "Pflegegeld",
-    betrag: "bis 947 € / Monat",
+    betrag: "bis 990 € / Monat",
     beschreibung: "Wird an die pflegebedürftige Person gezahlt, wenn Pflege durch Angehörige oder Freunde erfolgt.",
     pflegegrade: [2, 3, 4, 5],
     icon: "👐",

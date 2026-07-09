@@ -33,23 +33,23 @@ const WEITERE_LEISTUNGEN: Record<number, { name: string; betrag: string; schritt
     { name: "Entlastungsbetrag", betrag: "131 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Quittungen von anerkannten Dienstleistern sammeln", "Monatlich bis zu 131 € erstattet bekommen"] },
   ],
   2: [
-    { name: "Pflegegeld", betrag: "332 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen (Angehörige oder Ehrenamtliche)", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegegeld", betrag: "347 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen (Angehörige oder Ehrenamtliche)", "Monatliche Auszahlung auf dein Konto"] },
     { name: "Entlastungsbetrag", betrag: "131 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Anerkannte Dienstleister nutzen", "Monatlich bis zu 131 € erstattet bekommen"] },
   ],
   3: [
-    { name: "Pflegegeld", betrag: "572 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
-    { name: "Pflegesachleistungen", betrag: "bis 1.363 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 1.363 € / Monat werden übernommen"] },
+    { name: "Pflegegeld", betrag: "599 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegesachleistungen", betrag: "bis 1.497 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 1.497 € / Monat werden übernommen"] },
     { name: "Verhinderungs- & Kurzzeitpflege", betrag: "bis 3.539 € / Jahr", schritte: ["Bei Urlaub oder Krankheit der Pflegeperson beantragen", "Antrag bei deiner Pflegekasse stellen", "Wird rückwirkend erstattet"] },
   ],
   4: [
-    { name: "Pflegegeld", betrag: "764 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
-    { name: "Pflegesachleistungen", betrag: "bis 1.693 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 1.693 € / Monat werden übernommen"] },
+    { name: "Pflegegeld", betrag: "800 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegesachleistungen", betrag: "bis 1.859 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 1.859 € / Monat werden übernommen"] },
     { name: "Verhinderungs- & Kurzzeitpflege", betrag: "bis 3.539 € / Jahr", schritte: ["Bei Urlaub oder Krankheit der Pflegeperson beantragen", "Antrag bei deiner Pflegekasse stellen", "Wird rückwirkend erstattet"] },
   ],
   5: [
-    { name: "Pflegegeld", betrag: "946 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
-    { name: "Pflegesachleistungen", betrag: "bis 2.095 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 2.095 € / Monat werden übernommen"] },
-    { name: "Tagespflege", betrag: "bis 1.995 € / Monat", schritte: ["Tagespflegeeinrichtung in deiner Nähe finden", "Antrag bei deiner Pflegekasse stellen", "Kosten werden direkt übernommen"] },
+    { name: "Pflegegeld", betrag: "990 € / Monat", schritte: ["Antrag bei deiner Pflegekasse stellen", "Pflegeperson benennen", "Monatliche Auszahlung auf dein Konto"] },
+    { name: "Pflegesachleistungen", betrag: "bis 2.299 € / Monat", schritte: ["Ambulanten Pflegedienst beauftragen", "Pflegedienst rechnet direkt mit der Kasse ab", "Bis 2.299 € / Monat werden übernommen"] },
+    { name: "Tagespflege", betrag: "bis 2.085 € / Monat", schritte: ["Tagespflegeeinrichtung in deiner Nähe finden", "Antrag bei deiner Pflegekasse stellen", "Kosten werden direkt übernommen"] },
   ],
 };
 
@@ -57,8 +57,8 @@ const PFLEGEGRAD_LABELS: Record<number, { titel: string; farbe: string; beschrei
   0: { titel: "Kein Pflegegrad", farbe: "#6B7280", beschreibung: "Aktuell reicht die Punktzahl noch nicht – aber das kann sich ändern. Wir zeigen dir, was jetzt sinnvoll ist." },
   1: { titel: "Pflegegrad 1", farbe: "#10B981", beschreibung: "Erste Leistungen stehen dir zu – darunter die kostenlose Pflegebox und der Hausnotruf-Zuschuss." },
   2: { titel: "Pflegegrad 2", farbe: "#F59E0B", beschreibung: "Ab hier gibt es Pflegegeld – Geld, das direkt auf dein Konto fließt. Jeden Monat." },
-  3: { titel: "Pflegegrad 3", farbe: "#F97316", beschreibung: "Erhebliche Unterstützung: bis zu 572 € Pflegegeld und knapp 1.400 € Sachleistungen monatlich." },
-  4: { titel: "Pflegegrad 4", farbe: "#EF4444", beschreibung: "Umfassende Leistungen: über 764 € Pflegegeld und bis zu 1.693 € Pflegesachleistungen pro Monat." },
+  3: { titel: "Pflegegrad 3", farbe: "#F97316", beschreibung: "Erhebliche Unterstützung: bis zu 599 € Pflegegeld und bis zu 1.497 € Sachleistungen monatlich." },
+  4: { titel: "Pflegegrad 4", farbe: "#EF4444", beschreibung: "Umfassende Leistungen: 800 € Pflegegeld und bis zu 1.859 € Pflegesachleistungen pro Monat." },
   5: { titel: "Pflegegrad 5", farbe: "#7C3AED", beschreibung: "Höchste Einstufung – mit dem vollen Leistungsumfang der Pflegeversicherung." },
 };
 

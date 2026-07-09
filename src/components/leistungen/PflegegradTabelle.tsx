@@ -8,9 +8,9 @@ const ROWS = [
   { name: "Pflegehilfsmittelbox",           werte: ["42 €",     "42 €",       "42 €",       "42 €",       "42 €"      ] },
   { name: "Hausnotruf",                     werte: ["27 €",     "27 €",       "27 €",       "27 €",       "27 €"      ] },
   { name: "Wohnraumanpassung",              werte: ["4.180 €*", "4.180 €*",   "4.180 €*",   "4.180 €*",   "4.180 €*"  ] },
-  { name: "Pflegegeld",                     werte: ["–",        "332 €",      "572 €",      "764 €",      "946 €"     ] },
-  { name: "Pflegesachleistungen",           werte: ["–",        "761 €",      "1.363 €",    "1.693 €",    "2.095 €"   ] },
-  { name: "Tagespflege",                    werte: ["–",        "689 €",      "1.298 €",    "1.612 €",    "1.995 €"   ] },
+  { name: "Pflegegeld",                     werte: ["–",        "347 €",      "599 €",      "800 €",      "990 €"     ] },
+  { name: "Pflegesachleistungen",           werte: ["–",        "796 €",      "1.497 €",    "1.859 €",    "2.299 €"   ] },
+  { name: "Tagespflege",                    werte: ["–",        "721 €",      "1.357 €",    "1.685 €",    "2.085 €"   ] },
   { name: "Verhinderungs-/Kurzzeitpflege",  werte: ["–",        "3.539 €/J.", "3.539 €/J.", "3.539 €/J.", "3.539 €/J."] },
 ];
 

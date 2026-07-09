@@ -16,25 +16,25 @@ export const LEISTUNGEN_PG: Record<number, Leistung[]> = {
   ],
   2: [
     { name: "Pflegehilfsmittel + Hausnotruf – 0 € / Monat", anchor: "pflegebox-karte" },
-    { name: "Pflegegeld – 332 € / Monat", anchor: "pflegegeld" },
+    { name: "Pflegegeld – 347 € / Monat", anchor: "pflegegeld" },
     { name: "Entlastungsbetrag – 131 € / Monat", anchor: "entlastung" },
   ],
   3: [
     { name: "Pflegehilfsmittel + Hausnotruf – 0 € / Monat", anchor: "pflegebox-karte" },
-    { name: "Pflegegeld – 572 € / Monat", anchor: "pflegegeld" },
-    { name: "Pflegesachleistungen – bis 1.363 € / Monat", anchor: "sachleistung" },
+    { name: "Pflegegeld – 599 € / Monat", anchor: "pflegegeld" },
+    { name: "Pflegesachleistungen – bis 1.497 € / Monat", anchor: "sachleistung" },
     { name: "Verhinderungs- & Kurzzeitpflege", anchor: "verhinderung" },
   ],
   4: [
     { name: "Pflegehilfsmittel + Hausnotruf – 0 € / Monat", anchor: "pflegebox-karte" },
-    { name: "Pflegegeld – 764 € / Monat", anchor: "pflegegeld" },
-    { name: "Pflegesachleistungen – bis 1.693 € / Monat", anchor: "sachleistung" },
+    { name: "Pflegegeld – 800 € / Monat", anchor: "pflegegeld" },
+    { name: "Pflegesachleistungen – bis 1.859 € / Monat", anchor: "sachleistung" },
     { name: "Verhinderungs- & Kurzzeitpflege", anchor: "verhinderung" },
   ],
   5: [
     { name: "Pflegehilfsmittel + Hausnotruf – 0 € / Monat", anchor: "pflegebox-karte" },
-    { name: "Pflegegeld – 946 € / Monat", anchor: "pflegegeld" },
-    { name: "Pflegesachleistungen – bis 2.095 € / Monat", anchor: "sachleistung" },
+    { name: "Pflegegeld – 990 € / Monat", anchor: "pflegegeld" },
+    { name: "Pflegesachleistungen – bis 2.299 € / Monat", anchor: "sachleistung" },
     { name: "Tagespflege", anchor: "tagespflege" },
   ],
 };

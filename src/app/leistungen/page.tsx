@@ -27,7 +27,7 @@ const schemaFaq = {
     {
       "@type": "Question",
       name: "Wie hoch ist das Pflegegeld 2026?",
-      acceptedAnswer: { "@type": "Answer", text: "Das Pflegegeld beträgt je nach Pflegegrad: Pflegegrad 2: 332 €, Pflegegrad 3: 572 €, Pflegegrad 4: 764 €, Pflegegrad 5: 946 € pro Monat. Es wird ausgezahlt wenn Angehörige oder ehrenamtliche Pflegepersonen die Pflege übernehmen. Rechtsgrundlage: § 37 SGB XI." },
+      acceptedAnswer: { "@type": "Answer", text: "Das Pflegegeld beträgt je nach Pflegegrad: Pflegegrad 2: 347 €, Pflegegrad 3: 599 €, Pflegegrad 4: 800 €, Pflegegrad 5: 990 € pro Monat. Es wird ausgezahlt wenn Angehörige oder ehrenamtliche Pflegepersonen die Pflege übernehmen. Rechtsgrundlage: § 37 SGB XI." },
     },
     {
       "@type": "Question",
@@ -50,10 +50,10 @@ const schemaItemList = {
   numberOfItems: 7,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Entlastungsbetrag", description: "131 € pro Monat für Alltagsbegleitung und Haushaltshilfe – ab Pflegegrad 1." },
-    { "@type": "ListItem", position: 2, name: "Pflegegeld", description: "332–946 € pro Monat wenn Angehörige die Pflege übernehmen – ab Pflegegrad 2." },
-    { "@type": "ListItem", position: 3, name: "Pflegesachleistungen", description: "Bis 2.095 € pro Monat für ambulante Pflegedienste – ab Pflegegrad 2." },
+    { "@type": "ListItem", position: 2, name: "Pflegegeld", description: "347–990 € pro Monat wenn Angehörige die Pflege übernehmen – ab Pflegegrad 2." },
+    { "@type": "ListItem", position: 3, name: "Pflegesachleistungen", description: "Bis 2.299 € pro Monat für ambulante Pflegedienste – ab Pflegegrad 2." },
     { "@type": "ListItem", position: 4, name: "Kombiniertes Budget Kurzzeit- und Verhinderungspflege", description: "Bis 3.539 € pro Jahr für Ersatzpflege und Kurzzeitaufenthalte – ab Pflegegrad 2 (seit 01.07.2025)." },
-    { "@type": "ListItem", position: 5, name: "Tagespflege", description: "Bis 1.995 € pro Monat für Betreuung in einer Tageseinrichtung – ab Pflegegrad 2." },
+    { "@type": "ListItem", position: 5, name: "Tagespflege", description: "Bis 2.085 € pro Monat für Betreuung in einer Tageseinrichtung – ab Pflegegrad 2." },
     { "@type": "ListItem", position: 6, name: "Wohnraumanpassung", description: "Bis 4.180 € je Umbaumaßnahme für barrierefreie Umbauten – ab Pflegegrad 1." },
     { "@type": "ListItem", position: 7, name: "Pflegehilfsmittelbox", description: "Bis 42 € pro Monat für Verbrauchsmittel wie Handschuhe und Desinfektion – ab Pflegegrad 1." },
   ],

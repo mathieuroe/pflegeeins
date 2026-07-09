@@ -32,18 +32,18 @@ const LEISTUNGEN = [
     id: "tagespflege",
     tabId: "stationaer",
     name: "Tagespflege",
-    betrag: "bis 1.995 € / Monat",
+    betrag: "bis 2.085 € / Monat",
     pg: "Ab PG 2",
-    text: "Tagesbetreuung in einer Pflegeeinrichtung – tagsüber betreut, abends wieder zuhause. Wird zusätzlich zu ambulanten Leistungen und Pflegegeld gewährt. PG 2: bis 689 €, PG 3: bis 1.298 €, PG 4: bis 1.612 €, PG 5: bis 1.995 € monatlich.",
+    text: "Tagesbetreuung in einer Pflegeeinrichtung – tagsüber betreut, abends wieder zuhause. Wird zusätzlich zu ambulanten Leistungen und Pflegegeld gewährt. PG 2: bis 721 €, PG 3: bis 1.357 €, PG 4: bis 1.685 €, PG 5: bis 2.085 € monatlich.",
     beantragen: "Tagespflegeeinrichtung in der Nähe finden, Platz anfragen – die Einrichtung rechnet direkt mit der Pflegekasse ab.",
   },
   {
     id: "sachleistung",
     tabId: "grundpflege",
     name: "Pflegesachleistungen",
-    betrag: "bis 2.095 € / Monat",
+    betrag: "bis 2.299 € / Monat",
     pg: "Ab PG 2",
-    text: "Für professionelle Pflege durch einen ambulanten Pflegedienst. Die Pflegekasse zahlt direkt an den Dienst – du wählst den Anbieter. PG 2: bis 761 €, PG 3: bis 1.363 €, PG 4: bis 1.693 €, PG 5: bis 2.095 € monatlich.",
+    text: "Für professionelle Pflege durch einen ambulanten Pflegedienst. Die Pflegekasse zahlt direkt an den Dienst – du wählst den Anbieter. PG 2: bis 796 €, PG 3: bis 1.497 €, PG 4: bis 1.859 €, PG 5: bis 2.299 € monatlich.",
     beantragen: "Ambulanten Pflegedienst wählen, Pflegevertrag abschließen – der Dienst rechnet direkt mit der Pflegekasse ab.",
   },
   {
@@ -103,9 +103,9 @@ const LEISTUNGEN = [
 
 const PFLEGEGELD = {
   name: "Pflegegeld",
-  betrag: "332 – 946 € / Monat",
+  betrag: "347 – 990 € / Monat",
   pg: "Ab PG 2",
-  text: "Direktzahlung an dich, wenn Angehörige oder nahestehende Personen die Pflege übernehmen. Kein Nachweis einzelner Leistungen nötig – einfach bei der Pflegekasse beantragen. PG 2: 332 €, PG 3: 572 €, PG 4: 764 €, PG 5: 946 € pro Monat.",
+  text: "Direktzahlung an dich, wenn Angehörige oder nahestehende Personen die Pflege übernehmen. Kein Nachweis einzelner Leistungen nötig – einfach bei der Pflegekasse beantragen. PG 2: 347 €, PG 3: 599 €, PG 4: 800 €, PG 5: 990 € pro Monat.",
   beantragen: "Formloser Antrag bei der Pflegekasse – schriftlich, telefonisch oder online über das Kassenportal.",
 };
 

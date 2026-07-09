@@ -33,7 +33,7 @@ Der Pflegegrad-Bescheid ist da. Herzlichen Glückwunsch – auch wenn das seltsa
 
 **Entlastungsbetrag nutzen** – 131 € / Monat für Alltagshilfe. Nicht ausgegebene Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.
 
-**Pflegegeld prüfen (ab PG 2)** – wenn Angehörige pflegen: 332–946 € / Monat direkt aufs Konto.
+**Pflegegeld prüfen (ab PG 2)** – wenn Angehörige pflegen: 347–990 € / Monat direkt aufs Konto.
 
 ### Woche 3–4: Den Alltag strukturieren
 
@@ -233,16 +233,16 @@ Wenn du aktuell Leistungen beziehst: Prüfe ob du alle Budgets voll ausschöpfst
     lesezeit: "2 Min.",
     datum: "Januar 2025",
     typ: "news",
-    inhalt: `## Pflegegeld 2025 – die aktuellen Beträge
+    inhalt: `## Pflegegeld 2026 – die aktuellen Beträge
 
-Seit Januar 2025 wurden die Pflegegeldbeträge um 5% erhöht.
+Die Pflegegeldbeträge gelten unverändert seit Januar 2025 und bleiben 2026 stabil.
 
 ### Die aktuellen Beträge
 
-- **PG 2:** 332 € / Monat
-- **PG 3:** 572 € / Monat
-- **PG 4:** 764 € / Monat
-- **PG 5:** 946 € / Monat
+- **PG 2:** 347 € / Monat
+- **PG 3:** 599 € / Monat
+- **PG 4:** 800 € / Monat
+- **PG 5:** 990 € / Monat
 
 ### Wer bekommt Pflegegeld?
 
@@ -688,10 +688,10 @@ Die Pflegekasse erstattet ambulante Pflege über **Pflegesachleistungen** – da
 
 | Pflegegrad | Pflegesachleistungen |
 |---|---|
-| PG 2 | bis 761 € / Monat |
-| PG 3 | bis 1.363 € / Monat |
-| PG 4 | bis 1.693 € / Monat |
-| PG 5 | bis 2.095 € / Monat |
+| PG 2 | bis 796 € / Monat |
+| PG 3 | bis 1.497 € / Monat |
+| PG 4 | bis 1.859 € / Monat |
+| PG 5 | bis 2.299 € / Monat |
 
 Der Pflegedienst rechnet direkt mit der Pflegekasse ab – du zahlst nur den Differenzbetrag.
 
