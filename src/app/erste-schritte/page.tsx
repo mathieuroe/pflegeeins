@@ -5,14 +5,14 @@ import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Erste Schritte – Wie funktioniert Pflege in Deutschland? | liva",
-  description: "Was ist ein Pflegegrad? Wie beantrage ich ihn? Was passiert beim MDK? Alle Infos in einfacher Sprache.",
+  description: "Was ist ein Pflegegrad? Wie beantrage ich ihn? Was passiert beim MD? Alle Infos in einfacher Sprache.",
 };
 
 const schritte = [
   { nr: "01", title: "Was ist ein Pflegegrad?", text: "Ein Pflegegrad bestimmt wie viel Unterstützung jemand im Alltag braucht – und wie viel Geld die Pflegekasse dafür zahlt. Es gibt 5 Pflegegrade, von leichter Beeinträchtigung (PG 1) bis zur schwersten Pflegebedürftigkeit (PG 5).", tag: "Grundwissen" },
   { nr: "02", title: "Wer hat Anspruch?", text: "Wer mindestens 6 Monate lang täglich Hilfe braucht – beim Aufstehen, Essen, Waschen, Orientieren – hat Anspruch. Das gilt für ältere Menschen genauso wie für Menschen mit Behinderungen oder chronischen Erkrankungen.", tag: "Anspruch" },
   { nr: "03", title: "Wie beantrage ich einen Pflegegrad?", text: "Du rufst die Pflegekasse an (dieselbe wie die Krankenkasse) und sagst: \"Ich moechte einen Pflegegrad beantragen.\" Dann schicken sie dir ein Formular oder erklären den Online-Weg. Der Antrag selbst dauert ca. 15 Minuten.", tag: "Antrag" },
-  { nr: "04", title: "Was ist der MDK-Besuch?", text: "Nach dem Antrag kommt jemand vom Medizinischen Dienst (MDK) vorbei und schaut sich die Situation an. Das Gespräch dauert ca. 45–60 Minuten. Der MDK bewertet die Selbstständigkeit in 6 Bereichen und empfiehlt einen Pflegegrad.", tag: "MDK" },
+  { nr: "04", title: "Was ist der MD-Besuch?", text: "Nach dem Antrag kommt jemand vom Medizinischen Dienst (MD) vorbei und schaut sich die Situation an. Das Gespräch dauert ca. 45–60 Minuten. Der MD bewertet die Selbstständigkeit in 6 Bereichen und empfiehlt einen Pflegegrad.", tag: "MD" },
   { nr: "05", title: "Was passiert nach dem Bescheid?", text: "Du bekommst per Post einen Bescheid mit dem Pflegegrad. Ab diesem Moment hast du Anspruch auf alle Leistungen – rückwirkend ab Antragsdatum. Jetzt ist der Moment um Pflegebox, Hausnotruf und Co. zu beantragen.", tag: "Nach dem Bescheid" },
   { nr: "06", title: "Was wenn der Pflegegrad zu niedrig ist?", text: "Du hast 1 Monat Zeit um Widerspruch einzulegen. Einfach schriftlich an die Pflegekasse schreiben: \"Ich lege Widerspruch gegen den Bescheid vom [Datum] ein.\" In ca. 35% aller Faelle wird der PG heraufgestuft.", tag: "Widerspruch" },
 ];

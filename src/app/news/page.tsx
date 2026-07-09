@@ -8,12 +8,12 @@ import NewsClient from "./NewsClient";
 export const metadata: Metadata = {
   title: "News aus der Pflege 2026 – Aktuell & verständlich erklärt | liva",
   description:
-    "Aktuelle Neuigkeiten aus der Pflegepolitik: Pflegereform 2026, Leistungsänderungen, MDK-Tipps und neue Beträge – klar erklärt von liva, deinem Pflegebegleiter.",
+    "Aktuelle Neuigkeiten aus der Pflegepolitik: Pflegereform 2026, Leistungsänderungen, MD-Tipps und neue Beträge – klar erklärt von liva, deinem Pflegebegleiter.",
   alternates: { canonical: "https://liva-pflege.de/news" },
   openGraph: {
     title: "News aus der Pflege 2026 | liva",
     description:
-      "Pflegereform, neue Leistungsbeträge, MDK-Tipps – alles was pflegende Angehörige jetzt wissen müssen. Verständlich erklärt von liva.",
+      "Pflegereform, neue Leistungsbeträge, MD-Tipps – alles was pflegende Angehörige jetzt wissen müssen. Verständlich erklärt von liva.",
     url: "https://liva-pflege.de/news",
     type: "website",
     siteName: "liva – Orientierung im Pflegesystem",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "Pflegereform 2026",
     "Pflegegeld 2026",
     "Pflegeversicherung Änderungen",
-    "MDK Wartezeit",
+    "MD Wartezeit",
     "Pflegeleistungen aktuell",
     "Entlastungsbetrag 2026",
   ],
@@ -72,7 +72,7 @@ export default function NewsPage() {
             Willkommen in unserem<br className="hidden sm:block" /> Pflege-Newsroom
           </h1>
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl mb-6">
-            Das Pflegesystem ändert sich ständig – neue Leistungsbeträge, Gesetzesreformen, MDK-Fristen.
+            Das Pflegesystem ändert sich ständig – neue Leistungsbeträge, Gesetzesreformen, MD-Fristen.
             Wir beobachten das für dich und übersetzen alles in klare Antworten:
             Was ändert sich gerade, und was bedeutet das konkret für deine Familie?
           </p>

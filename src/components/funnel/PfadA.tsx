@@ -212,11 +212,11 @@ export default function PfadA() {
           </motion.div>
         )}
 
-        {/* SELBST – MDK Tipps */}
+        {/* SELBST – MD Tipps */}
         {step === 3 && (
           <motion.div key="step3" {...fade} transition={{ duration: 0.3 }}>
             <p className="section-label">Selbst beantragen – Schritt 2</p>
-            <h2 className="font-serif text-3xl text-gray-900 mb-3">Der MDK-Besuch – keine Angst davor</h2>
+            <h2 className="font-serif text-3xl text-gray-900 mb-3">Der MD-Besuch – keine Angst davor</h2>
             <p className="text-gray-500 leading-relaxed mb-8">
               Nach dem Antrag kommt jemand vom Medizinischen Dienst vorbei. Mit der richtigen Vorbereitung bekommst du den Pflegegrad der wirklich zutrifft.
             </p>
@@ -224,7 +224,7 @@ export default function PfadA() {
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {[
                 { nr: "1", title: "Alles dokumentieren", text: "Schreibe auf was die Person NICHT mehr alleine kann. Je konkreter desto besser." },
-                { nr: "2", title: "Schlechten Tag zeigen", text: "Zeig wie es wirklich ist – nicht den guten Tag. Der MDK bewertet was er sieht." },
+                { nr: "2", title: "Schlechten Tag zeigen", text: "Zeig wie es wirklich ist – nicht den guten Tag. Der MD bewertet was er sieht." },
                 { nr: "3", title: "Jemanden dabeihaben", text: "Nimm eine Vertrauensperson mit. Vier Augen sehen mehr." },
                 { nr: "4", title: "Widerspruch kennen", text: "Pflegegrad zu niedrig? Du hast 1 Monat Zeit Widerspruch einzulegen – lohnt sich fast immer." },
               ].map((tip) => (

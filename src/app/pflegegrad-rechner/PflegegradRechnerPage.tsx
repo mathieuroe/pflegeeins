@@ -363,11 +363,11 @@ export default function PflegegradRechnerPage() {
                 },
                 {
                   q: "Was, wenn das Ergebnis niedriger ist als erwartet?",
-                  a: "Das kommt vor – und du hast Möglichkeiten. Nach dem offiziellen MDK-Bescheid kannst du innerhalb eines Monats Widerspruch einlegen. In rund 35% aller Widersprüche wird der Pflegegrad heraufgestuft. Wir helfen dir dabei, die richtigen Argumente zu sammeln.",
+                  a: "Das kommt vor – und du hast Möglichkeiten. Nach dem offiziellen MD-Bescheid kannst du innerhalb eines Monats Widerspruch einlegen. In rund 35% aller Widersprüche wird der Pflegegrad heraufgestuft. Wir helfen dir dabei, die richtigen Argumente zu sammeln.",
                 },
                 {
                   q: "Was sind die nächsten Schritte nach dem Rechner?",
-                  a: "Stell einen Antrag bei deiner Pflegekasse – das geht schriftlich, telefonisch oder online. Der MDK kommt dann zur Begutachtung. Mit unserem kostenlosen Ergebnis-PDF weißt du vorab genau, was bewertet wird – und wie du dich am besten vorbereitest.",
+                  a: "Stell einen Antrag bei deiner Pflegekasse – das geht schriftlich, telefonisch oder online. Der MD kommt dann zur Begutachtung. Mit unserem kostenlosen Ergebnis-PDF weißt du vorab genau, was bewertet wird – und wie du dich am besten vorbereitest.",
                 },
               ].map(({ q, a }) => (
                 <details key={q} className="group bg-white rounded-xl border border-[#E0EDE7] p-5 cursor-pointer">
@@ -398,7 +398,7 @@ export default function PflegegradRechnerPage() {
                 <p className="text-xs text-gray-500 leading-relaxed">Du hast gerade den Bescheid bekommen – hier ist die Schritt-für-Schritt-Checkliste.</p>
               </Link>
               <Link href="/ratgeber/mdk-besuch-vorbereitung" className="group rounded-xl border border-[#E0EDE7] p-5 hover:border-brand/40 hover:shadow-sm transition-all">
-                <p className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-brand transition-colors">MDK-Besuch vorbereiten</p>
+                <p className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-brand transition-colors">MD-Besuch vorbereiten</p>
                 <p className="text-xs text-gray-500 leading-relaxed">So bereitest du dich auf die Begutachtung vor – und bekommst den Pflegegrad, der wirklich zutrifft.</p>
               </Link>
             </div>

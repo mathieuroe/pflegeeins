@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Pflegegrad Test",
     "Pflegegrad ermitteln",
     "Pflegegrad Selbsttest",
-    "MDK Pflegegrad",
+    "MD Pflegegrad",
     "Pflegegrad 2026",
   ],
   openGraph: {
@@ -117,7 +117,7 @@ const schemaFAQ = {
       name: "Was tun wenn das Ergebnis des Pflegegrad Rechners niedriger ist als erwartet?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nach dem offiziellen MDK-Bescheid kannst du innerhalb eines Monats Widerspruch einlegen – ohne Angabe von Gründen. In rund 35 % aller Widersprüche wird der Pflegegrad heraufgestuft. Eine gute Vorbereitung auf den MDK-Termin erhöht die Chancen auf eine korrekte Einstufung.",
+        text: "Nach dem offiziellen MD-Bescheid kannst du innerhalb eines Monats Widerspruch einlegen – ohne Angabe von Gründen. In rund 35 % aller Widersprüche wird der Pflegegrad heraufgestuft. Eine gute Vorbereitung auf den MD-Termin erhöht die Chancen auf eine korrekte Einstufung.",
       },
     },
     {
@@ -125,7 +125,7 @@ const schemaFAQ = {
       name: "Was sind die nächsten Schritte nach dem Pflegegrad Rechner?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Stelle einen Antrag bei deiner Pflegekasse – schriftlich, telefonisch oder online. Der Medizinische Dienst (MDK) kommt dann zur Begutachtung. Mit der kostenlosen persönlichen Leistungsübersicht von liva weißt du vorab genau, welche Leistungen dir zustehen und wie du dich am besten vorbereitest.",
+        text: "Stelle einen Antrag bei deiner Pflegekasse – schriftlich, telefonisch oder online. Der Medizinische Dienst (MD) kommt dann zur Begutachtung. Mit der kostenlosen persönlichen Leistungsübersicht von liva weißt du vorab genau, welche Leistungen dir zustehen und wie du dich am besten vorbereitest.",
       },
     },
   ],

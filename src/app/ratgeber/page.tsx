@@ -7,7 +7,7 @@ import { RATGEBER } from "@/lib/content-data";
 export const metadata: Metadata = {
   title: "Ratgeber Pflege 2026 – Erste Schritte, Pflegegrad & Leistungen | liva",
   description:
-    "Wie beantrage ich einen Pflegegrad? Was passiert beim MDK? Welche Leistungen stehen mir zu? Alle wichtigen Themen – verständlich, aktuell, kostenlos.",
+    "Wie beantrage ich einen Pflegegrad? Was passiert beim MD? Welche Leistungen stehen mir zu? Alle wichtigen Themen – verständlich, aktuell, kostenlos.",
   alternates: {
     canonical: "https://liva-pflege.de/ratgeber",
   },
@@ -22,7 +22,7 @@ const schemaHowTo = {
     { "@type": "HowToStep", position: 1, name: "Was ist ein Pflegegrad?", text: "Ein Pflegegrad bestimmt, wie viel Unterstützung jemand täglich braucht – und wie viel Geld die Pflegekasse zahlt. Es gibt 5 Pflegegrade (PG 1–5)." },
     { "@type": "HowToStep", position: 2, name: "Wer hat Anspruch?", text: "Wer mindestens 6 Monate lang täglich Hilfe benötigt – beim Aufstehen, Essen, Waschen oder Orientieren – hat Anspruch auf einen Pflegegrad (§14 SGB XI)." },
     { "@type": "HowToStep", position: 3, name: "Pflegegrad beantragen", text: "Ruf deine Pflegekasse an (dieselbe wie die Krankenkasse) und sage: Ich moechte einen Pflegegrad beantragen. Der Antrag selbst dauert ca. 15 Minuten." },
-    { "@type": "HowToStep", position: 4, name: "MDK-Besuch", text: "Der Medizinische Dienst (MD) kommt vorbei und bewertet die Selbstständigkeit in 6 Lebensbereichen. Das Gespräch dauert ca. 45–60 Minuten." },
+    { "@type": "HowToStep", position: 4, name: "MD-Besuch", text: "Der Medizinische Dienst (MD) kommt vorbei und bewertet die Selbstständigkeit in 6 Lebensbereichen. Das Gespräch dauert ca. 45–60 Minuten." },
     { "@type": "HowToStep", position: 5, name: "Bescheid erhalten", text: "Du bekommst per Post einen Bescheid. Alle Leistungen gelten rückwirkend ab Antragsdatum – jetzt Pflegebox, Hausnotruf & Co. beantragen." },
     { "@type": "HowToStep", position: 6, name: "Widerspruch einlegen", text: "Ist der Pflegegrad zu niedrig? Du hast 1 Monat Zeit für einen schriftlichen Widerspruch. In ca. 35 % aller Fälle wird der Pflegegrad heraufgestuft." },
   ],
@@ -53,11 +53,11 @@ const SCHRITTE = [
   },
   {
     nr: "04",
-    title: "Was ist der MDK-Besuch?",
+    title: "Was ist der MD-Besuch?",
     text: "Nach dem Antrag kommt jemand vom Medizinischen Dienst (MD) vorbei. Das Gespräch dauert ca. 45–60 Minuten. Der MD bewertet die Selbstständigkeit in 6 Lebensbereichen und empfiehlt einen Pflegegrad.",
-    tag: "MDK",
+    tag: "MD",
     link: "/ratgeber/mdk-besuch-vorbereitung",
-    linkLabel: "MDK-Besuch vorbereiten",
+    linkLabel: "MD-Besuch vorbereiten",
   },
   {
     nr: "05",
@@ -93,7 +93,7 @@ export default function RatgeberPage() {
               Pflege verstehen –<br className="hidden sm:block" /> von Anfang an.
             </h1>
             <p className="text-gray-500 text-lg max-w-xl leading-relaxed mb-6">
-              Wie beantrage ich einen Pflegegrad? Was passiert beim MDK? Welche Leistungen stehen mir zu? Hier findest du alles – in einfacher Sprache, ohne Bürokratie-Deutsch.
+              Wie beantrage ich einen Pflegegrad? Was passiert beim MD? Welche Leistungen stehen mir zu? Hier findest du alles – in einfacher Sprache, ohne Bürokratie-Deutsch.
             </p>
             <Link href="/pflegegrad-rechner" className="btn-secondary">
               Pflegegrad kostenlos berechnen <ArrowRight size={15} />
@@ -136,7 +136,7 @@ export default function RatgeberPage() {
           <div className="max-w-4xl mx-auto">
             <p className="text-sm font-semibold text-brand mb-1">Ratgeber</p>
             <h2 className="font-serif text-3xl text-gray-900 mb-2">Alle Themen im Detail</h2>
-            <p className="text-sm text-gray-500 mb-8">Pflegebox, MDK, Entlastungsbetrag, Verhinderungspflege – verständlich und aktuell erklärt.</p>
+            <p className="text-sm text-gray-500 mb-8">Pflegebox, MD, Entlastungsbetrag, Verhinderungspflege – verständlich und aktuell erklärt.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {RATGEBER.map((a) =>
                 a.affiliate ? (

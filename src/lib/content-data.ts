@@ -139,15 +139,15 @@ Monatliche Gebühr: meist 20–40 €. Die Pflegekasse zahlt **27 € / Monat** 
   },
   {
     slug: "mdk-besuch-vorbereitung",
-    titel: "MDK-Besuch: So bereitest du dich richtig vor",
-    beschreibung: "Der MDK-Besuch entscheidet über den Pflegegrad. Mit der richtigen Vorbereitung bekommst du den Pflegegrad der wirklich zutrifft.",
-    kategorie: "MDK",
+    titel: "MD-Besuch: So bereitest du dich richtig vor",
+    beschreibung: "Der MD-Besuch entscheidet über den Pflegegrad. Mit der richtigen Vorbereitung bekommst du den Pflegegrad der wirklich zutrifft.",
+    kategorie: "MD-Besuch",
     lesezeit: "5 Min.",
     datum: "März 2026",
     typ: "ratgeber",
-    inhalt: `## MDK-Besuch – keine Angst, aber gut vorbereiten
+    inhalt: `## MD-Besuch – keine Angst, aber gut vorbereiten
 
-Nach dem Pflegegrad-Antrag kommt jemand vom Medizinischen Dienst (MDK) vorbei. Das Gespräch dauert ca. 45–60 Minuten und entscheidet über den Pflegegrad.
+Nach dem Pflegegrad-Antrag kommt jemand vom Medizinischen Dienst (MD, früher MDK) vorbei. Das Gespräch dauert ca. 45–60 Minuten und entscheidet über den Pflegegrad.
 
 ### Die 4 wichtigsten Tipps
 
@@ -155,7 +155,7 @@ Nach dem Pflegegrad-Antrag kommt jemand vom Medizinischen Dienst (MDK) vorbei. D
 Schreibe vorher auf was die Person NICHT mehr alleine kann. Beim Waschen, Anziehen, Kochen, Orientieren. Je konkreter desto besser. Ein Tagebuch der letzten Wochen hilft.
 
 **2. Schlechten Tag zeigen**
-Der MDK bewertet was er sieht. Zeig wie es wirklich ist – nicht den guten Tag. Wenn jemand manchmal Hilfe braucht, immer davon ausgehen dass er sie braucht.
+Der MD bewertet was er sieht. Zeig wie es wirklich ist – nicht den guten Tag. Wenn jemand manchmal Hilfe braucht, immer davon ausgehen dass er sie braucht.
 
 **3. Jemanden dabeihaben**
 Nimm eine Vertrauensperson mit. Vier Augen sehen mehr. Und wenn jemand still dabei sitzt und mitschreibt, ist das komplett in Ordnung.
@@ -273,15 +273,15 @@ Früher musste man genau aufpassen wie viel von welchem Budget man nutzte. Jetzt
   },
   {
     slug: "mdk-wartezeiten-2026",
-    titel: "MDK-Wartezeiten: So lange dauert es aktuell",
-    beschreibung: "Die Wartezeiten auf den MDK-Besuch variieren stark je nach Region. Aktuelle Daten und Tipps was du tun kannst.",
-    kategorie: "MDK",
+    titel: "MD-Wartezeiten: So lange dauert es aktuell",
+    beschreibung: "Die Wartezeiten auf den MD-Besuch variieren stark je nach Region. Aktuelle Daten und Tipps was du tun kannst.",
+    kategorie: "MD-Besuch",
     lesezeit: "2 Min.",
     datum: "April 2026",
     typ: "news",
-    inhalt: `## MDK-Wartezeiten 2026 – was ist normal?
+    inhalt: `## MD-Wartezeiten 2026 – was ist normal?
 
-Der MDK hat gesetzlich 25 Arbeitstage Zeit um nach Antragstellung den Besuch durchzuführen. In der Praxis variiert das stark.
+Der MD hat gesetzlich 25 Arbeitstage Zeit um nach Antragstellung den Besuch durchzuführen. In der Praxis variiert das stark.
 
 ### Aktuelle Lage
 
@@ -289,15 +289,15 @@ In städtischen Gebieten: oft 3–5 Wochen. In ländlichen Regionen: vereinzelt 
 
 ### Was du tun kannst
 
-**Bei dringendem Bedarf:** Du kannst bei der Pflegekasse auf eine Beschleunigung hinweisen. Bei Krankenhausentlassung oder akutem Pflegebedarf gibt es Sonderregelungen – der MDK muss dann innerhalb weniger Tage kommen.
+**Bei dringendem Bedarf:** Du kannst bei der Pflegekasse auf eine Beschleunigung hinweisen. Bei Krankenhausentlassung oder akutem Pflegebedarf gibt es Sonderregelungen – der MD muss dann innerhalb weniger Tage kommen.
 
-**In der Zwischenzeit:** Leistungen die nicht an den MDK-Besuch gebunden sind (z.B. Pflegebox, Hausnotruf) können bereits jetzt beantragt werden.`,
+**In der Zwischenzeit:** Leistungen die nicht an den MD-Besuch gebunden sind (z.B. Pflegebox, Hausnotruf) können bereits jetzt beantragt werden.`,
   },
   {
     slug: "widerspruch-pflegegrad",
     titel: "Pflegegrad zu niedrig? So legst du erfolgreich Widerspruch ein",
     beschreibung: "Rund 35 Prozent aller Widersprüche gegen einen Pflegegrad-Bescheid führen zu einer Höherstufung. So gehst du vor – Schritt für Schritt.",
-    kategorie: "MDK",
+    kategorie: "Widerspruch",
     lesezeit: "4 Min.",
     datum: "Mai 2026",
     typ: "news",
@@ -310,7 +310,7 @@ Du hast den Bescheid bekommen und das Ergebnis fühlt sich falsch an? Das passie
 - Der zuerkannte Pflegegrad entspricht nicht dem tatsächlichen Hilfebedarf
 - Der Gutachter des Medizinischen Dienstes hat wesentliche Einschränkungen nicht oder falsch erfasst
 - Die Pflegesituation hat sich seit dem Besuch verschlechtert
-- Du hattest keinen Beistand beim MDK-Besuch und fühlst dich übergangen
+- Du hattest keinen Beistand beim MD-Besuch und fühlst dich übergangen
 
 ### Die Frist: 1 Monat
 
@@ -327,13 +327,13 @@ Schicke das Schreiben **per Einschreiben mit Rückschein** an deine Pflegekasse 
 ### Was danach passiert
 
 1. Die Pflegekasse prüft den Bescheid intern
-2. In vielen Fällen wird ein erneuter MDK-Besuch angesetzt
+2. In vielen Fällen wird ein erneuter MD-Besuch angesetzt
 3. Du kannst jetzt eine detaillierte Begründung nachreichen – dazu solltest du den "schlechten Tag" schriftlich dokumentieren
 4. Entscheidung in der Regel innerhalb von 3 Monaten
 
 ### Tipp: Pflegegutachten anfordern
 
-Du hast das Recht, das MDK-Gutachten einzusehen (§ 18 Abs. 4 SGB XI). Forder es schriftlich bei deiner Pflegekasse an. Darin steht genau was bewertet wurde – und was nicht.
+Du hast das Recht, das MD-Gutachten einzusehen (§ 18 Abs. 4 SGB XI). Forder es schriftlich bei deiner Pflegekasse an. Darin steht genau was bewertet wurde – und was nicht.
 
 ### Wenn der Widerspruch abgelehnt wird
 
@@ -706,7 +706,7 @@ Du kannst Pflegesachleistungen mit anderen Leistungen kombinieren:
 ## Wie finde ich den richtigen Pflegedienst?
 
 Worauf du achten solltest:
-- MDK-Bewertung des Dienstes (öffentlich einsehbar)
+- MD-Bewertung des Dienstes (öffentlich einsehbar)
 - Reaktionszeit bei Anfragen
 - Welche Leistungen werden angeboten?
 - Sind Fachkräfte ausreichend qualifiziert?
