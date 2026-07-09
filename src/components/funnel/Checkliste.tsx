@@ -76,7 +76,7 @@ const KATEGORIEN: ChecklistKategorie[] = [
         punkte: [
           "Anerkannten Anbieter für Alltagsbegleitung finden",
           "Rechnungen einsammeln und bei Pflegekasse einreichen",
-          "Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden",
+          "Nicht verbrauchte Beträge können grundsätzlich bis zum 30. Juni des Folgejahres genutzt werden",
         ],
         prioritaet: "sofort",
       },
@@ -266,7 +266,7 @@ const KATEGORIEN: ChecklistKategorie[] = [
         titel: "Auszeiten einplanen – nicht erst wenn alle fertig sind",
         erklaerung: "Pflege ist ein Marathon. Wer dauerhaft pflegt ohne Pausen brennt aus. Die Verhinderungspflege ist genau dafür da – damit du Urlaub machen kannst, krank sein darfst, oder einfach mal Luft holst.",
         punkte: [
-          "Verhinderungspflege bei der Pflegekasse anfragen (bis 1.612 € / Jahr)",
+          "Verhinderungspflege bei der Pflegekasse anfragen (bis 3.539 € / Jahr (gemeinsames Budget))",
           "Kurzzeitpflege nach Krankenhaus oder bei Krisen",
           "Ambulanten Pflegedienst für Teile der Pflege anfragen",
           "Tagespflege als regelmäßige Entlastung prüfen",

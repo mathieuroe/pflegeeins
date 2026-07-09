@@ -23,7 +23,7 @@ const PG_LEISTUNGEN: Record<number, PGLeistung[]> = {
     { name: "Pflegegeld", betrag: "347 € / Monat" },
     { name: "Pflegesachleistungen", betrag: "796 € / Monat" },
     { name: "Entlastungsbetrag", betrag: "131 € / Monat" },
-    { name: "Verhinderungspflege", betrag: "bis 1.612 € / Jahr" },
+    { name: "Verhinderungspflege", betrag: "bis 3.539 € / Jahr (gemeinsames Budget)" },
   ],
   3: [
     { name: "Pflegebox (Pflegehilfsmittel)", betrag: "42 € / Monat" },
@@ -32,7 +32,7 @@ const PG_LEISTUNGEN: Record<number, PGLeistung[]> = {
     { name: "Pflegesachleistungen", betrag: "1.497 € / Monat" },
     { name: "Entlastungsbetrag", betrag: "131 € / Monat" },
     { name: "Kurzzeitpflege", betrag: "1.774 € / Jahr" },
-    { name: "Verhinderungspflege", betrag: "bis 1.612 € / Jahr" },
+    { name: "Verhinderungspflege", betrag: "bis 3.539 € / Jahr (gemeinsames Budget)" },
   ],
   4: [
     { name: "Pflegebox (Pflegehilfsmittel)", betrag: "42 € / Monat" },
@@ -40,7 +40,7 @@ const PG_LEISTUNGEN: Record<number, PGLeistung[]> = {
     { name: "Pflegegeld", betrag: "800 € / Monat" },
     { name: "Pflegesachleistungen", betrag: "1.859 € / Monat" },
     { name: "Entlastungsbetrag", betrag: "131 € / Monat" },
-    { name: "Verhinderungspflege", betrag: "bis 1.612 € / Jahr" },
+    { name: "Verhinderungspflege", betrag: "bis 3.539 € / Jahr (gemeinsames Budget)" },
     { name: "Kurzzeitpflege", betrag: "1.774 € / Jahr" },
   ],
   5: [
@@ -49,7 +49,7 @@ const PG_LEISTUNGEN: Record<number, PGLeistung[]> = {
     { name: "Pflegegeld", betrag: "990 € / Monat" },
     { name: "Pflegesachleistungen", betrag: "2.299 € / Monat" },
     { name: "Entlastungsbetrag", betrag: "131 € / Monat" },
-    { name: "Verhinderungspflege", betrag: "bis 1.612 € / Jahr" },
+    { name: "Verhinderungspflege", betrag: "bis 3.539 € / Jahr (gemeinsames Budget)" },
     { name: "Kurzzeitpflege", betrag: "1.774 € / Jahr" },
   ],
 };

@@ -83,7 +83,7 @@ export default function PfadC() {
                 </div>
                 <div className="card p-5 border-l-4 border-brand">
                   <p className="font-semibold text-gray-900 text-sm mb-1">🌴 Verhinderungspflege</p>
-                  <p className="text-gray-500 text-sm">1.612 € / Jahr damit du auch mal Pause machen kannst. Für Urlaub, Krankheit oder einfach Luft holen.</p>
+                  <p className="text-gray-500 text-sm">Bis 3.539 € / Jahr als gemeinsames Budget damit du auch mal Pause machen kannst. Für Urlaub, Krankheit oder einfach Luft holen.</p>
                 </div>
                 <div className="card p-5 border-l-4 border-amber-400">
                   <p className="font-semibold text-gray-900 text-sm mb-1">📈 Pflegegrad erhöhen</p>

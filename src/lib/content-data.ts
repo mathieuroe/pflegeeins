@@ -31,7 +31,7 @@ Der Pflegegrad-Bescheid ist da. Herzlichen Glückwunsch – auch wenn das seltsa
 
 ### Woche 2: Geld nicht verfallen lassen
 
-**Entlastungsbetrag nutzen** – 131 € / Monat für Alltagshilfe. Nicht ausgegebene Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.
+**Entlastungsbetrag nutzen** – 131 € / Monat für Alltagshilfe. Nicht verbrauchte Beträge werden angespart und können grundsätzlich bis zum 30. Juni des Folgejahres genutzt werden.
 
 **Pflegegeld prüfen (ab PG 2)** – wenn Angehörige pflegen: 347–990 € / Monat direkt aufs Konto.
 
@@ -89,7 +89,7 @@ Nichts. Die Pflegekasse zahlt direkt an den Anbieter.`,
 
 131 € pro Monat für qualifizierte Unterstützung im Alltag. Über 12 Monate sind das **1.572 €**.
 
-Das Besondere: **Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.**
+Das Besondere: **Nicht verbrauchte Beträge werden angespart und können grundsätzlich bis zum 30. Juni des Folgejahres genutzt werden.**
 
 ### Wofür kann ich ihn nutzen?
 
@@ -166,7 +166,7 @@ Du hast 1 Monat Zeit. Kein Grund nötig – einfach schriftlich: „Ich lege Wid
   {
     slug: "verhinderungspflege",
     titel: "Verhinderungspflege: Urlaub für pflegende Angehörige",
-    beschreibung: "Bis zu 1.612 € pro Jahr für Ersatzpflege wenn du als Angehöriger mal Pause brauchst. So funktioniert Verhinderungspflege.",
+    beschreibung: "Seit Juli 2025 gibt es ein gemeinsames Budget von bis zu 3.539 € pro Jahr für Verhinderungs- und Kurzzeitpflege. So funktioniert es und wer Anspruch hat.",
     kategorie: "Entlastung",
     lesezeit: "4 Min.",
     datum: "März 2026",
@@ -179,7 +179,7 @@ Pflegende Angehörige leisten Enormes. Aber auch die stärksten Menschen brauche
 
 Wenn die Hauptpflegeperson verhindert ist – durch Urlaub, Krankheit oder andere Gründe – übernimmt jemand anderes die Pflege. Die Pflegekasse zahlt.
 
-**Budget:** bis zu **1.612 € pro Jahr** (ab PG 2), bis zu **6 Wochen**.
+**Budget (ab 01.07.2025):** bis zu **3.539 € pro Jahr** als gemeinsames Budget für Verhinderungs- und Kurzzeitpflege (ab PG 2), bis zu **8 Wochen**.
 
 ### Wer kann die Pflege übernehmen?
 
@@ -194,7 +194,7 @@ Wenn die Hauptpflegeperson verhindert ist – durch Urlaub, Krankheit oder ander
 3. Antrag mit Belegen bei der Pflegekasse
 4. Erstattung in 2–4 Wochen
 
-**Tipp:** Seit 01.07.2025 gibt es ein gemeinsames Budget mit Kurzzeitpflege: bis zu **3.539 € / Jahr**.`,
+**Hinweis:** Das Budget von 3.539 € gilt pro Kalenderjahr für Verhinderungs- und Kurzzeitpflege gemeinsam. Nicht genutzte Beträge verfallen zum Jahresende.`,
   },
 ];
 
@@ -384,7 +384,7 @@ Die Pflegeversicherung ist eine Umlageversicherung: Was heute eingezahlt wird, f
     lesezeit: "4 Min.",
     datum: "Februar 2026",
     typ: "news",
-    inhalt: `## Entlastungsbetrag 2025 – 131 € pro Monat richtig einsetzen
+    inhalt: `## Entlastungsbetrag 2026 – 131 € pro Monat richtig einsetzen
 
 Der Entlastungsbetrag (§ 45b SGB XI) ist eine der am häufigsten ungenutzten Leistungen im Pflegesystem. **Jeder mit Pflegegrad 1 bis 5 hat Anspruch** – unabhängig davon ob Pflegegeld oder Pflegesachleistungen bezogen werden.
 
@@ -404,9 +404,7 @@ Der Betrag ist zweckgebunden – aber der Spielraum ist groß:
 
 ### Was passiert mit ungenutzten Beträgen?
 
-Nicht genutzte Beträge verfallen nicht sofort. Sie können **bis zum Ende des darauffolgenden Kalenderhalbjahres** übertragen werden. Wer also im ersten Halbjahr 2025 nichts nutzt, kann das Geld noch bis Ende 2025 einsetzen.
-
-Das bedeutet in der Praxis: Maximal können bis zu **1.965 € auf einmal** abrufbar sein (1,5 × 131 € × 10 Monate).
+Nicht verbrauchte Beträge werden angespart und können grundsätzlich bis zum **30. Juni des Folgejahres** genutzt werden. Wer also im zweiten Halbjahr 2026 nichts nutzt, kann das Geld noch bis Ende Juni 2027 einsetzen.
 
 ### So bekommst du das Geld
 
@@ -446,9 +444,9 @@ Die Pflegekasse zahlt bis zu 27 € pro Monat für einen Hausnotruf. Bei günsti
 Bis zu 42 € pro Monat für Pflegeverbrauchsmittel: Einmalhandschuhe, Desinfektionsmittel, Mundschutz, Bettschutzeinlagen. Wird direkt vom Anbieter mit der Pflegekasse abgerechnet.
 
 ### Entlastungsbetrag – 131 € monatlich
-Für Alltagsunterstützung durch anerkannte Dienste: Begleitung, Haushaltshilfe, Einkäufe. Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.
+Für Alltagsunterstützung durch anerkannte Dienste: Begleitung, Haushaltshilfe, Einkäufe. Nicht verbrauchte Beträge werden angespart und können grundsätzlich bis zum 30. Juni des Folgejahres genutzt werden.
 
-### Wohnraumanpassung – bis 4.000 €
+### Wohnraumanpassung – bis 4.180 €
 Zuschuss für barrierefreie Umbauten: Haltegriffe, Duschumbau, Türverbreiterungen. Antrag muss vor Baubeginn gestellt werden.
 
 ## Was gibt es bei Pflegegrad 1 nicht?

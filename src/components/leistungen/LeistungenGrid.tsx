@@ -25,7 +25,7 @@ const LEISTUNGEN = [
     name: "Entlastungsbetrag",
     betrag: "131 € / Monat",
     pg: "Ab PG 1",
-    text: "Monatlich 131 € für qualifizierte Unterstützung im Alltag – Alltagsbegleitung, Haushaltshilfe, Fahrdienste oder Betreuungsgruppen. Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden, insgesamt bis zu 1.572 € im Jahr.",
+    text: "Monatlich 131 € für qualifizierte Unterstützung im Alltag – Alltagsbegleitung, Haushaltshilfe, Fahrdienste oder Betreuungsgruppen. Nicht verbrauchte Beträge werden angespart und können grundsätzlich bis zum 30. Juni des Folgejahres genutzt werden.",
     beantragen: "Anerkannten Anbieter kontaktieren, Leistungen in Anspruch nehmen, Rechnung bei der Pflegekasse einreichen.",
   },
   {

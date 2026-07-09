@@ -84,7 +84,7 @@ Nichts. Die Pflegekasse zahlt direkt an den Anbieter. Du zahlst keinen Eigenante
 
 131 € pro Monat für qualifizierte Unterstützung im Alltag. Über 12 Monate summiert das sich auf **1.572 €**.
 
-Das Besondere: **Nicht genutzte Beträge können bis zum Ende des folgenden Kalenderhalbjahres übertragen werden.**
+Das Besondere: **Nicht verbrauchte Beträge werden angespart und können grundsätzlich bis zum 30. Juni des Folgejahres genutzt werden.**
 
 ### Wofür kann ich ihn nutzen?
 
@@ -154,9 +154,9 @@ Der Unterschied zwischen PG 1 und PG 2 ist erheblich – besonders bei den Geldl
 Leistungen die beide haben: Entlastungsbetrag (131 €), Pflegehilfsmittel (42 €), Hausnotruf (27 € / Monat + einmalig bis zu 10,49 €)
 
 **Ab PG 2 kommt dazu:**
-- Pflegegeld: **332 €/Monat**
-- Pflegesachleistung: bis 761 €/Monat
-- Verhinderungspflege: bis 1.612 €/Jahr
+- Pflegegeld: **347 €/Monat**
+- Pflegesachleistung: bis 796 €/Monat
+- Verhinderungs-/Kurzzeitpflege: bis 3.539 €/Jahr (gemeinsames Budget)
 
 ### Der große Unterschied: Pflegegeld
 
@@ -167,7 +167,7 @@ Wenn du glaubst, ein höherer PG ist gerechtfertigt: Stelle einen Antrag auf Hö
   {
     slug: "verhinderungspflege",
     titel: "Verhinderungspflege: Urlaub für pflegende Angehörige",
-    beschreibung: "Bis zu 1.612 € pro Jahr für Ersatzpflege wenn du als Angehöriger Urlaub oder eine Auszeit brauchst.",
+    beschreibung: "Bis zu 3.539 € pro Jahr für Ersatzpflege wenn du als Angehöriger Urlaub oder eine Auszeit brauchst. So funktioniert das gemeinsame Budget seit Juli 2025.",
     kategorie: "Entlastung",
     lesezeit: "4 Min. Lesezeit",
     datum: "März 2026",
@@ -179,7 +179,7 @@ Pflegende Angehörige brauchen auch Pausen. Dafür gibt es die Verhinderungspfle
 
 Wenn die Hauptpflegeperson verhindert ist – durch Urlaub, Krankheit, oder andere Gründe – übernimmt eine Ersatzpflegekraft die Betreuung. Die Pflegekasse zahlt dafür.
 
-**Budget:** bis zu **1.612 € pro Jahr** (ab PG 2)
+**Budget (ab 01.07.2025):** bis zu **3.539 € pro Jahr** als gemeinsames Budget für Verhinderungs- und Kurzzeitpflege (ab PG 2)
 
 ### Wann kann ich sie nutzen?
 

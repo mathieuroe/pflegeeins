@@ -70,7 +70,7 @@ const LEISTUNGEN: Leistung[] = [
   {
     id: "verhinderungspflege",
     name: "Verhinderungspflege",
-    betrag: "bis 1.612 € / Jahr",
+    betrag: "bis 3.539 € / Jahr (gemeinsames Budget)",
     beschreibung: "Wenn die Hauptpflegeperson verhindert ist (Urlaub, Krankheit), übernimmt jemand anderes die Pflege – die Pflegekasse zahlt.",
     pflegegrade: [2, 3, 4, 5],
     icon: "🌴",
@@ -78,7 +78,7 @@ const LEISTUNGEN: Leistung[] = [
       "Vertretungspflegekraft organisieren (Pflegedienst oder Privatperson)",
       "Abwesenheitszeit dokumentieren",
       "Antrag mit Nachweisen bei der Pflegekasse einreichen",
-      "Erstattung bis 1.612 € pro Jahr",
+      "Erstattung bis 3.539 € pro Jahr (gemeinsames Budget mit Kurzzeitpflege)",
     ],
   },
   {
