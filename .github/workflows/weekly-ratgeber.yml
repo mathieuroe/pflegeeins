@@ -2,8 +2,8 @@ name: Wöchentlicher Ratgeber-Artikel
 
 on:
   schedule:
-    # Jeden Montag um 7:00 Uhr UTC (= 9:00 Uhr CEST)
-    - cron: "0 7 * * 1"
+    # Jeden Samstag um 7:00 Uhr UTC (= 9:00 Uhr CEST)
+    - cron: "0 7 * * 6"
   # Manuell auslösbar (für Tests)
   workflow_dispatch:
 
