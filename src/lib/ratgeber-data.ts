@@ -10,6 +10,24 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "eigenbeteiligung-in-der-stationaeren-pflege-was-du-wissen-mu",
+    titel: "Eigenbeteiligung in der stationären Pflege: Was Du wissen musst",
+    beschreibung: "Eigenbeteiligung in der Pflege erhöht",
+    kategorie: "Finanzen",
+    lesezeit: "5 Min. Lesezeit",
+    datum: "Juli 2026",
+    inhalt: `## Eigenbeteiligung in der stationären Pflege: Was Du wissen musst
+Der **Verband der Ersatzkassen e.V. (vdek)** hat kürzlich eine Auswertung zur Eigenbeteiligung in der stationären Pflege veröffentlicht. Diese Auswertung ergab, dass die selbst zu tragenden Kosten für Pflegebedürftige in Pflegeheimen weiter steigen. Im ersten Aufenthaltsjahr müssen Bewohnerinnen und Bewohner im Durchschnitt **3.364 Euro im Monat** aus eigener Tasche bezahlen.
+### Was bedeutet das für Dich?
+Wenn Du ein pflegendes Angehöriger bist, ist es wichtig, dass Du Dich über diese Kosten im Klaren bist. Die **Eigenbeteiligung** kann je nach Bundesland variieren, daher solltest Du Dich über die genauen Kosten in Deinem Bundesland informieren.
+### Wie kann ich die Eigenbeteiligung finanzieren?
+Es gibt verschiedene Möglichkeiten, die Eigenbeteiligung zu finanzieren. Du kannst zum Beispiel **pflegebedingte Aufwendungen** von Deiner Steuer absetzen oder **Leistungen der Pflegeversicherung** in Anspruch nehmen.
+### Was kann ich tun, um die Kosten zu reduzieren?
+Um die Kosten zu reduzieren, solltest Du Dich um eine **optimale Pflegeversicherung** bemühen. Es lohnt sich, verschiedene Anbieter zu vergleichen und die Leistungen und Beiträge sorgfältig zu prüfen.
+## Fazit
+Die Eigenbeteiligung in der stationären Pflege ist ein wichtiger Aspekt, den Du als pflegendes Angehöriger beachten musst. Informiere Dich über die genauen Kosten und Möglichkeiten, die Eigenbeteiligung zu finanzieren, und prüfe, ob Du die Kosten reduzieren kannst.`,
+  },
+  {
     slug: "erste-30-tage-mit-pflegegrad",
     titel: "Was tust du in den ersten 30 Tagen mit Pflegegrad?",
     beschreibung: "Du hast gerade den Bescheid bekommen – und weißt nicht wo anfangen? Diese Checkliste zeigt dir die wichtigsten Schritte.",
