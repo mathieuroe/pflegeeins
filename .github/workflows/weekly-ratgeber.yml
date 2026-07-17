@@ -28,7 +28,7 @@ jobs:
 
       - name: Artikel generieren
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: node scripts/generate-article.mjs
 
       - name: Änderungen committen und pushen

@@ -9,7 +9,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import Anthropic from "@anthropic-ai/sdk";
+import Groq from "groq-sdk";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -83,10 +83,10 @@ function toSlug(titel) {
 }
 
 async function main() {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("ANTHROPIC_API_KEY fehlt");
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error("GROQ_API_KEY fehlt");
 
-  const client = new Anthropic({ apiKey });
+  const client = new Groq({ apiKey });
 
   // 1. News von allen Quellen holen
   console.log("📰 Lade aktuelle Pflegenews...");
@@ -139,13 +139,14 @@ Antworte NUR mit einem JSON-Objekt (kein weiterer Text):
   "inhalt": "Vollständiger Markdown-Inhalt"
 }`;
 
-  const message = await client.messages.create({
-    model: "claude-opus-4-5",
+  const message = await client.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
     max_tokens: 2500,
     messages: [{ role: "user", content: prompt }],
+    response_format: { type: "json_object" },
   });
 
-  const responseText = message.content[0].text.trim();
+  const responseText = message.choices[0].message.content.trim();
   const jsonMatch = responseText.match(/\{[\s\S]*\}/);
   if (!jsonMatch) throw new Error(`Kein JSON in Antwort: ${responseText.slice(0, 200)}`);
 
