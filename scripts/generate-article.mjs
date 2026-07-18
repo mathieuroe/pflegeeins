@@ -119,11 +119,18 @@ Bereits vorhandene Artikel-Slugs (diese Themen NICHT wiederholen):
 ${existingSlugs.join(", ")}
 
 Aufgabe:
-Wähle ein AKTUELLES, konkretes Thema aus den News oben – das für pflegende Angehörige praktisch relevant ist.
+Wähle ein AKTUELLES Thema aus den News oben, das DIREKT für pflegende Angehörige oder Pflegebedürftige relevant ist.
+
+ERLAUBTE Themen (Beispiele): Pflegeleistungen, Pflegegeld, Pflegegrad, Pflegekasse, häusliche Pflege, Pflegereform, Pflegehilfsmittel, Hausnotruf, Verhinderungspflege, Kurzzeitpflege, Pflegeheim-Kosten, Entlastungsbetrag, Beratungsangebote für Pflegende.
+
+VERBOTENE Themen (NICHT wählen, auch wenn in den Quellen vorhanden): Kindergesundheit, Mediensucht, Kinderimpfungen, Krankenhausreform ohne Pflegebezug, allgemeine Gesundheitspolitik ohne direkten Pflegebezug, Betriebliche Gesundheitsförderung.
+
+Falls KEIN passendes Pflege-Thema in den News vorhanden ist, schreibe einen zeitlosen Ratgeber-Artikel über ein noch nicht behandeltes Pflege-Thema (z.B. Wohnraumanpassung, Pflegekurs für Angehörige, Kombipflege, Tagespflege).
+
 Schreibe einen hilfreichen, sachlichen Ratgeber-Artikel.
 
 Regeln:
-- Nur Fakten aus den oben genannten offiziellen Quellen
+- Nur Fakten aus offiziellen deutschen Quellen (SGB XI, Pflegekassen, BMG)
 - Duzen-Form (Du, Dein, Dir)
 - Kein Marketing-Ton, kein Werbesprech
 - Markdown: ## für Abschnitte, ### für Unterabschnitte, **fett** für Schlüsselbegriffe

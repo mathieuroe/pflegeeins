@@ -10,22 +10,6 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
-    slug: "mediensucht-bei-kindern-und-jugendlichen",
-    titel: "Mediensucht bei Kindern und Jugendlichen",
-    beschreibung: "Schutz vor digitaler Abhängigkeit",
-    kategorie: "Aktuelles",
-    lesezeit: "3 Min. Lesezeit",
-    datum: "Juli 2026",
-    inhalt: `## Mediensucht bei Kindern und Jugendlichen: Ein wachsendes Problem
-Die **Ersatzkassen** fordern in einer aktuellen Resolution, dass Gesellschaft und Politik die **Medien- und Digitalkompetenz** von Kindern und Jugendlichen durch geeignete präventive Maßnahmen stärken müssen. 
-### Was ist Mediensucht?
-**Mediensucht** bezeichnet die obsessive Nutzung digitaler Medien, die zu einer Abhängigkeit führen kann. Dies kann bei Kindern und Jugendlichen zu **Koncentrationsstörungen**, **Schlafstörungen** und **sozialen Problemen** führen.
-### Wie kann man Mediensucht vorbeugen?
-* **Bildung und Aufklärung**: Eltern und Erzieher sollten Kinder und Jugendliche über die Risiken der exzessiven Nutzung digitaler Medien aufklären.
-* **Zeitbegrenzung**: Eltern sollten die Nutzung digitaler Medien bei Kindern und Jugendlichen begrenzen und regelmäßige Pausen einplanen.
-* **Alternativen anbieten**: Eltern sollten Kinder und Jugendliche zu anderen Aktivitäten ermutigen, wie Sport, Kunst oder soziale Aktivitäten.`,
-  },
-  {
     slug: "eigenbeteiligung-in-der-stationaeren-pflege-was-du-wissen-mu",
     titel: "Eigenbeteiligung in der stationären Pflege: Was Du wissen musst",
     beschreibung: "Eigenbeteiligung in der Pflege erhöht",
