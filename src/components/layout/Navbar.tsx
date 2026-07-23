@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, ArrowRight, Calculator, Phone, Mail } from "lucide-react";
+import { Menu, X, ArrowRight, Calculator, Phone, Mail, Bell, Package } from "lucide-react";
 
 const links = [
   { href: "/leistungen", label: "Leistungen" },
@@ -10,6 +10,9 @@ const links = [
   { href: "/ratgeber", label: "Ratgeber" },
   { href: "/news", label: "News aus der Pflege" },
 ];
+
+const HAUSNOTRUF_HREF = "/hausnotruf-beantragen";
+const PFLEGEBOX_HREF = "/pflegebox-beantragen";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -47,10 +50,24 @@ export default function Navbar() {
           <a href="tel:+4976188785999" className="md:hidden p-2 text-brand rounded-lg hover:bg-brand-light transition-colors" aria-label="Anrufen">
             <Phone size={20} />
           </a>
-          <Link href="/pflegegrad-rechner" className="btn-secondary text-xs px-2.5 py-2 md:text-sm md:px-4 md:py-2.5">
+          <Link href="/pflegegrad-rechner" className="hidden sm:inline-flex btn-secondary text-xs px-2.5 py-2 md:text-sm md:px-4 md:py-2.5">
             <Calculator size={14} />
             <span className="md:hidden">Rechner</span>
             <span className="hidden md:inline">Pflegegrad-Rechner</span>
+          </Link>
+          <Link
+            href={PFLEGEBOX_HREF}
+            className="hidden md:inline-flex btn-secondary text-xs px-3 py-2.5 md:text-sm md:px-4 border-brand/50 text-brand"
+          >
+            <Package size={14} />
+            Pflegebox
+          </Link>
+          <Link
+            href={HAUSNOTRUF_HREF}
+            className="hidden md:inline-flex btn-secondary text-xs px-3 py-2.5 md:text-sm md:px-4 border-brand/50 text-brand"
+          >
+            <Bell size={14} />
+            Hausnotruf
           </Link>
           <Link href="/leistungen#leistungen-sofort" className="btn-primary text-xs px-2.5 py-2 md:text-sm md:px-5 md:py-2.5">
             <span className="md:hidden">Leistungen</span>
@@ -76,8 +93,14 @@ export default function Navbar() {
           <Link href="/pflegegrad-rechner" className="btn-secondary mt-3 text-center justify-center" onClick={() => setOpen(false)}>
             <Calculator size={15} /> Pflegegrad-Rechner
           </Link>
+          <Link href={PFLEGEBOX_HREF} className="btn-secondary mt-2 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
+            <Package size={15} /> Pflegebox beantragen
+          </Link>
+          <Link href={HAUSNOTRUF_HREF} className="btn-secondary mt-2 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
+            <Bell size={15} /> Hausnotruf beantragen
+          </Link>
           <Link href="/leistungen#leistungen-sofort" className="btn-primary mt-2 text-center justify-center" onClick={() => setOpen(false)}>
-            Leistungen <ArrowRight size={15} />
+            Pflegeleistungen <ArrowRight size={15} />
           </Link>
         </div>
       )}
