@@ -10,6 +10,24 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "pflegeleistungen-was-du-wissen-musst",
+    titel: "Pflegeleistungen: Was du wissen musst",
+    beschreibung: "Pflegeleistungen, Pflegegrad und Pflegegeld",
+    kategorie: "Pflegerecht",
+    lesezeit: "5 Min. Lesezeit",
+    datum: "Juli 2026",
+    inhalt: `## Pflegeleistungen: Ein Überblick
+Pflegeleistungen sind eine wichtige Unterstützung für Menschen, die pflegebedürftig sind. **Pflegekassen** bieten verschiedene Leistungen an, um die Pflege zu erleichtern und die Lebensqualität zu verbessern.
+### Arten von Pflegeleistungen
+Es gibt verschiedene Arten von Pflegeleistungen, wie z.B. **häusliche Pflege**, **Teilstationäre Pflege** und **Vollstationäre Pflege**. Jede Art von Pflegeleistung hat ihre eigenen Vorteile und Anforderungen.
+## Pflegegrad: Wie wird er bestimmt?
+Der **Pflegegrad** wird durch eine Pflegebedürftigkeitsbewertung bestimmt. Diese Bewertung wird von einem **Pflegefachmann** durchgeführt und legt fest, wie viel Pflegeleistung benötigt wird.
+### Pflegegeld: Wie hoch ist es?
+Das **Pflegegeld** ist eine finanzielle Unterstützung für Menschen, die pflegebedürftig sind. Die Höhe des Pflegegeldes hängt vom Pflegegrad ab und kann je nach Pflegekasse variieren.
+## Fazit
+Pflegeleistungen sind eine wichtige Unterstützung für Menschen, die pflegebedürftig sind. Es ist wichtig, sich über die verschiedenen Arten von Pflegeleistungen und den Pflegegrad zu informieren, um die beste Unterstützung zu erhalten.`,
+  },
+  {
     slug: "eigenbeteiligung-in-der-stationaeren-pflege-was-du-wissen-mu",
     titel: "Eigenbeteiligung in der stationären Pflege: Was Du wissen musst",
     beschreibung: "Eigenbeteiligung in der Pflege erhöht",
