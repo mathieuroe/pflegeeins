@@ -1,9 +1,9 @@
 /**
- * Generiert automatisch einen neuen Ratgeber-Artikel basierend auf aktuellen
- * Pflegenews von offiziellen deutschen Quellen.
+ * Generiert wöchentlich einen News-Artikel für /news auf liva-pflege.de.
  *
- * Quellen: BMG, GKV-Spitzenverband, vdek
- * Wird via GitHub Actions wöchentlich ausgeführt.
+ * Quellen: Offizielle Behörden, große Tageszeitungen, Fachzeitschriften.
+ * Schreibt direkt in src/lib/content-data.ts → NEWS-Array mit typ: "news".
+ * Wird via GitHub Actions jeden Samstag um 07:00 UTC ausgeführt.
  */
 
 import { readFileSync, writeFileSync } from "fs";
@@ -15,27 +15,27 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
 const SOURCES = [
-  {
-    name: "Bundesgesundheitsministerium (BMG)",
-    url: "https://www.bundesgesundheitsministerium.de/presse/aktuelles.html",
-  },
-  {
-    name: "GKV-Spitzenverband",
-    url: "https://www.gkv-spitzenverband.de/gkv_spitzenverband/presse/pressemitteilungen_und_statements/pressemitteilungen_und_statements.jsp",
-  },
-  {
-    name: "vdek – Verband der Ersatzkassen",
-    url: "https://www.vdek.com/presse/pressemitteilungen.html",
-  },
+  // Behörden & offizielle Stellen
+  { name: "Bundesgesundheitsministerium (BMG)", url: "https://www.bundesgesundheitsministerium.de/presse/aktuelles.html" },
+  { name: "GKV-Spitzenverband", url: "https://www.gkv-spitzenverband.de/gkv_spitzenverband/presse/pressemitteilungen_und_statements/pressemitteilungen_und_statements.jsp" },
+  { name: "vdek – Verband der Ersatzkassen", url: "https://www.vdek.com/presse/pressemitteilungen.html" },
+  { name: "Medizinischer Dienst Bund", url: "https://www.medizinischerdienst.de/presse/pressemitteilungen/" },
+  // Große Tageszeitungen
+  { name: "Süddeutsche Zeitung – Gesundheit", url: "https://www.sueddeutsche.de/thema/pflege" },
+  { name: "Zeit Online – Gesundheit", url: "https://www.zeit.de/thema/pflege" },
+  { name: "Spiegel – Gesundheit", url: "https://www.spiegel.de/thema/pflege/" },
+  // Fachzeitschriften & Portale
+  { name: "Pflegezeitschrift (Kohlhammer)", url: "https://www.pflegezeitschrift.de/aktuell/" },
+  { name: "Soziale Sicherheit – WSI", url: "https://www.boeckler.de/de/soziale-sicherheit.htm" },
 ];
 
 async function fetchPage(url) {
   const res = await fetch(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; liva-pflege-ratgeber-bot/1.0)",
-      Accept: "text/html",
+      "User-Agent": "Mozilla/5.0 (compatible; liva-pflege-news-bot/2.0; +https://liva-pflege.de)",
+      Accept: "text/html,application/xhtml+xml",
     },
-    signal: AbortSignal.timeout(15_000),
+    signal: AbortSignal.timeout(12_000),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.text();
@@ -46,22 +46,18 @@ function extractText(html) {
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
     .replace(/<[^>]+>/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
     .replace(/\s{2,}/g, " ")
-    .trim();
+    .trim()
+    .slice(0, 3500);
 }
 
-async function fetchSourceNews(source) {
+async function fetchSource(source) {
   try {
     const html = await fetchPage(source.url);
-    const text = extractText(html);
-    // Relevante Seite: nimm bis zu 4000 Zeichen aus dem Hauptbereich
-    return `=== ${source.name} ===\nURL: ${source.url}\n\n${text.slice(0, 4000)}`;
+    return `=== ${source.name} ===\n${extractText(html)}`;
   } catch (err) {
-    console.warn(`⚠ Quelle nicht erreichbar: ${source.name} – ${err.message}`);
+    console.warn(`⚠ Nicht erreichbar: ${source.name} – ${err.message}`);
     return null;
   }
 }
@@ -73,12 +69,8 @@ function germanMonthYear(date) {
 function toSlug(titel) {
   return titel
     .toLowerCase()
-    .replace(/ä/g, "ae")
-    .replace(/ö/g, "oe")
-    .replace(/ü/g, "ue")
-    .replace(/ß/g, "ss")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
+    .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
     .slice(0, 60);
 }
 
@@ -88,62 +80,63 @@ async function main() {
 
   const client = new Groq({ apiKey });
 
-  // 1. News von allen Quellen holen
+  // 1. News von Quellen laden
   console.log("📰 Lade aktuelle Pflegenews...");
-  const results = await Promise.all(SOURCES.map(fetchSourceNews));
-  const newsContent = results.filter(Boolean);
+  const results = await Promise.allSettled(SOURCES.map(fetchSource));
+  const newsContent = results
+    .filter((r) => r.status === "fulfilled" && r.value)
+    .map((r) => r.value);
 
-  if (newsContent.length === 0) {
-    throw new Error("Keine Quelle erreichbar – Abbruch");
-  }
-
+  if (newsContent.length === 0) throw new Error("Keine Quelle erreichbar – Abbruch");
   console.log(`✓ ${newsContent.length}/${SOURCES.length} Quellen geladen`);
 
-  // 2. Bestehende Artikel lesen, um Duplikate zu vermeiden
-  const filePath = join(ROOT, "src/lib/ratgeber-data.ts");
+  // 2. content-data.ts lesen – vorhandene Slugs ermitteln
+  const filePath = join(ROOT, "src/lib/content-data.ts");
   const currentFile = readFileSync(filePath, "utf-8");
 
-  const existingSlugsMatch = currentFile.match(/slug: "([^"]+)"/g) || [];
-  const existingSlugs = existingSlugsMatch.map((m) => m.replace(/slug: "|"/g, ""));
+  const existingSlugs = (currentFile.match(/slug: "([^"]+)"/g) || [])
+    .map((m) => m.replace(/slug: "|"/g, ""));
 
-  // 3. Claude API: Artikel generieren
-  console.log("✍  Generiere Artikel mit Claude...");
+  // 3. Artikel generieren
+  console.log("✍  Generiere News-Artikel...");
 
-  const prompt = `Du bist Redakteur bei liva-pflege.de, einem deutschen Pflegeportal für pflegende Angehörige (40–65 Jahre, bürokratieskeptisch, zeitknapp).
+  const prompt = `Du bist Redakteur bei liva-pflege.de, einem deutschen Pflegeinformationsportal für pflegende Angehörige (40–65 Jahre).
 
-Hier sind aktuelle News von offiziellen deutschen Pflegequellen:
+Hier sind aktuelle Meldungen von offiziellen Quellen und großen deutschen Medien:
 
 ${newsContent.join("\n\n")}
 
-Bereits vorhandene Artikel-Slugs (diese Themen NICHT wiederholen):
+Bereits veröffentlichte Slugs – diese Themen NICHT wiederholen:
 ${existingSlugs.join(", ")}
 
 Aufgabe:
-Wähle ein AKTUELLES Thema aus den News oben, das DIREKT für pflegende Angehörige oder Pflegebedürftige relevant ist.
+Wähle eine AKTUELLE, RELEVANTE Neuigkeit aus den obigen Quellen, die direkt für pflegende Angehörige oder Pflegebedürftige wichtig ist.
 
-ERLAUBTE Themen (Beispiele): Pflegeleistungen, Pflegegeld, Pflegegrad, Pflegekasse, häusliche Pflege, Pflegereform, Pflegehilfsmittel, Hausnotruf, Verhinderungspflege, Kurzzeitpflege, Pflegeheim-Kosten, Entlastungsbetrag, Beratungsangebote für Pflegende.
+ERLAUBTE Themen: Pflegeleistungen, Pflegeversicherung, Pflegegeld, Pflegegrad, Pflegereform, Pflegekasse, Hausnotruf, Verhinderungspflege, Kurzzeitpflege, Tagespflege, ambulante Pflege, Pflegeheim-Kosten, Entlastungsbetrag, pflegende Angehörige, Pflegepolitik.
 
-VERBOTENE Themen (NICHT wählen, auch wenn in den Quellen vorhanden): Kindergesundheit, Mediensucht, Kinderimpfungen, Krankenhausreform ohne Pflegebezug, allgemeine Gesundheitspolitik ohne direkten Pflegebezug, Betriebliche Gesundheitsförderung.
+VERBOTENE Themen: Kinderpflege, Kindergesundheit, Krankenhausreform ohne Pflegebezug, allgemeine Innenpolitik, Wirtschaftspolitik ohne Pflegebezug.
 
-Falls KEIN passendes Pflege-Thema in den News vorhanden ist, schreibe einen zeitlosen Ratgeber-Artikel über ein noch nicht behandeltes Pflege-Thema (z.B. Wohnraumanpassung, Pflegekurs für Angehörige, Kombipflege, Tagespflege).
+Falls keine passende Neuigkeit vorhanden ist: Schreibe über eine aktuelle Entwicklung im deutschen Pflegesystem die noch nicht behandelt wurde.
 
-Schreibe einen hilfreichen, sachlichen Ratgeber-Artikel.
+Schreibe einen sachlichen, faktenbasierten News-Artikel – kein Ratgeber, sondern eine Nachricht.
 
 Regeln:
-- Nur Fakten aus offiziellen deutschen Quellen (SGB XI, Pflegekassen, BMG)
-- Duzen-Form (Du, Dein, Dir)
-- Kein Marketing-Ton, kein Werbesprech
-- Markdown: ## für Abschnitte, ### für Unterabschnitte, **fett** für Schlüsselbegriffe
-- Länge: 350–550 Wörter
-- Praktisch und verständlich – keine Fachbürokratie
+- Nur Fakten aus den obigen offiziellen Quellen
+- Duzen (Du, Dein, Dir)
+- Neutraler, journalistischer Ton – keine Werbung
+- Markdown: ## für Abschnitte, **fett** für Schlüsselbegriffe
+- Länge: 300–500 Wörter
+- Ggf. Quellenhinweis am Ende (z.B. "Quelle: BMG, Juli 2026")
 
-Antworte NUR mit einem JSON-Objekt (kein weiterer Text):
+Kategorie muss EXAKT eine dieser sein: Politik | Leistungen | MD-Besuch | Widerspruch | Finanzen | Pflegegrad | Hausnotruf | Pflegeleistungen | Ambulante Pflege
+
+Antworte NUR mit einem JSON-Objekt (kein weiterer Text, kein Markdown drumherum):
 {
-  "titel": "Aussagekräftiger Artikeltitel",
-  "beschreibung": "1–2 Sätze Vorschau, max 160 Zeichen",
-  "kategorie": "Eine von: Erste Schritte | Pflegebox | Finanzen | Sicherheit | Pflegegrad | Entlastung | Pflegerecht | Aktuelles",
-  "lesezeit": "X Min. Lesezeit",
-  "inhalt": "Vollständiger Markdown-Inhalt"
+  "titel": "Präziser Nachrichtentitel",
+  "beschreibung": "1–2 Sätze Teaser, max 160 Zeichen",
+  "kategorie": "Exakt eine der erlaubten Kategorien",
+  "lesezeit": "X Min.",
+  "inhalt": "Vollständiger Markdown-Inhalt des Artikels"
 }`;
 
   const message = await client.chat.completions.create({
@@ -159,17 +152,16 @@ Antworte NUR mit einem JSON-Objekt (kein weiterer Text):
 
   const article = JSON.parse(jsonMatch[0]);
 
-  // Slug generieren und auf Duplikate prüfen
+  // Slug generieren
   let slug = toSlug(article.titel);
-  if (existingSlugs.includes(slug)) {
-    slug = `${slug}-${new Date().getFullYear()}`;
-  }
+  if (existingSlugs.includes(slug)) slug = `${slug}-${new Date().getFullYear()}`;
   article.slug = slug;
   article.datum = germanMonthYear(new Date());
 
-  console.log(`✓ Artikel: "${article.titel}" (/${article.slug})`);
+  console.log(`✓ Artikel: "${article.titel}" (slug: ${slug})`);
+  console.log(`  Kategorie: ${article.kategorie} | Datum: ${article.datum}`);
 
-  // 4. In ratgeber-data.ts einfügen (vorne – neuester zuerst)
+  // 4. In content-data.ts → NEWS-Array einfügen (oben, neuester zuerst)
   const escapedInhalt = article.inhalt
     .replace(/\\/g, "\\\\")
     .replace(/`/g, "\\`")
@@ -179,26 +171,23 @@ Antworte NUR mit einem JSON-Objekt (kein weiterer Text):
   const escapedBeschreibung = article.beschreibung.replace(/"/g, '\\"');
 
   const newEntry = `  {
-    slug: "${article.slug}",
+    slug: "${slug}",
     titel: "${escapedTitel}",
     beschreibung: "${escapedBeschreibung}",
     kategorie: "${article.kategorie}",
     lesezeit: "${article.lesezeit}",
     datum: "${article.datum}",
+    typ: "news",
     inhalt: \`${escapedInhalt}\`,
   },`;
 
-  const marker = "export const ARTICLES: Article[] = [\n";
-  if (!currentFile.includes(marker)) {
-    throw new Error("Marker nicht gefunden in ratgeber-data.ts");
-  }
+  const marker = "export const NEWS: ContentItem[] = [\n";
+  if (!currentFile.includes(marker)) throw new Error("NEWS-Marker nicht gefunden in content-data.ts");
 
   const updatedFile = currentFile.replace(marker, `${marker}${newEntry}\n`);
   writeFileSync(filePath, updatedFile, "utf-8");
 
-  console.log(`✅ Artikel erfolgreich hinzugefügt: ${filePath}`);
-  console.log(`   Kategorie: ${article.kategorie}`);
-  console.log(`   Datum: ${article.datum}`);
+  console.log(`✅ News-Artikel erfolgreich in content-data.ts eingefügt`);
 }
 
 main().catch((err) => {
