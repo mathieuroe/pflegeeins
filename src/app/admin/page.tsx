@@ -20,6 +20,21 @@ export type Lead = {
   consent_beratung: boolean | null;
   consent_weitergabe: boolean | null;
   consent_timestamp: string | null;
+  // Hausnotruf Funnel
+  vorname: string | null;
+  nachname: string | null;
+  geburtsdatum: string | null;
+  anrede: string | null;
+  adresse: string | null;
+  lieferadresse: string | null;
+  bundesland: string | null;
+  fuer_wen: string | null;
+  gruende: string | null;
+  wer_pflegt: string | null;
+  bereits_vorhanden: string | null;
+  krankenkasse: string | null;
+  versichertennummer: string | null;
+  signature_data: string | null;
 };
 
 const STATUS: Record<Status, { label: string; className: string }> = {

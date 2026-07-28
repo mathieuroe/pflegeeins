@@ -106,7 +106,7 @@ const STEPS_INFO = [
 ];
 
 const FAQS = [
-  { q: "Wer zahlt für den Hausnotruf?", a: "Die Pflegekasse übernimmt die Kosten für einen Hausnotruf (§ 40 SGB XI) vollständig – in der Regel 27 € pro Monat. Du zahlst keinen Eigenanteil." },
+  { q: "Wer zahlt für den Hausnotruf?", a: "Die Pflegekasse übernimmt die Kosten für einen Hausnotruf (§ 40 SGB XI) vollständig – ab Pflegegrad 1. In der Regel sind das 27 € pro Monat. Du zahlst keinen Eigenanteil." },
   { q: "Ab welchem Pflegegrad habe ich Anspruch?", a: "Ab Pflegegrad 1 hast du Anspruch, wenn du überwiegend allein lebst oder im Notfall keine Person in der Lage ist, dir zu helfen." },
   { q: "Muss ein Techniker die Installation durchführen?", a: "Nein. Das Gerät wird einfach an die Steckdose angeschlossen – kein Techniker nötig. Das Einrichten ist per Telefon möglich, wenn du Unterstützung brauchst." },
   { q: "Was passiert, wenn ich den Knopf drücke?", a: "Du wirst sofort mit der 24h-Notrufzentrale verbunden. Die geschulten Mitarbeiter koordinieren Hilfe – von Familie und Nachbarn bis zum Rettungsdienst." },
@@ -381,7 +381,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
           adresse: `${strasse} ${hausnummer}, ${plz} ${ort}, ${bundesland}`,
           lieferadresse: lieferAdresse,
           bundesland, anrede,
-          signature: !!signatureData,
+          signature: signatureData,
           tags: [
             "Hausnotruf Bestellung",
             pflegegrad,
@@ -472,14 +472,17 @@ function FunnelModal({ onClose }: FunnelModalProps) {
           </div>
         </div>
 
-        <div className="p-3.5 bg-brand-light rounded-xl border border-brand/15">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-bold text-brand">27 € / Monat – komplett von der Pflegekasse</p>
-              <p className="text-xs text-brand/70 mt-0.5">Kein Eigenanteil · Monatlich kündbar · Kostenloser Versand</p>
+        <div className="p-3.5 bg-brand-light rounded-xl border border-brand/15 text-center">
+          <p className="text-sm font-bold text-brand mb-1">Pflegekasse zahlt – ab Pflegegrad 1</p>
+          <p className="text-xs text-brand/70 leading-relaxed">Ab Pflegegrad 1 übernimmt die Pflegekasse die Kosten – du zahlst nichts.</p>
+        </div>
+        <div className="grid grid-cols-3 gap-2 pt-1">
+          {["Kostenloser Versand", "Monatlich kündbar", "Sofort einsatzbereit"].map(f => (
+            <div key={f} className="flex items-center gap-1.5 text-[11px] text-gray-500">
+              <CheckCircle2 size={13} className="text-brand flex-shrink-0" />
+              <span>{f}</span>
             </div>
-            <CheckCircle2 size={20} className="text-brand flex-shrink-0" />
-          </div>
+          ))}
         </div>
       </div>
     );
@@ -854,8 +857,15 @@ function FunnelModal({ onClose }: FunnelModalProps) {
   // ── Footer buttons per step ──────────────────────────
   function renderFooter() {
     if (step === "success") return null;
-    const autoSteps = [1, 5]; // auto-advance, no footer
-    if (autoSteps.includes(step as number)) return null;
+    if (step === 5) return null; // auto-advance, no footer
+    if (step === 1) return (
+      <div className="flex items-center p-4 sm:px-6 border-t border-gray-100 bg-white">
+        <button type="button" onClick={goBack}
+          className="flex items-center gap-1.5 px-5 py-2.5 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all cursor-pointer">
+          <ChevronLeft size={14} /> Zurück
+        </button>
+      </div>
+    );
 
     const isLast = step === 10;
     const isSummary = step === 9;
@@ -899,7 +909,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
 
     return (
       <div className="flex items-center justify-between gap-3 p-4 sm:px-6 border-t border-gray-100 bg-white">
-        {step !== 1 && step !== "welcome" ? (
+        {step !== "welcome" ? (
           <button type="button" onClick={goBack}
             className="flex items-center gap-1.5 px-5 py-2.5 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all cursor-pointer">
             <ChevronLeft size={14} /> Zurück
@@ -985,87 +995,60 @@ export default function HausnotrufFunnelPage() {
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-[#E0EDE7] py-14 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          <div>
+        <div className="max-w-5xl mx-auto">
+
+          {/* Badge + Headline */}
+          <div className="max-w-2xl mb-6">
             <span className="inline-flex items-center gap-1.5 bg-brand-light text-brand text-xs font-bold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wide">
               <CheckCircle2 size={12} /> Pflegekasse zahlt – du nicht
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl text-gray-900 leading-tight mb-4">
               Hausnotruf <span className="text-brand">kostenlos</span> beantragen
             </h1>
-            <p className="text-gray-500 text-lg leading-relaxed mb-6">
-              Ab Pflegegrad 1 zahlt die Pflegekasse <strong className="text-gray-700">27 € im Monat</strong> – du zahlst nichts. Notruf per Knopfdruck, 24h Notrufzentrale, SIM-Karte inklusive. Kein Internet, kein Router, kein Techniker.
+            <p className="text-gray-500 text-lg leading-relaxed">
+              Ab Pflegegrad 1 übernimmt die Pflegekasse <strong className="text-gray-700">27 € im Monat</strong> – du zahlst nichts. Kein Internet, kein Router, kein Techniker.
             </p>
-            <div className="space-y-2.5 mb-8">
-              {["Kein Eigenanteil – Pflegekasse übernimmt alles", "SIM-Karte inklusive – funktioniert ohne Internet & Router", "Wasserdichter Knopf mit 5,5 Jahren Akkulaufzeit", "Kostenlose Angehörigen-App – Familie bleibt informiert"].map(item => (
-                <div key={item} className="flex items-center gap-3">
-                  <CheckCircle2 size={16} className="text-brand flex-shrink-0" />
-                  <span className="text-sm text-gray-700">{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button onClick={openModal} className="btn-primary text-base px-7 py-4">Jetzt kostenlos beantragen <ArrowRight size={18} /></button>
-              <button onClick={() => setBeratungOpen(true)} className="btn-secondary text-sm px-6 py-4 flex items-center gap-2 cursor-pointer"><Phone size={15} /> Kostenloses Beratungsgespräch</button>
-            </div>
-            <p className="text-xs text-gray-400 mt-3">Kostenlose Beratung · Mo–Fr 8–18 Uhr</p>
           </div>
-          <div className="flex justify-center">
-            <div className="bg-brand-light rounded-3xl p-8 w-full max-w-sm">
-              <div className="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center mb-5">
-                <Bell size={28} className="text-white" />
-              </div>
-              <p className="font-serif text-3xl text-brand mb-1">27 € / Monat</p>
-              <p className="text-brand/70 text-sm mb-5">Vollständig von der Pflegekasse übernommen</p>
-              <div className="bg-white rounded-2xl p-4 space-y-3">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">easierLife HOME – Lieferumfang</p>
-                {["Basisstation mit Lautsprecher & Mikrofon", "Notrufknopf (Arm oder Hals) – wasserdicht", "SIM-Karte inklusive – kein Internet nötig", "24h Notrufzentrale rund um die Uhr", "Kostenlose App für Angehörige", "Monatlich kündbar – kein Risiko"].map(item => (
-                  <div key={item} className="flex items-center gap-2.5"><CheckCircle2 size={13} className="text-brand flex-shrink-0" /><span className="text-sm text-gray-700">{item}</span></div>
-                ))}
-              </div>
-              <p className="text-xs text-center text-brand/60 mt-4 font-medium">Ab Pflegegrad 1 · Alle Pflegekassen</p>
-              <div className="mt-3 flex items-center justify-center gap-2 opacity-60">
-                <span className="text-[10px] text-gray-400">Gerät von</span>
-                <span className="text-[11px] font-semibold text-gray-500 tracking-tight">easierLife</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── Benefit Bar ──────────────────────────────────────────────── */}
-      <section className="bg-brand py-5 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-          {BENEFITS.map(({ icon: Icon, label, sub }) => (
-            <div key={label} className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0"><Icon size={17} className="text-white" /></div>
-              <div><p className="text-white text-sm font-semibold leading-tight">{label}</p><p className="text-white/60 text-[11px] leading-snug">{sub}</p></div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Trust Bar ────────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-[#E0EDE7] py-5 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-center text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-4">easierLife-Geräte werden eingesetzt bei</p>
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+          {/* Bullets */}
+          <div className="space-y-2.5 mb-8">
             {[
-              { name: "Caritas", color: "#C8102E" },
-              { name: "DRK", color: "#CC0000" },
-              { name: "ASB", color: "#E2001A" },
-              { name: "AWO", color: "#E2001A" },
-            ].map(({ name, color }) => (
-              <div key={name} className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
-                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
-                <span className="text-sm font-bold text-gray-500 tracking-tight">{name}</span>
+              "Kein Eigenanteil – Pflegekasse übernimmt alles",
+              "SIM-Karte inklusive – funktioniert ohne Internet & Router",
+              "Wasserdichter Knopf mit 5,5 Jahren Akkulaufzeit",
+              "Kostenlose Angehörigen-App – Familie bleibt informiert",
+            ].map(item => (
+              <div key={item} className="flex items-start gap-3">
+                <CheckCircle2 size={16} className="text-brand flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700">{item}</span>
               </div>
             ))}
-            <div className="hidden sm:block w-px h-5 bg-gray-200" />
-            <div className="flex items-center gap-2 opacity-60">
-              <div className="w-2 h-2 rounded-full bg-[#4A6FA5] flex-shrink-0" />
-              <span className="text-sm font-bold text-[#4A6FA5] tracking-tight">easierLife</span>
-            </div>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 items-start">
+            <button onClick={openModal} className="btn-primary text-base px-7 py-4">Jetzt kostenlos beantragen <ArrowRight size={18} /></button>
+            <button onClick={() => setBeratungOpen(true)} className="btn-secondary text-sm px-6 py-4 flex items-center gap-2 cursor-pointer"><Phone size={15} /> Kostenloses Beratungsgespräch</button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Trust Bar mit Logos ──────────────────────────────────────── */}
+      <section className="bg-white border-b border-[#E0EDE7] py-6 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-center text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-6">easierLife-Geräte werden eingesetzt bei</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logos/caritas.png" alt="Caritas" className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logos/drk.svg" alt="Deutsches Rotes Kreuz" className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logos/asb.svg" alt="Arbeiter-Samariter-Bund" className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logos/malteser.svg" alt="Malteser" className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            <div className="hidden sm:block w-px h-8 bg-gray-200" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://www.easierlife.de/wp-content/uploads/2021/01/el_logo_rgb_800x200.png" alt="easierLife" className="h-6 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </section>
@@ -1087,100 +1070,52 @@ export default function HausnotrufFunnelPage() {
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <button onClick={openModal} className="btn-primary px-8 py-3.5">Jetzt beantragen <ArrowRight size={16} /></button>
-          </div>
         </div>
       </section>
 
       {/* ── Das Gerät: easierLife HOME ───────────────────────────────── */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 bg-white border-b border-[#E0EDE7]">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div className="text-center mb-10">
+            <p className="section-label">Das Gerät</p>
+            <h2 className="font-serif text-3xl sm:text-4xl text-gray-900 mb-4">easierLife HOME</h2>
+            <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
+              Wir arbeiten mit <strong className="text-gray-700">easierLife</strong> zusammen – einem der führenden Hausnotruf-Anbieter in Deutschland. Einfach einstecken – fertig. Kein Techniker, kein WLAN, kein Telefon nötig. Innerhalb von 3–5 Tagen geliefert.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
             <div className="flex justify-center">
-              <div className="relative bg-[#F7FAF9] rounded-3xl p-6 w-full max-w-sm flex flex-col items-center gap-4">
-                {/* easierLife Logo Badge */}
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
+              <div className="relative bg-[#F7FAF9] rounded-3xl overflow-hidden w-full max-w-sm">
+                <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
                   <span className="text-[10px] text-gray-400 font-medium">Gerät von</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="https://www.easierlife.de/wp-content/uploads/2021/01/el_logo_rgb_800x200.png"
-                    alt="easierLife"
-                    className="h-3.5 w-auto object-contain"
-                  />
+                  <img src="https://www.easierlife.de/wp-content/uploads/2021/01/el_logo_rgb_800x200.png" alt="easierLife" className="h-3.5 w-auto object-contain" />
                 </div>
-
-                {/* Produktbild */}
-                <div className="rounded-2xl overflow-hidden border border-[#E0EDE7] w-full mt-6">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="https://www.easierlife.de/wp-content/uploads/2026/04/1080_1080_home_blau_1.jpg"
-                    alt="easierLife HOME – Basisstation und Notrufknopf"
-                    className="w-full h-48 object-cover"
-                  />
-                </div>
-
-                {/* Basisstation Card */}
-                <div className="bg-white rounded-2xl shadow-sm p-5 w-full flex flex-col items-center gap-2 border border-gray-100">
-                  <div className="w-14 h-14 rounded-2xl bg-brand-light flex items-center justify-center mb-1">
-                    <Radio size={28} className="text-brand" />
-                  </div>
-                  <p className="font-semibold text-gray-900 text-sm">Basisstation</p>
-                  <p className="text-[11px] text-gray-400 text-center leading-snug">Steckdose genügt – kein Internet, kein Router, kein Techniker</p>
-                  <div className="flex flex-wrap gap-1.5 mt-1 justify-center">
-                    {["SIM inklusive", "Stromausfall-Akku", "Lautsprecher & Mikrofon"].map(t => (
-                      <span key={t} className="text-[9px] font-semibold bg-brand-light text-brand px-2 py-0.5 rounded-full">{t}</span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Notrufknopf Card */}
-                <div className="bg-white rounded-2xl shadow-sm p-4 w-full flex items-center gap-4 border border-gray-100">
-                  <div className="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center flex-shrink-0"><Battery size={18} className="text-brand" /></div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 text-sm">Notrufknopf</p>
-                    <p className="text-[11px] text-gray-400 leading-snug">Wasserdicht · 5,5 Jahre Akku · Arm oder Hals</p>
-                  </div>
-                  <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center flex-shrink-0"><Check size={10} className="text-white" /></div>
-                </div>
-
-                {/* Angehörigen-App Card */}
-                <div className="bg-white rounded-2xl shadow-sm p-4 w-full flex items-center gap-4 border border-gray-100">
-                  <div className="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center flex-shrink-0"><Phone size={18} className="text-brand" /></div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 text-sm">Angehörigen-App</p>
-                    <p className="text-[11px] text-gray-400 leading-snug">Kostenlos · Echtzeit-Benachrichtigungen bei Notruf</p>
-                  </div>
-                  <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center flex-shrink-0"><Check size={10} className="text-white" /></div>
-                </div>
-
-                {/* Checkmark-Leiste */}
-                <div className="w-full pt-1 border-t border-[#E0EDE7] grid grid-cols-2 gap-1.5">
-                  {["Kein Eigenanteil", "Kostenloser Versand", "Monatlich kündbar", "Sofort einsatzbereit"].map(f => (
-                    <div key={f} className="flex items-center gap-1.5">
-                      <div className="w-4 h-4 rounded-full bg-brand-light flex items-center justify-center flex-shrink-0"><Check size={8} className="text-brand" /></div>
-                      <span className="text-[10px] text-gray-500">{f}</span>
-                    </div>
-                  ))}
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.easierlife.de/wp-content/uploads/2026/04/1080_1080_home_blau_1.jpg" alt="easierLife HOME – Basisstation und Notrufknopf" className="w-full aspect-square object-cover" />
               </div>
             </div>
-            <div>
-              <p className="section-label">Das Gerät</p>
-              <h2 className="font-serif text-3xl sm:text-4xl text-gray-900 mb-4">easierLife HOME – alles dabei</h2>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Wir arbeiten mit <strong className="text-gray-700">easierLife</strong> zusammen – einem der führenden Hausnotruf-Anbieter in Deutschland. Das Gerät kommt fertig konfiguriert per Post. Einfach einstecken – fertig.
-              </p>
-              <div className="grid grid-cols-1 gap-3">
-                {GERAETE.map(({ icon: Icon, label, text }) => (
-                  <div key={label} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-100">
-                    <div className="w-8 h-8 rounded-lg bg-brand-light flex items-center justify-center flex-shrink-0 mt-0.5"><Icon size={15} className="text-brand" /></div>
-                    <div><p className="font-semibold text-gray-900 text-sm">{label}</p><p className="text-gray-500 text-xs leading-relaxed">{text}</p></div>
-                  </div>
-                ))}
-              </div>
-              <button onClick={openModal} className="btn-primary mt-6 px-7 py-3.5">Jetzt kostenlos beantragen <ArrowRight size={16} /></button>
+            <div className="grid grid-cols-1 gap-3">
+              {GERAETE.map(({ icon: Icon, label, text }) => (
+                <div key={label} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-100">
+                  <div className="w-8 h-8 rounded-lg bg-brand-light flex items-center justify-center flex-shrink-0 mt-0.5"><Icon size={15} className="text-brand" /></div>
+                  <div><p className="font-semibold text-gray-900 text-sm">{label}</p><p className="text-gray-500 text-xs leading-relaxed">{text}</p></div>
+                </div>
+              ))}
             </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-2 pt-6 border-t border-gray-100 w-full max-w-xl mx-auto">
+              {["Kein Eigenanteil", "Kostenloser Versand", "Monatlich kündbar", "Sofort einsatzbereit"].map(f => (
+                <div key={f} className="flex items-center gap-2 justify-center">
+                  <div className="w-4 h-4 rounded-full bg-brand-light flex items-center justify-center flex-shrink-0"><Check size={8} className="text-brand" /></div>
+                  <span className="text-xs text-gray-500">{f}</span>
+                </div>
+              ))}
+            </div>
+            <button onClick={openModal} className="btn-primary px-7 py-3.5">Jetzt kostenlos beantragen <ArrowRight size={16} /></button>
           </div>
         </div>
       </section>
