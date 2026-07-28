@@ -1098,12 +1098,30 @@ export default function HausnotrufFunnelPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="flex justify-center">
-              <div className="relative bg-[#F7FAF9] rounded-3xl p-10 w-full max-w-sm flex flex-col items-center gap-5">
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1 shadow-sm">
+              <div className="relative bg-[#F7FAF9] rounded-3xl p-6 w-full max-w-sm flex flex-col items-center gap-4">
+                {/* easierLife Logo Badge */}
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-white border border-gray-100 rounded-full px-3 py-1.5 shadow-sm">
                   <span className="text-[10px] text-gray-400 font-medium">Gerät von</span>
-                  <span className="text-[11px] font-bold text-gray-600 tracking-tight">easierLife</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://www.easierlife.de/wp-content/uploads/2021/01/el_logo_rgb_800x200.png"
+                    alt="easierLife"
+                    className="h-3.5 w-auto object-contain"
+                  />
                 </div>
-                <div className="bg-white rounded-2xl shadow-md p-6 w-full flex flex-col items-center gap-2 border border-gray-100">
+
+                {/* Produktbild */}
+                <div className="rounded-2xl overflow-hidden border border-[#E0EDE7] w-full mt-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://www.easierlife.de/wp-content/uploads/2026/04/1080_1080_home_blau_1.jpg"
+                    alt="easierLife HOME – Basisstation und Notrufknopf"
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+
+                {/* Basisstation Card */}
+                <div className="bg-white rounded-2xl shadow-sm p-5 w-full flex flex-col items-center gap-2 border border-gray-100">
                   <div className="w-14 h-14 rounded-2xl bg-brand-light flex items-center justify-center mb-1">
                     <Radio size={28} className="text-brand" />
                   </div>
@@ -1115,13 +1133,35 @@ export default function HausnotrufFunnelPage() {
                     ))}
                   </div>
                 </div>
-                <div className="bg-white rounded-2xl shadow-md p-4 w-full flex items-center gap-4 border border-gray-100">
+
+                {/* Notrufknopf Card */}
+                <div className="bg-white rounded-2xl shadow-sm p-4 w-full flex items-center gap-4 border border-gray-100">
                   <div className="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center flex-shrink-0"><Battery size={18} className="text-brand" /></div>
-                  <div><p className="font-semibold text-gray-900 text-sm">Notrufknopf</p><p className="text-[11px] text-gray-400 leading-snug">Wasserdicht · 5,5 Jahre Akku · Arm oder Hals</p></div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-gray-900 text-sm">Notrufknopf</p>
+                    <p className="text-[11px] text-gray-400 leading-snug">Wasserdicht · 5,5 Jahre Akku · Arm oder Hals</p>
+                  </div>
+                  <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center flex-shrink-0"><Check size={10} className="text-white" /></div>
                 </div>
-                <div className="bg-white rounded-2xl shadow-md p-4 w-full flex items-center gap-4 border border-gray-100">
+
+                {/* Angehörigen-App Card */}
+                <div className="bg-white rounded-2xl shadow-sm p-4 w-full flex items-center gap-4 border border-gray-100">
                   <div className="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center flex-shrink-0"><Phone size={18} className="text-brand" /></div>
-                  <div><p className="font-semibold text-gray-900 text-sm">Angehörigen-App</p><p className="text-[11px] text-gray-400 leading-snug">Kostenlos · Echtzeit-Benachrichtigungen bei Notruf</p></div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-gray-900 text-sm">Angehörigen-App</p>
+                    <p className="text-[11px] text-gray-400 leading-snug">Kostenlos · Echtzeit-Benachrichtigungen bei Notruf</p>
+                  </div>
+                  <div className="w-5 h-5 rounded-full bg-brand flex items-center justify-center flex-shrink-0"><Check size={10} className="text-white" /></div>
+                </div>
+
+                {/* Checkmark-Leiste */}
+                <div className="w-full pt-1 border-t border-[#E0EDE7] grid grid-cols-2 gap-1.5">
+                  {["Kein Eigenanteil", "Kostenloser Versand", "Monatlich kündbar", "Sofort einsatzbereit"].map(f => (
+                    <div key={f} className="flex items-center gap-1.5">
+                      <div className="w-4 h-4 rounded-full bg-brand-light flex items-center justify-center flex-shrink-0"><Check size={8} className="text-brand" /></div>
+                      <span className="text-[10px] text-gray-500">{f}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
