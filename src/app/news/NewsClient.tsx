@@ -5,7 +5,17 @@ import Link from "next/link";
 import { Clock, ArrowRight, Mail, Check } from "lucide-react";
 import { NEWS } from "@/lib/content-data";
 
-const KATEGORIEN = ["Alle", ...Array.from(new Set(NEWS.map((n) => n.kategorie)))];
+const MONATE: Record<string, number> = {
+  Januar: 1, Februar: 2, März: 3, April: 4, Mai: 5, Juni: 6,
+  Juli: 7, August: 8, September: 9, Oktober: 10, November: 11, Dezember: 12,
+};
+function datumToNum(datum: string): number {
+  const [monat, jahr] = datum.split(" ");
+  return parseInt(jahr) * 100 + (MONATE[monat] ?? 0);
+}
+const NEWS_SORTED = [...NEWS].sort((a, b) => datumToNum(b.datum) - datumToNum(a.datum));
+
+const KATEGORIEN = ["Alle", ...Array.from(new Set(NEWS_SORTED.map((n) => n.kategorie)))];
 
 function NewsletterForm() {
   const [email, setEmail] = useState("");
@@ -68,7 +78,7 @@ function NewsletterForm() {
 export default function NewsClient() {
   const [aktiv, setAktiv] = useState("Alle");
 
-  const gefiltert = aktiv === "Alle" ? NEWS : NEWS.filter((n) => n.kategorie === aktiv);
+  const gefiltert = aktiv === "Alle" ? NEWS_SORTED : NEWS_SORTED.filter((n) => n.kategorie === aktiv);
 
   return (
     <>

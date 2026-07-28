@@ -76,6 +76,18 @@ const SCHRITTE = [
   },
 ];
 
+const MONATE: Record<string, number> = {
+  Januar: 1, Februar: 2, März: 3, April: 4, Mai: 5, Juni: 6,
+  Juli: 7, August: 8, September: 9, Oktober: 10, November: 11, Dezember: 12,
+};
+
+function datumToNum(datum: string): number {
+  const [monat, jahr] = datum.split(" ");
+  return parseInt(jahr) * 100 + (MONATE[monat] ?? 0);
+}
+
+const RATGEBER_SORTED = [...RATGEBER].sort((a, b) => datumToNum(b.datum) - datumToNum(a.datum));
+
 export default function RatgeberPage() {
   return (
     <>
@@ -138,7 +150,7 @@ export default function RatgeberPage() {
             <h2 className="font-serif text-3xl text-gray-900 mb-2">Alle Themen im Detail</h2>
             <p className="text-sm text-gray-500 mb-8">Pflegebox, MD, Entlastungsbetrag, Verhinderungspflege – verständlich und aktuell erklärt.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {RATGEBER.map((a) =>
+              {RATGEBER_SORTED.map((a) =>
                 a.affiliate ? (
                   <div key={a.slug} className="card bg-white p-5 flex flex-col">
                     <span className="text-xs font-semibold bg-brand-light text-brand px-3 py-1 rounded-full self-start mb-3">{a.kategorie}</span>
