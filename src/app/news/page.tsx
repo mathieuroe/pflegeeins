@@ -3,6 +3,16 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import { NEWS } from "@/lib/content-data";
+
+const MONATE: Record<string, number> = {
+  Januar: 1, Februar: 2, März: 3, April: 4, Mai: 5, Juni: 6,
+  Juli: 7, August: 8, September: 9, Oktober: 10, November: 11, Dezember: 12,
+};
+function datumToNum(datum: string) {
+  const [m, j] = datum.split(" ");
+  return parseInt(j) * 100 + (MONATE[m] ?? 0);
+}
+const neuestesDatum = [...NEWS].sort((a, b) => datumToNum(b.datum) - datumToNum(a.datum))[0]?.datum ?? "";
 import NewsClient from "./NewsClient";
 
 export const metadata: Metadata = {
@@ -84,7 +94,7 @@ export default function NewsPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-brand inline-block" />
-              Zuletzt aktualisiert: {NEWS[0].datum}
+              Zuletzt aktualisiert: {neuestesDatum}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-brand inline-block" />
