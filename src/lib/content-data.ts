@@ -427,7 +427,7 @@ Viele Familien denken: "Wir schaffen das selbst, wir brauchen keine Hilfe." Der 
     kategorie: "Pflegegrad",
     lesezeit: "6 Min.",
     datum: "Juli 2026",
-    typ: "ratgeber",
+    typ: "news",
     affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=ratgeber_pg1_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
     inhalt: `## Was ist Pflegegrad 1?
 
@@ -484,7 +484,7 @@ Beide Leistungen können rückwirkend nicht beantragt werden – je früher du a
     kategorie: "Pflegegrad",
     lesezeit: "7 Min.",
     datum: "Juli 2026",
-    typ: "ratgeber",
+    typ: "news",
     inhalt: `## Pflegegrad beantragen – so funktioniert es
 
 Den Pflegegrad beantragst du bei der Pflegekasse der pflegebedürftigen Person. Die Pflegekasse ist immer an die Krankenkasse gekoppelt – wer also bei der AOK krankenversichert ist, wendet sich an die AOK-Pflegekasse.
@@ -551,7 +551,7 @@ Diese drei Leistungen verfallen nicht rückwirkend – aber ungenutzte Monate si
     kategorie: "Hausnotruf",
     lesezeit: "5 Min.",
     datum: "Juli 2026",
-    typ: "ratgeber",
+    typ: "news",
     affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=ratgeber_kosten_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
     inhalt: `## Was kostet ein Hausnotruf?
 
@@ -608,7 +608,7 @@ Du musst nichts vorstrecken und keinen Papierkram erledigen.`,
     kategorie: "Pflegeleistungen",
     lesezeit: "6 Min.",
     datum: "Juli 2026",
-    typ: "ratgeber",
+    typ: "news",
     inhalt: `## Die große Änderung ab Juli 2025
 
 Seit dem 1. Juli 2025 wurden Verhinderungspflege und Kurzzeitpflege zu einem **gemeinsamen Jahresbudget** zusammengefasst. Das Ergebnis: mehr Flexibilität und insgesamt mehr Geld.
@@ -663,7 +663,7 @@ Sprich frühzeitig mit deiner Pflegekasse und halte gute Pflegedienste in deiner
     kategorie: "Ambulante Pflege",
     lesezeit: "6 Min.",
     datum: "Juli 2026",
-    typ: "ratgeber",
+    typ: "news",
     inhalt: `## Was ist ambulante Pflege?
 
 Ambulante Pflege bedeutet: Ein Pflegedienst kommt zu dir nach Hause und übernimmt Pflegeleistungen – von der Körperpflege bis zur Medikamentengabe. Du bleibst in deiner gewohnten Umgebung.
