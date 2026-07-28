@@ -1006,7 +1006,7 @@ export default function HausnotrufFunnelPage() {
               Hausnotruf <span className="text-brand">kostenlos</span> beantragen
             </h1>
             <p className="text-gray-500 text-lg leading-relaxed">
-              Ab Pflegegrad 1 übernimmt die Pflegekasse <strong className="text-gray-700">27 € im Monat</strong> – du zahlst nichts. Kein Internet, kein Router, kein Techniker.
+              Gemeinsam mit unserem Partner <strong className="text-gray-700">easierLife</strong> erhältst du ab Pflegegrad 1 den Hausnotruf kostenfrei. Ein Knopfdruck genügt und Hilfe ist 24/7 erreichbar – sofort, verlässlich und ohne Risiko.
             </p>
           </div>
 
