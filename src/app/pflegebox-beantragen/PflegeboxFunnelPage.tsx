@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   ArrowRight, ChevronLeft, CheckCircle2, Package,
   X, RefreshCw, Lock, Plus, Minus, Trash2, ChevronDown, Search,
+  Calendar, MapPin, Phone as PhoneIcon, Mail,
 } from "lucide-react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -526,7 +527,10 @@ interface FormData {
   nachname: string;
   geburtsdatum: string;
   pflegegrad: string;
-  adresse: string;
+  strasse: string;
+  hausnummer: string;
+  plz: string;
+  ort: string;
   adresszusatz: string;
   lieferadresse: string;
   abweichendeLieferadresse: boolean;
@@ -571,7 +575,10 @@ function Step2({
     if (!form.nachname.trim()) return "Bitte Nachname eingeben.";
     if (!form.geburtsdatum) return "Bitte Geburtsdatum eingeben.";
     if (!form.pflegegrad) return "Bitte Pflegegrad auswählen.";
-    if (!form.adresse.trim()) return "Bitte Adresse eingeben.";
+    if (!form.strasse.trim()) return "Bitte Straße eingeben.";
+    if (!form.hausnummer.trim()) return "Bitte Hausnummer eingeben.";
+    if (!form.plz.trim()) return "Bitte PLZ eingeben.";
+    if (!form.ort.trim()) return "Bitte Stadt eingeben.";
     if (!form.telefon.trim()) return "Bitte Telefonnummer eingeben.";
     if (!form.email.trim()) return "Bitte E-Mail eingeben.";
     if (!form.beratung) return "Bitte Beratungspräferenz auswählen.";
@@ -610,7 +617,13 @@ function Step2({
           </select>
           <input type="text" placeholder="Vorname" value={form.vorname} onChange={(e) => update("vorname", e.target.value)} className={inputCls} autoComplete="given-name" />
           <input type="text" placeholder="Nachname" value={form.nachname} onChange={(e) => update("nachname", e.target.value)} className={inputCls} autoComplete="family-name" />
-          <input type="text" placeholder="Geburtsdatum im Format TT.MM.JJJJ" value={form.geburtsdatum} onChange={(e) => update("geburtsdatum", e.target.value)} className={inputCls} inputMode="numeric" />
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Geburtsdatum *</label>
+            <div className="relative">
+              <Calendar size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand pointer-events-none" />
+              <input type="date" value={form.geburtsdatum} onChange={(e) => update("geburtsdatum", e.target.value)} className={`${inputCls} pl-8`} max={new Date().toISOString().split("T")[0]} />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -656,7 +669,29 @@ function Step2({
           <p className="font-semibold text-gray-900 text-sm">Adresse</p>
         </div>
         <div className="space-y-3">
-          <input type="text" placeholder="Vollständige Adresse eingeben" value={form.adresse} onChange={(e) => update("adresse", e.target.value)} className={inputCls} autoComplete="street-address" />
+          <div className="grid grid-cols-3 gap-2">
+            <div className="col-span-2">
+              <label className="block text-xs font-medium text-gray-600 mb-1">Straße *</label>
+              <div className="relative">
+                <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand pointer-events-none" />
+                <input type="text" value={form.strasse} onChange={(e) => update("strasse", e.target.value)} className={`${inputCls} pl-8`} autoComplete="street-address" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Nr. *</label>
+              <input type="text" value={form.hausnummer} onChange={(e) => update("hausnummer", e.target.value)} className={inputCls} />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">PLZ *</label>
+              <input type="text" inputMode="numeric" value={form.plz} onChange={(e) => update("plz", e.target.value)} className={inputCls} maxLength={5} autoComplete="postal-code" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Stadt *</label>
+              <input type="text" value={form.ort} onChange={(e) => update("ort", e.target.value)} className={inputCls} autoComplete="address-level2" />
+            </div>
+          </div>
           <button
             onClick={() => setShowAdresszusatz(!showAdresszusatz)}
             className="flex items-center justify-between w-full text-xs text-gray-500 cursor-pointer"
@@ -1136,7 +1171,8 @@ function Step5() {
 
 const EMPTY_FORM: FormData = {
   anrede: "", vorname: "", nachname: "", geburtsdatum: "",
-  pflegegrad: "", adresse: "", adresszusatz: "", lieferadresse: "",
+  pflegegrad: "", strasse: "", hausnummer: "", plz: "", ort: "",
+  adresszusatz: "", lieferadresse: "",
   abweichendeLieferadresse: false, telefon: "", email: "",
   bereitsVersorgt: false, onlineVerwalten: false, beratung: "",
 };
@@ -1147,14 +1183,21 @@ export default function PflegeboxFunnelPage() {
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [showUpsell, setShowUpsell] = useState(false);
+  const [pendingVersicherung, setPendingVersicherung] = useState("");
+  const [pendingUnterschrift, setPendingUnterschrift] = useState("");
   const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step]);
 
-  async function handleAntragSubmit(versicherung: string, unterschrift: string) {
-    setSubmitting(true);
+  function handleAntragSubmit(versicherung: string, unterschrift: string) {
+    setPendingVersicherung(versicherung);
+    setPendingUnterschrift(unterschrift);
+    setShowUpsell(true);
+  }
+
+  async function submitLead(hausnotruf: boolean) {
     const produkteListe = cart
       .map((c) => {
         const name = PRODUCTS.find((p) => p.id === c.productId)?.name ?? c.productId;
@@ -1170,32 +1213,36 @@ export default function PflegeboxFunnelPage() {
           phone: form.telefon,
           path: "pflegebox-beantragen",
           pflegegrad: form.pflegegrad,
-          tags: `Pflegebox | ${form.pflegegrad} | ${versicherung} | ${cart.length} Produkte`,
+          tags: `Pflegebox | ${form.pflegegrad} | ${pendingVersicherung} | ${cart.length} Produkte`,
           vorname: form.vorname,
           nachname: form.nachname,
           geburtsdatum: form.geburtsdatum,
-          adresse: form.adresse,
-          krankenkasse: versicherung,
-          signature: unterschrift,
+          adresse: `${form.strasse} ${form.hausnummer}, ${form.plz} ${form.ort}`,
+          krankenkasse: pendingVersicherung,
+          signature: pendingUnterschrift,
           gruende: produkteListe,
+          hausnotruf,
           timestamp: new Date().toISOString(),
         }),
       });
     } catch {
-      // Non-blocking — show upsell regardless
-    } finally {
-      setSubmitting(false);
-      setShowUpsell(true);
+      // Non-blocking
     }
   }
 
-  function handleUpsellNext() {
+  async function handleUpsellNext() {
     setShowUpsell(false);
+    setSubmitting(true);
+    await submitLead(true);
+    setSubmitting(false);
     setStep(5);
   }
 
-  function handleUpsellSkip() {
+  async function handleUpsellSkip() {
     setShowUpsell(false);
+    setSubmitting(true);
+    await submitLead(false);
+    setSubmitting(false);
     setStep(5);
   }
 
