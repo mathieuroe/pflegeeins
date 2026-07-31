@@ -14,8 +14,8 @@ const LEISTUNGEN = [
     desc: "100% Übernahme der Pflegekasse",
     filterLabel: null,
     icon: Bell,
-    affiliate: "/hausnotruf-beantragen?start=1",
-    affiliateExternal: null,
+    affiliate: "/vergleich#hausnotruf",
+    ctaHref: "/hausnotruf-beantragen?start=1",
     affiliateDesc: "Deine Pflegekasse übernimmt die monatlichen Kosten – du zahlst nichts.",
   },
   {
@@ -24,8 +24,8 @@ const LEISTUNGEN = [
     desc: "100% Übernahme der Pflegekasse",
     filterLabel: null,
     icon: Package,
-    affiliate: "/pflegebox-beantragen?start=1",
-    affiliateExternal: null,
+    affiliate: "/vergleich#pflegebox",
+    ctaHref: "/pflegebox-beantragen?start=1",
     affiliateDesc: "Monatlich bis zu 42 € für Pflegehilfsmittel – vollständig von der Pflegekasse erstattet.",
   },
   {
@@ -35,7 +35,7 @@ const LEISTUNGEN = [
     filterLabel: "Ambulante Pflege",
     icon: Heart,
     affiliate: null,
-    affiliateExternal: null,
+    ctaHref: null,
     affiliateDesc: null,
   },
   {
@@ -45,7 +45,7 @@ const LEISTUNGEN = [
     filterLabel: "24/7 Pflege",
     icon: Clock,
     affiliate: null,
-    affiliateExternal: null,
+    ctaHref: null,
     affiliateDesc: null,
   },
   {
@@ -55,7 +55,7 @@ const LEISTUNGEN = [
     filterLabel: "Stationäre Pflege",
     icon: Building2,
     affiliate: null,
-    affiliateExternal: null,
+    ctaHref: null,
     affiliateDesc: null,
   },
   {
@@ -65,7 +65,7 @@ const LEISTUNGEN = [
     filterLabel: "Senioren Residenz",
     icon: Star,
     affiliate: null,
-    affiliateExternal: null,
+    ctaHref: null,
     affiliateDesc: null,
   },
 ];
@@ -90,10 +90,6 @@ export default function HeroClient() {
   const [submitting, setSubmitting] = useState(false);
 
   function handleSelect(l: Leistung) {
-    if (l.affiliate) {
-      router.push(l.affiliate);
-      return;
-    }
     setSelected(l);
     setPlzError("");
     setStep(2);
@@ -226,7 +222,7 @@ export default function HeroClient() {
                 <span className="text-sm font-semibold text-brand">{selected.label}</span>
               </div>
 
-              {selected.affiliate ? (
+              {selected.ctaHref ? (
                 /* Intern: Kostenlos ab PG 1 */
                 <div>
                   <p className="text-base font-semibold text-gray-900 mb-1">
@@ -235,13 +231,21 @@ export default function HeroClient() {
                   <p className="text-sm text-gray-500 mb-5 leading-relaxed">
                     {selected.affiliateDesc}
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => router.push(selected.affiliate!)}
-                    className="w-full btn-primary justify-center py-3.5 text-sm"
-                  >
-                    Jetzt kostenlos beantragen <ArrowRight size={16} />
-                  </button>
+                  <div className="flex flex-col gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => router.push(selected.ctaHref!)}
+                      className="w-full btn-primary justify-center py-3.5 text-sm"
+                    >
+                      Jetzt kostenlos beantragen <ArrowRight size={16} />
+                    </button>
+                    <a
+                      href={selected.affiliate!}
+                      className="w-full flex items-center justify-center gap-1.5 border-2 border-brand text-brand font-bold text-sm px-4 py-3 rounded-xl hover:bg-brand-light/40 transition-colors"
+                    >
+                      Zum Vergleich <ArrowRight size={15} />
+                    </a>
+                  </div>
                 </div>
               ) : (
                 /* Non-affiliate: PLZ + Tel + Email Form */
