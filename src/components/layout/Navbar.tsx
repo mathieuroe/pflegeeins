@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ArrowRight, Calculator, Phone, Mail, Bell, Package, ChevronDown, BookOpen, BarChart2, Newspaper, Zap } from "lucide-react";
+import { Menu, X, ArrowRight, Calculator, Phone, Mail, Bell, Package, ChevronDown, BookOpen, BarChart2, Newspaper, Zap, ClipboardList } from "lucide-react";
 
 const GUIDE_LINKS = [
   { href: "/leistungen", label: "Leistungen", icon: Zap, desc: "Was dir die Pflegekasse zahlt" },
@@ -14,6 +14,7 @@ const GUIDE_LINKS = [
 
 const HAUSNOTRUF_HREF = "/hausnotruf-beantragen";
 const PFLEGEBOX_HREF = "/pflegebox-beantragen";
+const PFLEGECHECK_HREF = "/leistungen-check";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -48,8 +49,11 @@ export default function Navbar() {
           liva.
         </Link>
 
-        {/* Desktop nav – Mitte: Pflegebox + Hausnotruf */}
+        {/* Desktop nav – Mitte */}
         <nav className="hidden md:flex items-center gap-2">
+          <Link href={PFLEGECHECK_HREF} className="btn-secondary text-sm px-4 py-2.5 border-brand/50 text-brand">
+            <ClipboardList size={14} /> Pflegecheck
+          </Link>
           <Link href={PFLEGEBOX_HREF} className="btn-secondary text-sm px-4 py-2.5 border-brand/50 text-brand">
             <Package size={14} /> Pflegebox
           </Link>
@@ -63,7 +67,10 @@ export default function Navbar() {
           <a href="tel:+4976188785999" className="md:hidden p-2 text-brand rounded-lg hover:bg-brand-light transition-colors" aria-label="Anrufen">
             <Phone size={20} />
           </a>
-          {/* Mobile: Pflegebox + Hausnotruf */}
+          {/* Mobile: Pflegecheck + Pflegebox + Hausnotruf */}
+          <Link href={PFLEGECHECK_HREF} className="md:hidden btn-secondary text-xs px-2.5 py-2 border-brand/50 text-brand">
+            <ClipboardList size={14} />
+          </Link>
           <Link href={PFLEGEBOX_HREF} className="md:hidden btn-secondary text-xs px-2.5 py-2 border-brand/50 text-brand">
             <Package size={14} />
           </Link>
@@ -74,7 +81,7 @@ export default function Navbar() {
           <div ref={dropdownRef} className="relative hidden md:block">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-brand transition-colors font-medium px-3 py-2 rounded-lg hover:bg-gray-50"
+              className="flex items-center gap-1.5 text-sm text-brand font-medium px-3 py-2 rounded-full border border-brand/40 hover:bg-brand-light transition-colors"
             >
               Pflege-Guide
               <ChevronDown size={14} className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
@@ -123,10 +130,13 @@ export default function Navbar() {
           <a href="mailto:info@liva-pflege.de" className="flex items-center gap-3 text-sm text-gray-500 font-medium py-2.5 px-2 mt-1 border-t border-gray-100">
             <Mail size={14} /> info@liva-pflege.de
           </a>
-          <Link href={PFLEGEBOX_HREF} className="btn-secondary mt-2 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
+          <Link href={PFLEGECHECK_HREF} className="btn-secondary mt-2 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
+            <ClipboardList size={15} /> Pflegecheck starten
+          </Link>
+          <Link href={PFLEGEBOX_HREF} className="btn-secondary mt-1 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
             <Package size={15} /> Pflegebox beantragen
           </Link>
-          <Link href={HAUSNOTRUF_HREF} className="btn-secondary mt-2 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
+          <Link href={HAUSNOTRUF_HREF} className="btn-secondary mt-1 text-center justify-center border-brand text-brand" onClick={() => setOpen(false)}>
             <Bell size={15} /> Hausnotruf beantragen
           </Link>
           <Link href="/leistungen#leistungen-sofort" className="btn-primary mt-2 text-center justify-center" onClick={() => setOpen(false)}>
