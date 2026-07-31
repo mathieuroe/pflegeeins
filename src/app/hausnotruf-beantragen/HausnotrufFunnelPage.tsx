@@ -312,6 +312,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
   const [nachname, setNachname] = useState("");
   const [geburtsdatum, setGeburtsdatum] = useState("");
   const [tel, setTel] = useState("");
+  const [email, setEmail] = useState("");
   const [strasse, setStrasse] = useState("");
   const [hausnummer, setHausnummer] = useState("");
   const [plz, setPlz] = useState("");
@@ -372,7 +373,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           vorname, nachname, geburtsdatum,
-          phone: tel, plz, pflegegrad,
+          email, phone: tel, plz, pflegegrad,
           path: "hausnotruf-beantragen",
           fuer_wen: fuerWen,
           gruende: gruende.join(", "),
@@ -683,6 +684,13 @@ function FunnelModal({ onClose }: FunnelModalProps) {
               <input type="tel" value={tel} onChange={e => setTel(e.target.value)} placeholder="0170 123 456 7" className="input pl-8 text-sm" autoComplete="tel" />
             </div>
           </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">E-Mail-Adresse *</label>
+            <div className="relative">
+              <Mail size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="name@beispiel.de" className="input pl-8 text-sm" autoComplete="email" />
+            </div>
+          </div>
         </div>
 
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Kontaktadresse</p>
@@ -891,7 +899,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         if (!versichertennummer && !sozialamtVersichert) { setError("Bitte gib deine Versichertennummer an."); return; }
         setStep(7);
       } else if (step === 7) {
-        if (!vorname || !nachname || !geburtsdatum || !tel || !strasse || !hausnummer || !plz || !ort || !bundesland) {
+        if (!vorname || !nachname || !geburtsdatum || !tel || !email || !strasse || !hausnummer || !plz || !ort || !bundesland) {
           setError("Bitte fülle alle Pflichtfelder aus."); return;
         }
         setStep(8);

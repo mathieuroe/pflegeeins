@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     vorname, nachname, geburtsdatum, anrede,
     adresse, lieferadresse, bundesland,
     fuer_wen, gruende, wer_pflegt, bereits_vorhanden,
-    krankenkasse, versichertennummer, signature,
+    krankenkasse, versichertennummer, signature, hausnotruf,
   } = body;
 
   const ts = timestamp || new Date().toISOString();
@@ -34,7 +34,11 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await sendInternalLeadNotification({ email, phone, plz, pflegegrad, tags: resolvedTags ?? undefined, source, timestamp: ts });
+    await sendInternalLeadNotification({
+      email, phone, plz, pflegegrad, tags: resolvedTags ?? undefined, source, timestamp: ts,
+      vorname, nachname, geburtsdatum, anrede, adresse, krankenkasse, gruende,
+      hausnotruf: hausnotruf != null ? Boolean(hausnotruf) : null,
+    });
   } catch (err) {
     console.error("[submit-lead] interne E-Mail fehlgeschlagen:", err);
   }

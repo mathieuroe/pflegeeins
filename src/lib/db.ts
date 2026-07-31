@@ -4,7 +4,7 @@ async function initLeadsTable() {
   await sql`
     CREATE TABLE IF NOT EXISTS leads (
       id                  SERIAL PRIMARY KEY,
-      email               TEXT NOT NULL,
+      email               TEXT,
       phone               TEXT,
       plz                 TEXT,
       source              TEXT,
@@ -37,6 +37,8 @@ async function initLeadsTable() {
   await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS krankenkasse TEXT`;
   await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS versichertennummer TEXT`;
   await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS signature_data TEXT`;
+  // email auf nullable ändern (falls Spalte noch NOT NULL ist)
+  await sql`ALTER TABLE leads ALTER COLUMN email DROP NOT NULL`;
 }
 
 async function initNotesTable() {

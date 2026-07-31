@@ -51,53 +51,81 @@ function wrapEmail(content: string) {
 }
 
 export async function sendInternalLeadNotification(data: {
-  email: string;
-  phone?: string;
-  plz?: string;
-  pflegegrad?: string;
-  tags?: string;
+  email?: string | null;
+  phone?: string | null;
+  plz?: string | null;
+  pflegegrad?: string | null;
+  tags?: string | null;
   source: string;
   timestamp: string;
+  // Erweiterte Felder
+  vorname?: string | null;
+  nachname?: string | null;
+  geburtsdatum?: string | null;
+  anrede?: string | null;
+  adresse?: string | null;
+  krankenkasse?: string | null;
+  gruende?: string | null;
+  hausnotruf?: boolean | null;
 }) {
-  const row = (label: string, value: string) => `
+  const row = (label: string, value: string | null | undefined) => value ? `
     <tr>
-      <td style="padding:6px 0;color:#5C7A6F;width:120px;">${label}</td>
+      <td style="padding:6px 0;color:#5C7A6F;width:140px;vertical-align:top;">${label}</td>
       <td style="padding:6px 0;color:#0F1F1A;font-weight:600;">${value}</td>
-    </tr>`;
+    </tr>` : "";
+
+  const name = [data.anrede, data.vorname, data.nachname].filter(Boolean).join(" ") || null;
+  const hausnotrufLabel = data.hausnotruf === true ? "Ja" : data.hausnotruf === false ? "Nein" : null;
 
   const html = wrapEmail(`
-    <h2 style="margin:0 0 16px;font-size:18px;color:#0F1F1A;">Neuer Lead eingegangen</h2>
+    <h2 style="margin:0 0 4px;font-size:18px;color:#0F1F1A;">Neuer Lead eingegangen</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#5C7A6F;">${data.source} · ${data.timestamp}</p>
     <table cellpadding="0" cellspacing="0" style="width:100%;font-size:14px;">
+      ${row("Name", name)}
       ${row("E-Mail", data.email)}
-      ${row("Telefon", data.phone || "–")}
-      ${row("PLZ", data.plz || "–")}
-      ${row("Pflegegrad", data.pflegegrad || "–")}
-      ${row("Interesse", data.tags || "–")}
-      ${row("Herkunft", data.source)}
-      ${row("Zeitstempel", data.timestamp)}
+      ${row("Telefon", data.phone)}
+      ${row("Adresse", data.adresse)}
+      ${row("PLZ", !data.adresse ? data.plz : null)}
+      ${row("Geburtsdatum", data.geburtsdatum)}
+      ${row("Pflegegrad", data.pflegegrad)}
+      ${row("Krankenkasse", data.krankenkasse)}
+      ${row("Produkte / Interesse", data.gruende || data.tags)}
+      ${row("Hausnotruf gewünscht", hausnotrufLabel)}
     </table>
     <div style="margin-top:24px;">
       <a href="https://www.liva-pflege.de/admin" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600;">Im Admin öffnen →</a>
     </div>
   `);
 
+  const subject = [
+    "Neuer Lead",
+    name,
+    data.tags ?? data.pflegegrad,
+    data.source,
+  ].filter(Boolean).join(" – ");
+
   const transporter = getTransporter();
   await transporter.sendMail({
     from: `"liva Leads" <${process.env.SMTP_USER}>`,
     to: process.env.SMTP_USER,
-    subject: `Neuer Lead – ${data.tags ?? data.pflegegrad ?? "–"} – ${data.source}`,
+    subject,
     html,
     text: [
-      "Neuer Lead eingegangen:",
+      "Neuer Lead eingegangen",
       "",
-      `E-Mail:      ${data.email}`,
-      `Telefon:     ${data.phone || "–"}`,
-      `PLZ:         ${data.plz || "–"}`,
-      `Pflegegrad:  ${data.pflegegrad || "–"}`,
-      `Interesse:   ${data.tags || "–"}`,
-      `Herkunft:    ${data.source}`,
-      `Zeitstempel: ${data.timestamp}`,
-    ].join("\n"),
+      name ? `Name:         ${name}` : "",
+      data.email ? `E-Mail:       ${data.email}` : "",
+      data.phone ? `Telefon:      ${data.phone}` : "",
+      data.adresse ? `Adresse:      ${data.adresse}` : data.plz ? `PLZ:          ${data.plz}` : "",
+      data.geburtsdatum ? `Geburtsdatum: ${data.geburtsdatum}` : "",
+      data.pflegegrad ? `Pflegegrad:   ${data.pflegegrad}` : "",
+      data.krankenkasse ? `Krankenkasse: ${data.krankenkasse}` : "",
+      data.gruende ? `Produkte:     ${data.gruende}` : data.tags ? `Interesse:    ${data.tags}` : "",
+      data.hausnotruf != null ? `Hausnotruf:   ${hausnotrufLabel}` : "",
+      "",
+      `Herkunft:     ${data.source}`,
+      `Zeitstempel:  ${data.timestamp}`,
+    ].filter(Boolean).join("\n"),
   });
 }
 
