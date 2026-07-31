@@ -175,7 +175,9 @@ export default function LeadPopup({ lead, onClose, onUpdate }: Props) {
                   tab === t ? "border-brand text-brand" : "border-transparent text-gray-400 hover:text-gray-600"
                 }`}
               >
-                {t === "antrag" ? "Hausnotruf-Antrag" : "Details & Notizen"}
+                {t === "antrag"
+                  ? lead.source === "pflegebox-beantragen" ? "Pflegebox-Antrag" : "Hausnotruf-Antrag"
+                  : "Details & Notizen"}
               </button>
             ))}
           </div>
@@ -216,7 +218,7 @@ export default function LeadPopup({ lead, onClose, onUpdate }: Props) {
                 <div className="bg-gray-50 rounded-xl p-4 space-y-2">
                   <Row label="Antrag für" value={lead.fuer_wen === "ich" ? "Mich selbst" : lead.fuer_wen === "angehoerige" ? "Angehörige/n" : lead.fuer_wen} />
                   <Row label="Pflegegrad" value={lead.pflegegrad} />
-                  <Row label="Gründe" value={lead.gruende} />
+                  <Row label={lead.source === "pflegebox-beantragen" ? "Produkte" : "Gründe"} value={lead.gruende} />
                   <Row label="Wer pflegt" value={lead.wer_pflegt} />
                   <Row label="Gerät vorhanden" value={lead.bereits_vorhanden === "ja" ? "Ja" : lead.bereits_vorhanden === "nein" ? "Nein" : lead.bereits_vorhanden} />
                 </div>
