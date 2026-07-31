@@ -45,22 +45,23 @@ export default function Navbar() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="font-serif text-[1.6rem] text-brand leading-none">
-          liva.
-        </Link>
-
-        {/* Desktop nav – Mitte */}
-        <nav className="hidden md:flex items-center gap-2">
-          <Link href={PFLEGECHECK_HREF} className="btn-secondary text-sm px-4 py-2.5 border-brand/50 text-brand">
-            <ClipboardList size={14} /> Pflegecheck
+        {/* Logo + Desktop nav – links */}
+        <div className="flex items-center gap-3">
+          <Link href="/" className="font-serif text-[1.6rem] text-brand leading-none mr-1">
+            liva.
           </Link>
-          <Link href={PFLEGEBOX_HREF} className="btn-secondary text-sm px-4 py-2.5 border-brand/50 text-brand">
-            <Package size={14} /> Pflegebox
-          </Link>
-          <Link href={HAUSNOTRUF_HREF} className="btn-primary text-sm px-4 py-2.5">
-            <Bell size={14} /> Hausnotruf
-          </Link>
-        </nav>
+          <nav className="hidden md:flex items-center gap-2">
+            <Link href={PFLEGECHECK_HREF} className="btn-secondary text-sm px-4 py-2.5 border-brand/50 text-brand">
+              <ClipboardList size={14} /> Pflegecheck
+            </Link>
+            <Link href={PFLEGEBOX_HREF} className="btn-secondary text-sm px-4 py-2.5 border-brand/50 text-brand">
+              <Package size={14} /> Pflegebox
+            </Link>
+            <Link href={HAUSNOTRUF_HREF} className="btn-primary text-sm px-4 py-2.5">
+              <Bell size={14} /> Hausnotruf
+            </Link>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-1.5">
           {/* Phone icon – mobile only */}
