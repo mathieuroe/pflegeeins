@@ -1049,16 +1049,16 @@ export default function HausnotrufFunnelPage() {
           <p className="text-center text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-6">easierLife-Geräte werden eingesetzt bei</p>
           <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/caritas.png" alt="Caritas" className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            <img src="/logos/caritas.png" alt="Caritas" className="h-10 w-auto object-contain" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/drk.svg" alt="Deutsches Rotes Kreuz" className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            <img src="/logos/drk.svg" alt="Deutsches Rotes Kreuz" className="h-10 w-auto object-contain" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/asb.svg" alt="Arbeiter-Samariter-Bund" className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            <img src="/logos/asb.svg" alt="Arbeiter-Samariter-Bund" className="h-8 w-auto object-contain" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/malteser.svg" alt="Malteser" className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+            <img src="/logos/malteser.svg" alt="Malteser" className="h-8 w-auto object-contain" />
             <div className="hidden sm:block w-px h-8 bg-gray-200" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://www.easierlife.de/wp-content/uploads/2021/01/el_logo_rgb_800x200.png" alt="easierLife" className="h-6 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="https://www.easierlife.de/wp-content/uploads/2021/01/el_logo_rgb_800x200.png" alt="easierLife" className="h-6 w-auto object-contain" />
           </div>
         </div>
       </section>

@@ -140,6 +140,35 @@ export default function PflegeboxLanding({ onStart }: PflegeboxLandingProps) {
         </div>
       </section>
 
+      {/* ── Ablauf ─────────────────────────────────────────────────────────── */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6 border-b border-[#E0EDE7]">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="section-label">So einfach geht's</p>
+            <h2 className="font-serif text-3xl sm:text-4xl text-gray-900 mb-3 leading-tight">
+              In 3 Schritten zur kostenlosen Pflegebox
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-6 relative">
+            <div className="hidden sm:block absolute top-10 left-[calc(16.67%+20px)] right-[calc(16.67%+20px)] h-px bg-gradient-to-r from-brand/30 via-brand/60 to-brand/30" />
+            {[
+              { num: "1", title: "Produkte wählen",  desc: "Stell dir deine Box aus Pflegehilfsmitteln zusammen – bis zu 42 € monatlich." },
+              { num: "2", title: "Antrag absenden",  desc: "Wir reichen den Antrag bei deiner Pflegekasse ein. Dauert ca. 2 Minuten." },
+              { num: "3", title: "Box kommt zu dir", desc: "Die erste Lieferung kommt nach Genehmigung direkt zu dir nach Hause – kostenlos." },
+            ].map(({ num, title, desc }) => (
+              <div key={num} className="flex flex-col items-center text-center">
+                <div className="w-10 h-10 rounded-full bg-brand text-white font-bold text-base flex items-center justify-center mb-4 relative z-10 shadow-md shadow-brand/20">
+                  {num}
+                </div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-2">{title}</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Was ist die Pflegebox? ──────────────────────────────────────────── */}
       <section className="py-14 sm:py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
@@ -226,41 +255,6 @@ export default function PflegeboxLanding({ onStart }: PflegeboxLandingProps) {
             <p className="text-sm text-gray-500 mb-4">Nicht sicher ob du Anspruch hast?</p>
             <button onClick={onStart} className="btn-primary px-6 py-3 text-sm">
               Kostenlos prüfen lassen <ArrowRight size={15} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Ablauf ─────────────────────────────────────────────────────────── */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="section-label">So einfach geht's</p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-gray-900 mb-3 leading-tight">
-              In 3 Schritten zur kostenlosen Pflegebox
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-6 relative">
-            <div className="hidden sm:block absolute top-10 left-[calc(16.67%+20px)] right-[calc(16.67%+20px)] h-px bg-gradient-to-r from-brand/30 via-brand/60 to-brand/30" />
-            {[
-              { num: "1", title: "Produkte wählen",  desc: "Stell dir deine Box aus Pflegehilfsmitteln zusammen – bis zu 42 € monatlich." },
-              { num: "2", title: "Antrag absenden",  desc: "Wir reichen den Antrag bei deiner Pflegekasse ein. Dauert ca. 2 Minuten." },
-              { num: "3", title: "Box kommt zu dir", desc: "Die erste Lieferung kommt nach Genehmigung direkt zu dir nach Hause – kostenlos." },
-            ].map(({ num, title, desc }) => (
-              <div key={num} className="flex flex-col items-center text-center">
-                <div className="w-10 h-10 rounded-full bg-brand text-white font-bold text-base flex items-center justify-center mb-4 relative z-10 shadow-md shadow-brand/20">
-                  {num}
-                </div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <button onClick={onStart} className="btn-primary px-8 py-4 text-base">
-              Jetzt Box zusammenstellen <ArrowRight size={18} />
             </button>
           </div>
         </div>
