@@ -20,9 +20,29 @@ export const metadata: Metadata = {
 const HAUSNOTRUF = [
   {
     rang: 1,
-    name: "smartversorgt",
+    name: "easierLife",
     badge: "Testsieger",
     bewertung: 4.9,
+    preis: "0 € / Monat",
+    preisHinweis: "ab Pflegegrad 1 – 100% Pflegekasse",
+    vorteile: [
+      "Eigener Hersteller – Entwicklung & Produktion in Deutschland",
+      "Geräte werden von Caritas, DRK und Malteser eingesetzt",
+      "Stationärer & mobiler Hausnotruf verfügbar",
+      "24/7 Notrufzentrale in Deutschland",
+      "Vollständig von der Pflegekasse übernommen",
+    ],
+    nachteile: ["Online-Abschluss erforderlich"],
+    besonderheit: "Einziger Hersteller im Vergleich – höchste Gerätequalität",
+    ctaHref: "/hausnotruf-beantragen",
+    affiliate: null,
+    highlight: true,
+  },
+  {
+    rang: 2,
+    name: "smartversorgt",
+    badge: null,
+    bewertung: 4.8,
     preis: "0 € / Monat",
     preisHinweis: "ab Pflegegrad 1 – 100% Pflegekasse",
     vorteile: [
@@ -30,15 +50,15 @@ const HAUSNOTRUF = [
       "Mobile & stationäre Variante verfügbar",
       "GPS + Sturzalarm inklusive",
       "24/7 Notrufzentrale in Deutschland",
-      "Lieferung in 3–5 Werktagen",
     ],
     nachteile: ["Online-Abschluss nötig"],
     besonderheit: "Beste Erreichbarkeit & einfache Beantragung",
-    affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=vergleich_hausnotruf_1&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
-    highlight: true,
+    ctaHref: null,
+    affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=vergleich_hausnotruf_2&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    highlight: false,
   },
   {
-    rang: 2,
+    rang: 3,
     name: "Pflegehase",
     badge: null,
     bewertung: 4.7,
@@ -50,13 +70,14 @@ const HAUSNOTRUF = [
       "Stationärer & mobiler Hausnotruf verfügbar",
       "Schnelle Lieferung & Inbetriebnahme",
     ],
-    nachteile: ["Kein eigener Notrufbetreiber – Kooperation mit Partner"],
+    nachteile: ["Kein eigener Hersteller – Kooperation mit Partner"],
     besonderheit: "Unkomplizierteste Online-Beantragung",
-    affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=vergleich_hausnotruf_2&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    ctaHref: null,
+    affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=vergleich_hausnotruf_3&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
     highlight: false,
   },
   {
-    rang: 3,
+    rang: 4,
     name: "Gardia",
     badge: null,
     bewertung: 4.5,
@@ -70,23 +91,7 @@ const HAUSNOTRUF = [
     ],
     nachteile: ["Eigenanteil möglich", "Nur mobile Variante"],
     besonderheit: "Bestes Armband mit langer Akkulaufzeit",
-    affiliate: null,
-    highlight: false,
-  },
-  {
-    rang: 4,
-    name: "Pflegerufset",
-    badge: null,
-    bewertung: 4.5,
-    preis: "ab 25 € / Monat",
-    preisHinweis: "Pflegegrade 1–5 förderfähig",
-    vorteile: [
-      "Armband und Halskette wählbar",
-      "Für alle Pflegegrade geeignet",
-      "Stationärer Hausnotruf verfügbar",
-    ],
-    nachteile: ["Keine GPS-Option", "Eingeschränkter mobiler Schutz"],
-    besonderheit: "Flexibelste Trageoptionen",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -99,11 +104,12 @@ const HAUSNOTRUF = [
     preisHinweis: "kassenfinanziert möglich",
     vorteile: [
       "Bekannte & vertrauenswürdige Marke",
-      "Breites Servicenetz in DE",
+      "Breites Servicenetz in Deutschland",
       "Stationärer Hausnotruf mit Festnetz",
     ],
-    nachteile: ["Kein mobiler GPS-Notruf", "Eingeschränkter Online-Abschluss"],
+    nachteile: ["Nutzt easierLife-Geräte (kein eigener Hersteller)", "Eingeschränkter Online-Abschluss"],
     besonderheit: "Größtes Servicenetz in Deutschland",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -119,8 +125,9 @@ const HAUSNOTRUF = [
       "Erfahrener Wohlfahrtsanbieter",
       "Stationärer Klassik-Hausnotruf",
     ],
-    nachteile: ["Keine moderne GPS-Variante", "Telefonischer Abschluss nötig"],
+    nachteile: ["Nutzt easierLife-Geräte (kein eigener Hersteller)", "Telefonischer Abschluss nötig"],
     besonderheit: "Bewährter Anbieter mit langer Erfahrung",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -135,15 +142,16 @@ const PFLEGEBOX = [
     preis: "0 € / Monat",
     preisHinweis: "bis zu 42 € / Monat – 100% Pflegekasse",
     vorteile: [
+      "Deutsches Familienunternehmen",
       "Vollständig von der Pflegekasse übernommen",
       "Lieferung flexibel pause- oder änderbar",
       "Individuell konfigurierbare Produktauswahl",
       "Monatliche Lieferung ohne Mindestlaufzeit",
-      "Schnelle Bearbeitung & Lieferung",
     ],
-    nachteile: ["Keine Sofortlieferung"],
+    nachteile: [],
     besonderheit: "Flexibelste Pflegebox mit einfachem Wechsel",
-    affiliate: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=vergleich_box_1&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    ctaHref: "/pflegebox-beantragen?start=1",
+    affiliate: null,
     highlight: true,
   },
   {
@@ -161,6 +169,7 @@ const PFLEGEBOX = [
     ],
     nachteile: ["Kein eigener Hersteller – Auswahl aus Partnersortiment"],
     besonderheit: "Unkomplizierteste Online-Beantragung",
+    ctaHref: null,
     affiliate: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=vergleich_box_2&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
     highlight: false,
   },
@@ -177,6 +186,7 @@ const PFLEGEBOX = [
     ],
     nachteile: ["Weniger Flexibilität beim Anpassen", "Kaum Bekanntheit"],
     besonderheit: "Schnellste Lieferung im Vergleich",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -194,6 +204,7 @@ const PFLEGEBOX = [
     ],
     nachteile: ["Etwas längere Lieferzeiten", "Eingeschränkter Kundenservice"],
     besonderheit: "Beste Individualisierung",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -211,6 +222,7 @@ const PFLEGEBOX = [
     ],
     nachteile: ["Weniger Produktauswahl", "Älteres Bestellsystem"],
     besonderheit: "Meiste Kundenerfahrungen",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -228,6 +240,7 @@ const PFLEGEBOX = [
     ],
     nachteile: ["Längere Lieferzeiten", "Keine Produktanpassung"],
     besonderheit: "Größtes Partnernetzwerk",
+    ctaHref: null,
     affiliate: null,
     highlight: false,
   },
@@ -331,7 +344,14 @@ function VergleichTabelle({
 
               {/* CTA */}
               <div className="flex-shrink-0 hidden sm:block">
-                {e.affiliate ? (
+                {e.ctaHref ? (
+                  <div className="flex flex-col items-center">
+                    <Link href={e.ctaHref} className="btn-primary whitespace-nowrap">
+                      Jetzt kostenlos beantragen <ArrowRight size={14} />
+                    </Link>
+                    <p className="text-[10px] text-gray-400 mt-1">Direkt über liva</p>
+                  </div>
+                ) : e.affiliate ? (
                   <div className="flex flex-col items-center">
                     <a
                       href={e.affiliate}
@@ -352,17 +372,28 @@ function VergleichTabelle({
             </div>
 
             {/* Mobile CTA */}
-            {e.affiliate && (
+            {(e.ctaHref || e.affiliate) && (
               <div className="mt-3 sm:hidden">
-                <a
-                  href={e.affiliate}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary w-full justify-center"
-                >
-                  Jetzt kostenlos beantragen <ArrowRight size={14} />
-                </a>
-                <p className="text-[10px] text-gray-400 mt-1 text-center">Über unseren Partner {e.name}</p>
+                {e.ctaHref ? (
+                  <>
+                    <Link href={e.ctaHref} className="btn-primary w-full justify-center">
+                      Jetzt kostenlos beantragen <ArrowRight size={14} />
+                    </Link>
+                    <p className="text-[10px] text-gray-400 mt-1 text-center">Direkt über liva</p>
+                  </>
+                ) : (
+                  <>
+                    <a
+                      href={e.affiliate!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary w-full justify-center"
+                    >
+                      Jetzt kostenlos beantragen <ArrowRight size={14} />
+                    </a>
+                    <p className="text-[10px] text-gray-400 mt-1 text-center">Über unseren Partner {e.name}</p>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -520,18 +551,12 @@ export default function VergleichPage() {
 
             <div className="mt-5 bg-brand-light/30 rounded-xl border border-brand/20 p-4">
               <p className="text-sm text-gray-700">
-                <strong>Unser Fazit:</strong> smartversorgt bietet das beste Gesamtpaket für einen modernen Hausnotruf –
-                einfache Online-Beantragung, mobile und stationäre Option, GPS-Schutz inklusive und vollständige Kostenübernahme durch die Pflegekasse.
+                <strong>Unser Fazit:</strong> easierLife ist der einzige Hersteller im Vergleich – die Geräte werden von Caritas, DRK und Malteser eingesetzt und gelten als Qualitätsstandard in der Branche. Mit stationärer und mobiler Variante, 24/7-Notrufzentrale und vollständiger Kostenübernahme durch die Pflegekasse ist easierLife unsere klare Empfehlung.
               </p>
-              <a
-                href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=vergleich_hausnotruf_fazit&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary mt-3"
-              >
+              <Link href="/hausnotruf-beantragen" className="btn-primary mt-3 inline-flex">
                 Jetzt kostenlos beantragen <ArrowRight size={14} />
-              </a>
-              <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner smartversorgt</p>
+              </Link>
+              <p className="text-[10px] text-gray-400 mt-1">Direkt über liva – kostenlos & unverbindlich</p>
             </div>
           </section>
 
@@ -556,18 +581,13 @@ export default function VergleichPage() {
 
             <div className="mt-5 bg-brand-light/30 rounded-xl border border-brand/20 p-4">
               <p className="text-sm text-gray-700">
-                <strong>Unser Fazit:</strong> Blubox überzeugt durch maximale Flexibilität – du kannst die Box jederzeit pausieren, anpassen oder wechseln.
+                <strong>Unser Fazit:</strong> Blubox ist ein deutsches Familienunternehmen und überzeugt durch maximale Flexibilität – du kannst die Box jederzeit pausieren, anpassen oder wechseln.
                 Die Inhalte lassen sich individuell auf den Pflegebedarf abstimmen. Und das alles komplett kostenlos über die Pflegekasse.
               </p>
-              <a
-                href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=vergleich_box_fazit&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary mt-3"
-              >
-                Jetzt kostenlos beantragen <ArrowRight size={14} />
-              </a>
-              <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner blubox</p>
+              <Link href="/pflegebox-beantragen?start=1" className="btn-primary mt-3 inline-flex">
+                Jetzt kostenlos zusammenstellen <ArrowRight size={14} />
+              </Link>
+              <p className="text-[10px] text-gray-400 mt-1">Direkt über liva – kostenlos & unverbindlich</p>
             </div>
           </section>
 

@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { X } from "lucide-react";
 import PflegeboxLanding from "./PflegeboxLanding";
 import PflegeboxFunnelPage from "./PflegeboxFunnelPage";
 
 export default function PflegeboxPage() {
-  const [showFunnel, setShowFunnel] = useState(false);
+  const searchParams = useSearchParams();
+  const [showFunnel, setShowFunnel] = useState(searchParams.get("start") === "1");
 
   return (
     <>
