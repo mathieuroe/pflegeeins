@@ -136,7 +136,7 @@ export default function HeroClient() {
 
   return (
     <section className="bg-white border-b border-[#E0EDE7] py-10 sm:py-14 px-4 sm:px-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Headline */}
         <div className="text-center mb-6">
           <h1 className="font-serif text-4xl sm:text-5xl text-gray-900 leading-tight mb-2">
