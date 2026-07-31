@@ -14,7 +14,7 @@ const GUIDE_LINKS = [
 
 const HAUSNOTRUF_HREF = "/hausnotruf-beantragen";
 const PFLEGEBOX_HREF = "/pflegebox-beantragen";
-const PFLEGECHECK_HREF = "/leistungen-check";
+const PFLEGECHECK_HREF = "/";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
