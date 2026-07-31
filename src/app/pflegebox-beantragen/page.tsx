@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import PflegeboxPage from "./PflegeboxPage";
 import Footer from "@/components/layout/Footer";
@@ -12,7 +13,9 @@ export default function Page() {
   return (
     <>
       <main>
-        <PflegeboxPage />
+        <Suspense>
+          <PflegeboxPage />
+        </Suspense>
       </main>
       <Footer />
     </>

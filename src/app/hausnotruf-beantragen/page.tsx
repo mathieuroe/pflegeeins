@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import HausnotrufFunnelPage from "./HausnotrufFunnelPage";
 import Footer from "@/components/layout/Footer";
@@ -12,7 +13,9 @@ export default function Page() {
   return (
     <>
       <main>
-        <HausnotrufFunnelPage />
+        <Suspense>
+          <HausnotrufFunnelPage />
+        </Suspense>
       </main>
       <Footer />
     </>
