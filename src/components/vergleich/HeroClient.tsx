@@ -14,8 +14,8 @@ const LEISTUNGEN = [
     desc: "100% Übernahme der Pflegekasse",
     filterLabel: null,
     icon: Bell,
-    affiliate: "/vergleich#hausnotruf",
-    affiliateExternal: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=hauptfunnel_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    affiliate: "/hausnotruf-beantragen?start=1",
+    affiliateExternal: null,
     affiliateDesc: "Deine Pflegekasse übernimmt die monatlichen Kosten – du zahlst nichts.",
   },
   {
@@ -24,8 +24,8 @@ const LEISTUNGEN = [
     desc: "100% Übernahme der Pflegekasse",
     filterLabel: null,
     icon: Package,
-    affiliate: "/vergleich#pflegebox",
-    affiliateExternal: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=hauptfunnel_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    affiliate: "/pflegebox-beantragen?start=1",
+    affiliateExternal: null,
     affiliateDesc: "Monatlich bis zu 42 € für Pflegehilfsmittel – vollständig von der Pflegekasse erstattet.",
   },
   {
@@ -90,6 +90,10 @@ export default function HeroClient() {
   const [submitting, setSubmitting] = useState(false);
 
   function handleSelect(l: Leistung) {
+    if (l.affiliate) {
+      router.push(l.affiliate);
+      return;
+    }
     setSelected(l);
     setPlzError("");
     setStep(2);
@@ -223,7 +227,7 @@ export default function HeroClient() {
               </div>
 
               {selected.affiliate ? (
-                /* Affiliate: Kostenlos ab PG 1 */
+                /* Intern: Kostenlos ab PG 1 */
                 <div>
                   <p className="text-base font-semibold text-gray-900 mb-1">
                     Kostenlos ab Pflegegrad 1
@@ -231,22 +235,13 @@ export default function HeroClient() {
                   <p className="text-sm text-gray-500 mb-5 leading-relaxed">
                     {selected.affiliateDesc}
                   </p>
-                  <div className="flex flex-col gap-2.5">
-                    <a
-                      href={selected.affiliateExternal!}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full btn-primary justify-center py-3.5 text-sm"
-                    >
-                      Jetzt kostenlos beantragen <ArrowRight size={16} />
-                    </a>
-                    <a
-                      href={selected.affiliate}
-                      className="w-full flex items-center justify-center gap-1.5 border-2 border-brand text-brand font-bold text-sm px-4 py-3 rounded-xl hover:bg-brand-light/40 transition-colors"
-                    >
-                      Zum Vergleich <ArrowRight size={15} />
-                    </a>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => router.push(selected.affiliate!)}
+                    className="w-full btn-primary justify-center py-3.5 text-sm"
+                  >
+                    Jetzt kostenlos beantragen <ArrowRight size={16} />
+                  </button>
                 </div>
               ) : (
                 /* Non-affiliate: PLZ + Tel + Email Form */
