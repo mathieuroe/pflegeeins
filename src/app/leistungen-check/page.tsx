@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import LeistungenCheckFunnel from "@/components/LeistungenCheckFunnel";
 
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 export default function LeistungenCheckPage() {
   return (
     <>
-      <Navbar />
       <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
