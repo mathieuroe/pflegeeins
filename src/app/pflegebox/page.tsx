@@ -5,8 +5,26 @@ import Footer from "@/components/layout/Footer";
 import PflegeboxFunnel from "@/components/PflegeboxFunnel";
 
 export const metadata: Metadata = {
-  title: "Kostenlose Pflegebox beantragen | liva",
-  description: "Deine kostenlose Pflegebox – jeden Monat neu. Handschuhe, Einlagen, Desinfektion – vollständig von der Pflegekasse bezahlt.",
+  title: "Pflegebox kostenlos beantragen – bis 42 € Pflegekasse-Zuschuss | liva",
+  description: "Kostenlose Pflegehilfsmittelbox – jeden Monat neu geliefert. Die Pflegekasse übernimmt bis zu 42 € pro Monat ab Pflegegrad 1. Handschuhe, Einlagen, Desinfektion – kein Eigenanteil. Jetzt beantragen.",
+  keywords: "Pflegebox beantragen, Pflegehilfsmittelbox kostenlos, Pflegebox Pflegekasse, Pflegehilfsmittel beantragen, Pflegebox Inhalt, kostenlose Pflegebox Pflegegrad 1, § 40 SGB XI Pflegehilfsmittel",
+  openGraph: {
+    type: "website",
+    locale: "de_DE",
+    siteName: "liva",
+    title: "Pflegebox kostenlos beantragen – bis 42 € Pflegekasse-Zuschuss | liva",
+    description: "Kostenlose Pflegehilfsmittelbox – jeden Monat neu. Bis zu 42 € von der Pflegekasse, ab Pflegegrad 1, kein Eigenanteil.",
+    url: "https://liva-pflege.de/pflegebox",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Kostenlose Pflegebox beantragen – liva" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pflegebox kostenlos beantragen – bis 42 € Pflegekasse-Zuschuss | liva",
+    description: "Kostenlose Pflegehilfsmittelbox – jeden Monat neu. Bis zu 42 € von der Pflegekasse, ab Pflegegrad 1.",
+  },
+  alternates: {
+    canonical: "https://liva-pflege.de/pflegebox",
+  },
 };
 
 const boxInhalt = [
@@ -18,9 +36,39 @@ const boxInhalt = [
   "Einmalschürzen & Fingerlinge",
 ];
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://liva-pflege.de" },
+        { "@type": "ListItem", "position": 2, "name": "Pflegebox", "item": "https://liva-pflege.de/pflegebox" },
+      ],
+    },
+    {
+      "@type": "Service",
+      "@id": "https://liva-pflege.de/pflegebox#service",
+      "name": "Pflegehilfsmittelbox beantragen",
+      "alternateName": "Kostenlose Pflegebox",
+      "description": "Monatliche Lieferung von Pflegehilfsmitteln – vollständig finanziert durch die Pflegekasse (bis 42 € / Monat gemäß § 40 SGB XI) ab Pflegegrad 1.",
+      "provider": { "@id": "https://liva-pflege.de/#organization" },
+      "areaServed": { "@type": "Country", "name": "Deutschland" },
+      "audience": { "@type": "Audience", "audienceType": "Pflegebedürftige ab Pflegegrad 1 und deren Angehörige" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "description": "Kostenlos durch Pflegekassen-Zuschuss bis 42 € / Monat (§ 40 SGB XI)",
+      },
+    },
+  ],
+};
+
 export default function PflegeboxPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <main>
         <section className="bg-white py-16 px-4 sm:px-6 border-b border-[#E0EDE7]">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">

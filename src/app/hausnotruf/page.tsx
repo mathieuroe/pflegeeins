@@ -5,13 +5,61 @@ import Footer from "@/components/layout/Footer";
 import HausnotrufLeadForm from "@/components/HausnotrufLeadForm";
 
 export const metadata: Metadata = {
-  title: "Hausnotruf mit Pflegekasse-Zuschuss | liva",
-  description: "Die Pflegekasse zahlt 27 € pro Monat für deinen Hausnotruf. Bei vielen Anbietern entstehen keine Kosten für dich.",
+  title: "Hausnotruf kostenlos beantragen – 27 € Pflegekasse-Zuschuss | liva",
+  description: "Die Pflegekasse zahlt 27 € pro Monat für deinen Hausnotruf – ab Pflegegrad 1, kein Eigenanteil. 24/7-Notrufzentrale, Sturzerkennung, Genehmigung in 3–5 Werktagen. Jetzt kostenlos beantragen.",
+  keywords: "Hausnotruf beantragen, Hausnotruf kostenlos, Hausnotruf Pflegekasse, Hausnotruf Zuschuss, Hausnotruf Pflegegrad 1, Notrufknopf Senioren, Hausnotruf Kosten, § 40 SGB XI",
+  openGraph: {
+    type: "website",
+    locale: "de_DE",
+    siteName: "liva",
+    title: "Hausnotruf kostenlos beantragen – 27 € Pflegekasse-Zuschuss | liva",
+    description: "Die Pflegekasse zahlt 27 € / Monat für deinen Hausnotruf. Ab Pflegegrad 1, kein Eigenanteil. Jetzt kostenlos beantragen.",
+    url: "https://liva-pflege.de/hausnotruf",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Hausnotruf kostenlos beantragen – liva" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hausnotruf kostenlos beantragen – 27 € Pflegekasse-Zuschuss | liva",
+    description: "Die Pflegekasse zahlt 27 € / Monat für deinen Hausnotruf. Ab Pflegegrad 1, kein Eigenanteil.",
+  },
+  alternates: {
+    canonical: "https://liva-pflege.de/hausnotruf",
+  },
+};
+
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://liva-pflege.de" },
+        { "@type": "ListItem", "position": 2, "name": "Hausnotruf", "item": "https://liva-pflege.de/hausnotruf" },
+      ],
+    },
+    {
+      "@type": "Service",
+      "@id": "https://liva-pflege.de/hausnotruf#service",
+      "name": "Hausnotruf beantragen",
+      "alternateName": "Hausnotruf mit Pflegekasse-Zuschuss",
+      "description": "Hausnotruf-System mit 24/7-Notrufzentrale und Sturzerkennung. Die Pflegekasse übernimmt 27 € pro Monat gemäß § 40 Abs. 4 SGB XI – ab Pflegegrad 1, kein Eigenanteil bei unseren Partnern.",
+      "provider": { "@id": "https://liva-pflege.de/#organization" },
+      "areaServed": { "@type": "Country", "name": "Deutschland" },
+      "audience": { "@type": "Audience", "audienceType": "Pflegebedürftige ab Pflegegrad 1 und deren Angehörige" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "description": "Kostenlos durch Pflegekassen-Zuschuss von 27 € / Monat (§ 40 Abs. 4 SGB XI)",
+      },
+    },
+  ],
 };
 
 export default function HausnotrufPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <main>
         <section className="bg-white py-16 px-4 sm:px-6 border-b border-[#E0EDE7]">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">

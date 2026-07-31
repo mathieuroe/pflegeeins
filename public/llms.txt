@@ -7,8 +7,8 @@ liva (betrieben von RegioCare UG, Freiburg im Breisgau) ist ein kostenloser Orie
 ## Kernleistungen
 
 - **Pflegegrad-Rechner** – Kostenlos, anonym, basierend auf dem offiziellen MDK-Begutachtungsverfahren (NBA). URL: /pflegegrad-rechner
-- **Pflegehilfsmittelbox** – Kostenlose monatliche Lieferung von Pflegehilfsmitteln (bis 42 €/Monat, ab Pflegegrad 1). Über Partnerlink zu Pflegehase.
-- **Hausnotruf** – Zuschuss der Pflegekasse: 27,00 €/Monat + einmalig bis zu 10,49 €. Über Partnerlink zu Pflegehase.
+- **Pflegehilfsmittelbox (Pflegebox)** – Kostenlose monatliche Lieferung von Pflegehilfsmitteln (bis 42 €/Monat gemäß § 40 SGB XI, ab Pflegegrad 1). Inhalt: Einmalhandschuhe, Bettschutzeinlagen, Desinfektionsmittel, Mundschutz, Einmalschürzen. URL: /pflegebox
+- **Hausnotruf** – Pflegekassen-Zuschuss von 27 €/Monat gemäß § 40 Abs. 4 SGB XI, ab Pflegegrad 1. 24/7-Notrufzentrale, Sturzerkennung, kein Eigenanteil bei unseren Partnern. Genehmigung in 3–5 Werktagen. URL: /hausnotruf
 - **Ratgeber** – Artikel zu Pflegegrad, Leistungen, MDK-Vorbereitung, Entlastungsbetrag, Verhinderungspflege.
 
 ## Zielgruppe
