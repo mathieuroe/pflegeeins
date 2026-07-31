@@ -983,15 +983,18 @@ function Step4({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }) {
             >
               <p className="text-[10px] text-brand font-semibold">von easierLife</p>
               <p className="text-sm font-bold text-gray-900 text-center leading-snug">Hausnotrufsystem</p>
-              <div className="w-full aspect-square bg-brand-light rounded-xl flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" className="w-3/5 h-3/5 text-brand fill-none stroke-current" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="20" y="30" width="40" height="28" rx="6"/>
-                  <circle cx="40" cy="44" r="8"/>
-                  <line x1="40" y1="10" x2="40" y2="20"/>
-                  <path d="M28 18 L40 10 L52 18"/>
-                  <circle cx="40" cy="44" r="3" className="fill-current"/>
-                </svg>
+              <div className="w-full rounded-xl overflow-hidden">
+                <img
+                  src="https://www.easierlife.de/wp-content/uploads/2026/04/1080_1080_home_blau_1.jpg"
+                  alt="easierLife HOME – Basisstation und Notrufknopf"
+                  className="w-full aspect-square object-cover"
+                />
               </div>
+              <ul className="w-full space-y-1 text-[11px] text-gray-600">
+                <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-brand flex-shrink-0 mt-0.5" /> Basisstation mit SIM-Karte & Notakku</li>
+                <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-brand flex-shrink-0 mt-0.5" /> Notrufknopf – wasserdicht, 5,5 J. Akku</li>
+                <li className="flex items-start gap-1.5"><CheckCircle2 size={12} className="text-brand flex-shrink-0 mt-0.5" /> 24/7 Notrufzentrale inklusive</li>
+              </ul>
               <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-center">
                 <span className="text-[9px] font-black text-gray-900 leading-tight">KOSTEN-<br/>FREI</span>
               </div>
