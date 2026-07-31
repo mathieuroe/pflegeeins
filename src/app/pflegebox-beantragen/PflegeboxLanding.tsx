@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import {
   ArrowRight, Package, ShieldCheck, Clock, CheckCircle2,
   Phone, ChevronDown, Star, Users, Heart, Truck, RefreshCw,
@@ -73,76 +72,46 @@ export default function PflegeboxLanding({ onStart }: PflegeboxLandingProps) {
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-[#E0EDE7] py-14 sm:py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
-              {/* Badge */}
-              <span className="inline-flex items-center gap-1.5 bg-brand-light text-brand text-xs font-bold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wide">
-                <CheckCircle2 size={12} /> Pflegekasse zahlt – du nicht
-              </span>
 
-              <h1 className="font-serif text-4xl sm:text-5xl text-gray-900 leading-tight mb-4">
-                Pflegebox <span className="text-brand">kostenlos</span> beantragen
-              </h1>
-              <p className="text-gray-500 text-lg leading-relaxed mb-6">
-                Gemeinsam mit unserem Partner <strong className="text-gray-700">Blubox</strong> erhältst du ab Pflegegrad 1 monatlich Pflegehilfsmittel kostenlos. Bis zu 42 € übernimmt die Pflegekasse – du wählst selbst was du brauchst.
-              </p>
+          {/* Badge + Headline */}
+          <div className="max-w-2xl mb-6">
+            <span className="inline-flex items-center gap-1.5 bg-brand-light text-brand text-xs font-bold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wide">
+              <CheckCircle2 size={12} /> Pflegekasse zahlt – du nicht
+            </span>
+            <h1 className="font-serif text-4xl sm:text-5xl text-gray-900 leading-tight mb-4">
+              Pflegebox <span className="text-brand">kostenlos</span> beantragen
+            </h1>
+            <p className="text-gray-500 text-lg leading-relaxed">
+              Gemeinsam mit unserem Partner <strong className="text-gray-700">Blubox</strong> erhältst du ab Pflegegrad 1 monatlich Pflegehilfsmittel kostenlos. Bis zu 42 € übernimmt die Pflegekasse – du wählst selbst was du brauchst.
+            </p>
+          </div>
 
-              {/* Bullet list – same style as Hausnotruf */}
-              <div className="space-y-2.5 mb-8">
-                {[
-                  "Kein Eigenanteil – Pflegekasse übernimmt bis zu 42 €/Monat",
-                  "Produkte frei wählbar – aus über 12 Pflegehilfsmitteln",
-                  "Kostenloser Versand monatlich direkt zu dir nach Hause",
-                  "Kein Abo, keine Mindestlaufzeit – jederzeit kündbar",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3">
-                    <CheckCircle2 size={16} className="text-brand flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-700">{item}</span>
-                  </div>
-                ))}
+          {/* Bullets */}
+          <div className="space-y-2.5 mb-8">
+            {[
+              "Kein Eigenanteil – Pflegekasse übernimmt bis zu 42 €/Monat",
+              "Produkte frei wählbar – aus über 12 Pflegehilfsmitteln",
+              "Kostenloser Versand monatlich direkt zu dir nach Hause",
+              "Kein Abo, keine Mindestlaufzeit – jederzeit kündbar",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <CheckCircle2 size={16} className="text-brand flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700">{item}</span>
               </div>
+            ))}
+          </div>
 
-              {/* CTAs – same layout as Hausnotruf */}
-              <div className="flex flex-col sm:flex-row gap-3 items-start">
-                <button onClick={onStart} className="btn-primary text-base px-7 py-4">
-                  Pflegebox zusammenstellen <ArrowRight size={18} />
-                </button>
-                <button
-                  onClick={() => setBeratungOpen(true)}
-                  className="btn-secondary text-sm px-6 py-4 flex items-center gap-2 cursor-pointer"
-                >
-                  <Phone size={15} /> Kostenloses Beratungsgespräch
-                </button>
-              </div>
-            </div>
-
-            {/* Image + floating card */}
-            <div className="relative hidden lg:block">
-              <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl">
-                <Image
-                  src="/hero.jpg"
-                  alt="Pflegehilfsmittel Pflegebox kostenlos"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand flex items-center justify-center flex-shrink-0">
-                    <Package size={18} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900">Pflegekasse zahlt</p>
-                    <p className="text-xs text-gray-500">Bis zu 42 € pro Monat – § 40 SGB XI</p>
-                  </div>
-                  <div className="ml-auto">
-                    <span className="text-lg font-bold text-brand">42 €</span>
-                    <p className="text-[10px] text-gray-400 text-right">/ Monat</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 items-start">
+            <button onClick={onStart} className="btn-primary text-base px-7 py-4">
+              Pflegebox zusammenstellen <ArrowRight size={18} />
+            </button>
+            <button
+              onClick={() => setBeratungOpen(true)}
+              className="btn-secondary text-sm px-6 py-4 flex items-center gap-2 cursor-pointer"
+            >
+              <Phone size={15} /> Kostenloses Beratungsgespräch
+            </button>
           </div>
         </div>
       </section>
