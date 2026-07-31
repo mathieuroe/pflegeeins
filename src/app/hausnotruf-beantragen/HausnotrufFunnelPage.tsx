@@ -10,6 +10,7 @@ import {
   Radio, X, Search, PenLine, Check, Home,
 } from "lucide-react";
 import BeratungsModal from "@/components/BeratungsModal";
+import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 // ═══════════════════════════════════════════════════════
 // DATA
@@ -695,28 +696,35 @@ function FunnelModal({ onClose }: FunnelModalProps) {
 
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Kontaktadresse</p>
         <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Straße *</label>
+            <AddressAutocomplete
+              strasse={strasse}
+              hausnummer={hausnummer}
+              plz={plz}
+              ort={ort}
+              onChange={(fields) => {
+                setStrasse(fields.strasse);
+                setHausnummer(fields.hausnummer);
+                setPlz(fields.plz);
+                setOrt(fields.ort);
+              }}
+              inputCls="input text-sm"
+            />
+          </div>
           <div className="grid grid-cols-3 gap-2">
-            <div className="col-span-2">
-              <label className="block text-xs font-medium text-gray-600 mb-1">Straße *</label>
-              <div className="relative">
-                <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
-                <input type="text" value={strasse} onChange={e => setStrasse(e.target.value)} placeholder="Musterstraße" className="input pl-8 text-sm" autoComplete="address-line1" />
-              </div>
-            </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Nr. *</label>
               <input type="text" value={hausnummer} onChange={e => setHausnummer(e.target.value)} placeholder="12a" className="input text-sm" />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <div>
+            <div className="col-span-2">
               <label className="block text-xs font-medium text-gray-600 mb-1">PLZ *</label>
               <input type="text" inputMode="numeric" value={plz} onChange={e => setPlz(e.target.value.replace(/\D/g, ""))} placeholder="12345" maxLength={5} className="input text-sm" autoComplete="postal-code" />
             </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Stadt *</label>
-              <input type="text" value={ort} onChange={e => setOrt(e.target.value)} placeholder="Berlin" className="input text-sm" autoComplete="address-level2" />
-            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Stadt *</label>
+            <input type="text" value={ort} onChange={e => setOrt(e.target.value)} placeholder="Berlin" className="input text-sm" autoComplete="address-level2" />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1">Bundesland *</label>

@@ -5,8 +5,9 @@ import Image from "next/image";
 import {
   ArrowRight, ChevronLeft, CheckCircle2, Package,
   X, RefreshCw, Lock, Plus, Minus, Trash2, ChevronDown, Search,
-  Calendar, MapPin, Phone as PhoneIcon, Mail,
+  Calendar, Phone as PhoneIcon, Mail,
 } from "lucide-react";
+import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -669,28 +670,30 @@ function Step2({
           <p className="font-semibold text-gray-900 text-sm">Adresse</p>
         </div>
         <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Straße *</label>
+            <AddressAutocomplete
+              strasse={form.strasse}
+              hausnummer={form.hausnummer}
+              plz={form.plz}
+              ort={form.ort}
+              onChange={(fields) => setForm((f) => ({ ...f, ...fields }))}
+              inputCls={inputCls}
+            />
+          </div>
           <div className="grid grid-cols-3 gap-2">
-            <div className="col-span-2">
-              <label className="block text-xs font-medium text-gray-600 mb-1">Straße *</label>
-              <div className="relative">
-                <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand pointer-events-none" />
-                <input type="text" value={form.strasse} onChange={(e) => update("strasse", e.target.value)} className={`${inputCls} pl-8`} autoComplete="street-address" />
-              </div>
-            </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Nr. *</label>
               <input type="text" value={form.hausnummer} onChange={(e) => update("hausnummer", e.target.value)} className={inputCls} />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <div>
+            <div className="col-span-2">
               <label className="block text-xs font-medium text-gray-600 mb-1">PLZ *</label>
               <input type="text" inputMode="numeric" value={form.plz} onChange={(e) => update("plz", e.target.value)} className={inputCls} maxLength={5} autoComplete="postal-code" />
             </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Stadt *</label>
-              <input type="text" value={form.ort} onChange={(e) => update("ort", e.target.value)} className={inputCls} autoComplete="address-level2" />
-            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Stadt *</label>
+            <input type="text" value={form.ort} onChange={(e) => update("ort", e.target.value)} className={inputCls} autoComplete="address-level2" />
           </div>
           <button
             onClick={() => setShowAdresszusatz(!showAdresszusatz)}
