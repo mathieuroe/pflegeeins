@@ -49,7 +49,7 @@ export default function HomePage() {
 
       {/* ── Trust Stats ──────────────────────────────────────────── */}
       <section className="bg-white border-b border-[#E0EDE7] py-6 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-3">
           {TRUST_STATS.map((s) => (
             <div key={s.zahl} className="bg-brand-light/60 rounded-xl px-4 py-3 flex flex-col">
               <span className="font-bold text-brand text-xl leading-none mb-0.5">{s.zahl}</span>
@@ -61,7 +61,7 @@ export default function HomePage() {
 
       {/* ── Wie es funktioniert ──────────────────────────────────── */}
       <section className="py-14 px-4 sm:px-6 bg-white border-b border-[#E0EDE7]">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <p className="text-[11px] font-bold text-brand uppercase tracking-widest mb-1 text-center">So einfach geht's</p>
           <h2 className="font-serif text-3xl text-gray-900 text-center mb-8">In 3 Schritten zur passenden Leistung</h2>
           <div className="grid sm:grid-cols-3 gap-6">
@@ -80,7 +80,7 @@ export default function HomePage() {
 
       {/* ── Testimonials ─────────────────────────────────────────── */}
       <section className="py-12 px-4 sm:px-6 bg-white border-b border-[#E0EDE7]">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <p className="font-serif text-2xl text-gray-900 text-center mb-6">Was andere sagen</p>
           <div className="grid sm:grid-cols-2 gap-4">
             {TESTIMONIALS.map((t) => (
@@ -111,7 +111,7 @@ export default function HomePage() {
 
       {/* ── Pflegegrad-Rechner CTA ───────────────────────────────── */}
       <section className="py-10 px-4 sm:px-6 bg-brand-light/20 border-b border-[#E0EDE7]">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
           <div>
             <p className="text-sm font-semibold text-brand mb-1">Pflegegrad noch unklar?</p>
             <h2 className="font-serif text-2xl text-gray-900 mb-1">In 5 Minuten weißt du deinen voraussichtlichen Pflegegrad.</h2>
