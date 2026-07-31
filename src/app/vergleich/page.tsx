@@ -34,7 +34,7 @@ const HAUSNOTRUF = [
     ],
     nachteile: ["Online-Abschluss erforderlich"],
     besonderheit: "Einziger Hersteller im Vergleich – höchste Gerätequalität",
-    ctaHref: "/hausnotruf-beantragen",
+    ctaHref: "/hausnotruf-beantragen?start=1",
     affiliate: null,
     highlight: true,
   },
@@ -549,7 +549,7 @@ export default function VergleichPage() {
               <p className="text-sm text-gray-700">
                 <strong>Unser Fazit:</strong> easierLife ist der einzige Hersteller im Vergleich – die Geräte werden von Caritas, DRK und Malteser eingesetzt und gelten als Qualitätsstandard in der Branche. Mit stationärer und mobiler Variante, 24/7-Notrufzentrale und vollständiger Kostenübernahme durch die Pflegekasse ist easierLife unsere klare Empfehlung.
               </p>
-              <Link href="/hausnotruf-beantragen" className="btn-primary mt-3 inline-flex">
+              <Link href="/hausnotruf-beantragen?start=1" className="btn-primary mt-3 inline-flex">
                 Jetzt kostenlos beantragen <ArrowRight size={14} />
               </Link>
               <p className="text-[10px] text-gray-400 mt-1">Direkt über liva – kostenlos & unverbindlich</p>

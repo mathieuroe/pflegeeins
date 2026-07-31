@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Bell, CheckCircle2, ArrowRight, Phone, Mail, MapPin,
   ShieldCheck, Clock, RefreshCw, ChevronDown, Lock,
@@ -973,7 +974,8 @@ function FunnelModal({ onClose }: FunnelModalProps) {
 // ═══════════════════════════════════════════════════════
 
 export default function HausnotrufFunnelPage() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const [modalOpen, setModalOpen] = useState(searchParams.get("start") === "1");
   const [beratungOpen, setBeratungOpen] = useState(false);
   const pageRef = useRef<HTMLDivElement>(null);
 
