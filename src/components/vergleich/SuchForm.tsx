@@ -10,19 +10,21 @@ const LEISTUNGEN = [
     label: "Hausnotruf",
     sub: "27 € / Monat – von der Pflegekasse",
     icon: Bell,
-    affiliate: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=hauptfunnel_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    affiliate: null,
+    internalHref: "/hausnotruf-beantragen?start=1",
   },
   {
     id: "pflegebox",
     label: "Pflegebox",
     sub: "bis 42 € / Monat – von der Pflegekasse",
     icon: Package,
-    affiliate: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=hauptfunnel_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    affiliate: null,
+    internalHref: "/pflegebox-beantragen?start=1",
   },
-  { id: "grundpflege", label: "Ambulante Pflege", sub: "Körperpflege, Wundversorgung", icon: Heart, affiliate: null },
-  { id: "hauswirtschaft", label: "Hauswirtschaft", sub: "Putzen, Kochen, Einkaufen", icon: Home, affiliate: null },
-  { id: "demenz", label: "Demenzbetreuung", sub: "Begleitung & Betreuung", icon: Brain, affiliate: null },
-  { id: "terminbegleitung", label: "Terminbegleitung", sub: "Arzt, Behörden, Alltag", icon: Car, affiliate: null },
+  { id: "grundpflege", label: "Ambulante Pflege", sub: "Körperpflege, Wundversorgung", icon: Heart, affiliate: null, internalHref: null },
+  { id: "hauswirtschaft", label: "Hauswirtschaft", sub: "Putzen, Kochen, Einkaufen", icon: Home, affiliate: null, internalHref: null },
+  { id: "demenz", label: "Demenzbetreuung", sub: "Begleitung & Betreuung", icon: Brain, affiliate: null, internalHref: null },
+  { id: "terminbegleitung", label: "Terminbegleitung", sub: "Arzt, Behörden, Alltag", icon: Car, affiliate: null, internalHref: null },
 ];
 
 const PFLEGEGRADE = ["Noch kein Pflegegrad", "Pflegegrad 1", "Pflegegrad 2", "Pflegegrad 3", "Pflegegrad 4", "Pflegegrad 5"];
@@ -43,7 +45,9 @@ export default function SuchForm() {
 
   function handleLeistungSelect(l: typeof LEISTUNGEN[0]) {
     setLeistung(l);
-    if (l.affiliate) {
+    if (l.internalHref) {
+      router.push(l.internalHref);
+    } else if (l.affiliate) {
       setAffiliateClicked(true);
       window.open(l.affiliate, "_blank", "noopener,noreferrer");
     } else {
@@ -116,7 +120,7 @@ export default function SuchForm() {
         <div className="px-4 pb-5 grid grid-cols-2 gap-2.5">
           {LEISTUNGEN.map((l) => {
             const Icon = l.icon;
-            const isAffiliate = !!l.affiliate;
+            const isAffiliate = !!l.affiliate || !!l.internalHref;
             return (
               <button
                 key={l.id}
