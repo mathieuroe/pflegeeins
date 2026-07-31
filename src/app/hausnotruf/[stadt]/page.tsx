@@ -92,14 +92,12 @@ export default function HausnotrufStadtPage({
                 </span>
               ))}
             </div>
-            <a
-              href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=stadt_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/hausnotruf-beantragen?start=1"
               className="btn-primary inline-flex text-sm px-7 py-3.5"
             >
               Jetzt kostenlos beantragen <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
         </section>
 
@@ -191,14 +189,12 @@ export default function HausnotrufStadtPage({
             <p className="text-sm text-gray-500 mb-5">
               Dauert 3 Minuten. Kein Papierkram. Lieferung nach {city.name} in 3–5 Werktagen.
             </p>
-            <a
-              href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=stadt_hausnotruf_bottom&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/hausnotruf-beantragen?start=1"
               className="btn-primary inline-flex text-sm px-7 py-3.5"
             >
               Hausnotruf beantragen <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
 
           {/* Breadcrumb-Links */}

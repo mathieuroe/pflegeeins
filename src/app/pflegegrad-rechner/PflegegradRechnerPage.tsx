@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Shield, Clock, Lock, Mail, ChevronDown, ExternalLink, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Shield, Clock, Lock, Mail, ChevronDown, CheckCircle2 } from "lucide-react";
 import PflegegradRechner from "@/components/funnel/PflegegradRechner";
 
 const AFFILIATE_LEISTUNGEN = [
@@ -12,7 +12,7 @@ const AFFILIATE_LEISTUNGEN = [
     emoji: "📦",
     betrag: "42 € / Monat – kostenlos",
     beschreibung: "Handschuhe, Einlagen, Desinfektion und mehr – jeden Monat neu geliefert. Vollständig von der Pflegekasse übernommen. Unser Partner stellt den Antrag kostenlos für dich.",
-    affiliateUrl: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=pflegegrad_rechner_pflegebox&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    affiliateUrl: "/pflegebox-beantragen?start=1",
     affiliateCta: "Jetzt kostenlos bestellen",
     minPg: 1,
   },
@@ -22,7 +22,7 @@ const AFFILIATE_LEISTUNGEN = [
     emoji: "🔔",
     betrag: "27 € / Monat – kostenlos",
     beschreibung: "24/7 Notrufzentrale mit Sturzerkennung. Die Pflegekasse übernimmt die Kosten vollständig. Bei unseren Partnern entstehen für dich keine Kosten – in wenigen Minuten beantragt.",
-    affiliateUrl: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=pflegegrad_rechner_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    affiliateUrl: "/hausnotruf-beantragen?start=1",
     affiliateCta: "Jetzt kostenlos beantragen",
     minPg: 1,
   },
@@ -188,14 +188,12 @@ export default function PflegegradRechnerPage() {
                           {open && (
                             <div className="px-4 pb-5 border-t border-[#E0EDE7] pt-4">
                               <p className="text-sm text-gray-600 leading-relaxed mb-4">{l.beschreibung}</p>
-                              <a
+                              <Link
                                 href={l.affiliateUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 className="btn-primary inline-flex items-center gap-2 text-sm"
                               >
-                                {l.affiliateCta} <ExternalLink size={14} />
-                              </a>
+                                {l.affiliateCta} <ArrowRight size={14} />
+                              </Link>
                             </div>
                           )}
                         </div>

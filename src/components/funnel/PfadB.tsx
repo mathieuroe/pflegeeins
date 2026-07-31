@@ -372,7 +372,7 @@ export default function PfadB({ onStepChange }: PfadBProps = {}) {
                 ))}
               </ul>
               <a
-                href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=hauptfunnel_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
+                href="/pflegebox-beantragen?start=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushDataLayerEvent("has_pg_leistungen_pflegebox_click")}
@@ -416,7 +416,7 @@ export default function PfadB({ onStepChange }: PfadBProps = {}) {
                 ))}
               </ul>
               <a
-                href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=hauptfunnel_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
+                href="/hausnotruf-beantragen?start=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushDataLayerEvent("has_pg_leistungen_hausnotruf_click")}
@@ -499,7 +499,7 @@ export default function PfadB({ onStepChange }: PfadBProps = {}) {
                 ))}
               </ul>
               <a
-                href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=hauptfunnel_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
+                href="/pflegebox-beantragen?start=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushDataLayerEvent("has_pg_checklist_pflegebox_click")}
@@ -542,7 +542,7 @@ export default function PfadB({ onStepChange }: PfadBProps = {}) {
                 ))}
               </ul>
               <a
-                href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=hauptfunnel_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
+                href="/hausnotruf-beantragen?start=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushDataLayerEvent("has_pg_checklist_hausnotruf_click")}

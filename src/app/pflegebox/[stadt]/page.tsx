@@ -92,14 +92,12 @@ export default function PflegeboxStadtPage({
                 </span>
               ))}
             </div>
-            <a
-              href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=stadt_pflegebox&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/pflegebox-beantragen?start=1"
               className="btn-primary inline-flex text-sm px-7 py-3.5"
             >
               Pflegebox kostenlos bestellen <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
         </section>
 
@@ -184,14 +182,12 @@ export default function PflegeboxStadtPage({
             <p className="text-sm text-gray-500 mb-5">
               Bis 42 € / Monat kostenlos. Lieferung nach {city.name}. Kein Papierkram.
             </p>
-            <a
-              href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=stadt_pflegebox_bottom&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/pflegebox-beantragen?start=1"
               className="btn-primary inline-flex text-sm px-7 py-3.5"
             >
               Pflegebox bestellen <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
 
           {/* Breadcrumb-Links */}

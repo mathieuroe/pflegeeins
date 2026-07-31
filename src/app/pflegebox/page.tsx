@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CheckCircle2, ArrowRight, Package } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import PflegeboxFunnel from "@/components/PflegeboxFunnel";
@@ -36,15 +37,12 @@ export default function PflegeboxPage() {
                 ))}
               </div>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
-                  href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=pflegebox_page_hero&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/pflegebox-beantragen?start=1"
                   className="btn-primary inline-flex items-center gap-2"
                 >
                   Jetzt kostenlos bestellen <ArrowRight size={16} />
-                </a>
-                <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner</p>
+                </Link>
                 <a href="#anfrage" className="btn-secondary inline-flex items-center gap-2 mt-2">
                   Erst Fragen stellen
                 </a>

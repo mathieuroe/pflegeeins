@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Package, Bell, Check, ArrowRight, Info, X } from "lucide-react";
 
 const INFO_CONTENT = {
@@ -101,15 +102,12 @@ export default function LeistungsBoxen() {
               </li>
             ))}
           </ul>
-          <a
-            href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=hauptfunnel_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/pflegebox-beantragen?start=1"
             className="btn-primary w-full justify-center py-3 text-sm text-center"
           >
             Jetzt kostenlos beantragen <ArrowRight size={16} />
-          </a>
-          <p className="text-center text-[11px] text-gray-400 mt-2">Über unseren geprüften Partner Pflegehase</p>
+          </Link>
         </div>
 
         {/* Hausnotruf */}
@@ -144,15 +142,12 @@ export default function LeistungsBoxen() {
               </li>
             ))}
           </ul>
-          <a
-            href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=hauptfunnel_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/hausnotruf-beantragen?start=1"
             className="btn-primary w-full justify-center py-3 text-sm text-center"
           >
             Jetzt kostenlos beantragen <ArrowRight size={16} />
-          </a>
-          <p className="text-center text-[11px] text-gray-400 mt-2">Über unseren geprüften Partner Pflegehase</p>
+          </Link>
         </div>
 
       </div>

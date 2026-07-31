@@ -9,11 +9,11 @@ const LeistungsLeadModal = dynamic(() => import("./LeistungsLeadModal"), { ssr: 
 
 const DEEPLINKS: Record<string, { href: string; label: string }> = {
   "pflegebox-karte": {
-    href: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=leistungen_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    href: "/pflegebox-beantragen?start=1",
     label: "Jetzt kostenlos beantragen",
   },
   "hausnotruf-karte": {
-    href: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=leistungen_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    href: "/hausnotruf-beantragen?start=1",
     label: "Jetzt kostenlos beantragen",
   },
 };
@@ -137,14 +137,12 @@ export default function LeistungenGrid() {
 
             <div className="mt-auto">
               {DEEPLINKS[l.id] ? (
-                <a
+                <Link
                   href={DEEPLINKS[l.id].href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-brand text-white text-xs font-semibold px-4 py-2.5 rounded-xl hover:bg-brand-hover transition-colors"
                 >
                   {DEEPLINKS[l.id].label} <ArrowRight size={13} />
-                </a>
+                </Link>
               ) : (
                 <button
                   onClick={() => setActiveLeistung(l.name)}

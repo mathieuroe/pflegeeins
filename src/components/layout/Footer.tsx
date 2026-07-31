@@ -7,8 +7,8 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-xs text-white/50">
           <span className="font-serif text-sm sm:text-base text-white/80">liva.</span>
           <div className="flex gap-4 sm:gap-5">
-            <a href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=footer_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Pflegebox</a>
-            <a href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=footer_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Hausnotruf</a>
+            <Link href="/pflegebox-beantragen?start=1" className="hover:text-white transition-colors">Pflegebox</Link>
+            <Link href="/hausnotruf-beantragen?start=1" className="hover:text-white transition-colors">Hausnotruf</Link>
             <Link href="/leistungen#entlastung" className="hover:text-white transition-colors">Entlastungsbetrag</Link>
           </div>
           <div className="flex gap-3 sm:gap-4">

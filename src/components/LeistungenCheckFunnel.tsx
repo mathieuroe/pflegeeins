@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
+import { ChevronDown, ChevronUp, ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 interface Leistung {
@@ -12,7 +12,7 @@ interface Leistung {
   pflegegrade: number[];
   antragsSchritte: string[];
   icon: string;
-  affiliateUrl?: string;
+  internalHref?: string;
   affiliateCta?: string;
 }
 
@@ -24,7 +24,7 @@ const LEISTUNGEN: Leistung[] = [
     beschreibung: "Einmalhandschuhe, Bettschutzeinlagen, Desinfektion – monatlich gratis nach Hause. Unser Partner übernimmt die Beantragung bei deiner Pflegekasse kostenlos für dich.",
     pflegegrade: [1, 2, 3, 4, 5],
     icon: "📦",
-    affiliateUrl: "https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=leistungen_check_pflegebox&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F",
+    internalHref: "/pflegebox-beantragen?start=1",
     affiliateCta: "Pflegebox kostenlos bestellen",
     antragsSchritte: [],
   },
@@ -35,7 +35,7 @@ const LEISTUNGEN: Leistung[] = [
     beschreibung: "Die Pflegekasse zahlt bis zu 27 € pro Monat – bei unserem Partner entstehen für dich keine Kosten. Er stellt den Antrag bei deiner Pflegekasse und liefert das Gerät in 3–5 Werktagen.",
     pflegegrade: [1, 2, 3, 4, 5],
     icon: "🔔",
-    affiliateUrl: "https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=leistungen_check_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F",
+    internalHref: "/hausnotruf-beantragen?start=1",
     affiliateCta: "Hausnotruf kostenlos beantragen",
     antragsSchritte: [],
   },
@@ -230,15 +230,13 @@ export default function LeistungenCheckFunnel() {
                     {expandedId === l.id && (
                       <div className="px-4 pb-4 border-t border-[#E0EDE7]">
                         <p className="text-gray-500 text-sm leading-relaxed mt-3 mb-4">{l.beschreibung}</p>
-                        {l.affiliateUrl ? (
-                          <a
-                            href={l.affiliateUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        {l.internalHref ? (
+                          <Link
+                            href={l.internalHref}
                             className="btn-primary inline-flex items-center gap-2 text-sm"
                           >
-                            {l.affiliateCta} <ExternalLink size={14} />
-                          </a>
+                            {l.affiliateCta} <ArrowRight size={14} />
+                          </Link>
                         ) : (
                           <>
                             <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">So beantragst du es:</h4>

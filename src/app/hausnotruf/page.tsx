@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CheckCircle2, PhoneCall, Wifi, ShieldCheck, ArrowRight, Bell } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import HausnotrufLeadForm from "@/components/HausnotrufLeadForm";
@@ -25,15 +26,12 @@ export default function HausnotrufPage() {
                 </div>
               ))}
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
-                  href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=hausnotruf_page_hero&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/hausnotruf-beantragen?start=1"
                   className="btn-primary inline-flex items-center gap-2"
                 >
                   Jetzt kostenlos beantragen <ArrowRight size={16} />
-                </a>
-                <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner</p>
+                </Link>
                 <a href="#anfrage" className="btn-secondary inline-flex items-center gap-2 mt-2">
                   Erst Fragen stellen
                 </a>

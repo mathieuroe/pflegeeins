@@ -138,13 +138,12 @@ export default function ErgebnisseClient({ plz, pflegegrad, fuerWen, leistung, r
                 </li>
               ))}
             </ul>
-            <a
-              href="https://t.adcell.com/p/click?promoId=307657&slotId=149760&subId=pflegedienste_hausnotruf&param0=https%3A%2F%2Fpflegehase.de%2Fhausnotruf-bestellung%2F"
-              target="_blank" rel="noopener noreferrer"
+            <Link
+              href="/hausnotruf-beantragen?start=1"
               className="inline-flex items-center gap-2 bg-brand text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-brand/90 transition-colors"
             >
               Jetzt kostenlos beantragen <ArrowRight size={14} />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -165,13 +164,12 @@ export default function ErgebnisseClient({ plz, pflegegrad, fuerWen, leistung, r
                 </li>
               ))}
             </ul>
-            <a
-              href="https://t.adcell.com/p/click?promoId=273407&slotId=149760&subId=pflegedienste_box&param0=https%3A%2F%2Fpflegehase.de%2Fpflegehilfsmittel-bestellung%2F"
-              target="_blank" rel="noopener noreferrer"
+            <Link
+              href="/pflegebox-beantragen?start=1"
               className="inline-flex items-center gap-2 border border-brand text-brand text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-brand hover:text-white transition-colors"
             >
               Pflegebox jetzt beantragen <ArrowRight size={14} />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -12,8 +12,8 @@ const GUIDE_LINKS = [
   { href: "/pflegegrad-rechner", label: "Pflegegrad-Rechner", icon: Calculator, desc: "Pflegegrad kostenlos einschätzen" },
 ];
 
-const HAUSNOTRUF_HREF = "/hausnotruf-beantragen";
-const PFLEGEBOX_HREF = "/pflegebox-beantragen";
+const HAUSNOTRUF_HREF = "/hausnotruf-beantragen?start=1";
+const PFLEGEBOX_HREF = "/pflegebox-beantragen?start=1";
 const PFLEGECHECK_HREF = "/";
 
 export default function Navbar() {
