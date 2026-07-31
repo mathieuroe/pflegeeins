@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   ArrowRight, ChevronLeft, CheckCircle2, Package,
-  X, RefreshCw, Lock, Plus, Minus, Trash2, ChevronDown,
+  X, RefreshCw, Lock, Plus, Minus, Trash2, ChevronDown, Search,
 } from "lucide-react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -12,6 +12,67 @@ import {
 const BUDGET_MAX = 42;
 const AFFILIATE_URL =
   "https://www.adcell.de/click.php?promoId=273407&slotId=149760&subId=pflegebox_funnel";
+
+const KRANKENKASSEN = [
+  "Allianz Private Krankenversicherung","Alte Oldenburger Krankenversicherung",
+  "AOK Baden-Württemberg","AOK Bayern","AOK Bremen Bremerhaven","AOK Hessen",
+  "AOK Niedersachsen","AOK Nordost","AOK NordWest","AOK Plus (Sachsen/Thüringen)",
+  "AOK Rheinland/Hamburg","AOK Rheinland-Pfalz/Saarland","AOK Sachsen-Anhalt",
+  "Audi BKK","BARMER","BIG direkt gesund","BKK 24","BKK Diakonie","BKK Firmus",
+  "BKK Linde","BKK ProVita","BKK Scheufelen","BKK VerbundPlus",
+  "BKK Wirtschaft & Finanzen","BKK Würth","BKK ZF & Partner","Bosch BKK",
+  "Continentale Krankenversicherung","DAK-Gesundheit","Debeka BKK","Energie-BKK",
+  "HEK – Hanseatische Krankenkasse","HKK Erste Gesundheit",
+  "IKK Brandenburg und Berlin","IKK classic","IKK gesund plus","IKK Nord","IKK Südwest",
+  "KKH – Kaufmännische Krankenkasse","Knappschaft","mhplus BKK","Mobil Krankenkasse",
+  "Novitas BKK","pronova BKK","R+V BKK","Salus BKK",
+  "SBK – Siemens-Betriebskrankenkasse","Securvita BKK","Techniker Krankenkasse (TK)",
+  "TUI BKK","Viactiv Krankenkasse","WMF BKK",
+];
+
+function KrankenkasseSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+  const filtered = KRANKENKASSEN.filter(k => k.toLowerCase().includes(search.toLowerCase()));
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+  return (
+    <div ref={ref} className="relative mt-3">
+      <label className="block text-xs font-medium text-gray-600 mb-1">Krankenkasse / Pflegeversicherung *</label>
+      <button type="button" onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between gap-2 border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-brand cursor-pointer text-left">
+        <span className={value ? "text-gray-900" : "text-gray-400"}>{value || "Krankenkasse auswählen"}</span>
+        <ChevronDown size={14} className={`text-gray-400 flex-shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden">
+          <div className="p-2 border-b border-gray-100">
+            <div className="relative">
+              <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input autoFocus type="text" value={search} onChange={e => setSearch(e.target.value)}
+                placeholder="Suche..." className="w-full pl-7 pr-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:border-brand" />
+            </div>
+          </div>
+          <div className="max-h-48 overflow-y-auto">
+            {filtered.length === 0 && <p className="text-sm text-gray-400 p-3 text-center">Keine Ergebnisse</p>}
+            {filtered.map(k => (
+              <button key={k} type="button" onClick={() => { onChange(k); setOpen(false); setSearch(""); }}
+                className={`w-full text-left px-4 py-2.5 text-sm hover:bg-brand-light transition-colors cursor-pointer ${k === value ? "text-brand font-semibold bg-brand-light" : "text-gray-700"}`}>
+                {k}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -88,7 +149,7 @@ function fmtEur(n: number): string {
 
 // ─── Step Indicator ───────────────────────────────────────────────────────────
 
-const STEP_LABELS = ["Produktauswahl", "Dateneingabe", "Antrag", "Hausnotruf", "Fertig"];
+const STEP_LABELS = ["Produktauswahl", "Dateneingabe", "Antrag", "Fertig"];
 
 function StepIndicator({ current }: { current: Step }) {
   return (
@@ -819,6 +880,7 @@ function Step3({
   submitting: boolean;
 }) {
   const [versicherung, setVersicherung] = useState("");
+  const [krankenkasse, setKrankenkasse] = useState("");
   const [unterschrift, setUnterschrift] = useState("");
   const [signed, setSigned] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
@@ -828,10 +890,11 @@ function Step3({
 
   function handleSubmit() {
     if (!versicherung) { setError("Bitte Versicherungstyp auswählen."); return; }
+    if (versicherung === "gesetzlich versichert" && !krankenkasse) { setError("Bitte Krankenkasse auswählen."); return; }
     if (!unterschrift.trim()) { setError("Bitte Vor- und Nachname eingeben."); return; }
     if (!signed) { setError("Bitte unterschreiben."); return; }
     if (!confirmed) { setError("Bitte bestätige die Kostenübernahme."); return; }
-    onSubmit(versicherung, unterschrift);
+    onSubmit(versicherung === "gesetzlich versichert" ? krankenkasse : versicherung, unterschrift);
   }
 
   const sectionCls = "bg-white rounded-2xl border border-[#E0EDE7] p-5 mb-4";
@@ -856,7 +919,7 @@ function Step3({
           {VERSICHERUNG.map((v) => (
             <label key={v} className="flex items-center gap-2.5 cursor-pointer group">
               <div
-                onClick={() => setVersicherung(v)}
+                onClick={() => { setVersicherung(v); setKrankenkasse(""); }}
                 className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
                   versicherung === v ? "border-brand bg-brand" : "border-gray-300"
                 }`}
@@ -867,6 +930,9 @@ function Step3({
             </label>
           ))}
         </div>
+        {versicherung === "gesetzlich versichert" && (
+          <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
+        )}
       </div>
 
       {/* 2: Unterschrift */}
@@ -1125,15 +1191,12 @@ export default function PflegeboxFunnelPage() {
 
   function handleUpsellNext() {
     setShowUpsell(false);
-    setStep(4);
-    // Redirect to affiliate
-    window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
+    setStep(5);
   }
 
   function handleUpsellSkip() {
     setShowUpsell(false);
     setStep(5);
-    window.open(AFFILIATE_URL, "_blank", "noopener,noreferrer");
   }
 
   return (
