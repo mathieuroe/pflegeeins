@@ -363,11 +363,7 @@ function VergleichTabelle({
                     </a>
                     <p className="text-[10px] text-gray-400 mt-1">Über unseren Partner {e.name}</p>
                   </div>
-                ) : (
-                  <span className="inline-block text-xs text-gray-400 text-center px-3 py-2 rounded-xl border border-[#E0EDE7] whitespace-nowrap">
-                    Kein<br />Direktlink
-                  </span>
-                )}
+                ) : null}
               </div>
             </div>
 
