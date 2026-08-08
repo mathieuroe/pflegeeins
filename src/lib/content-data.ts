@@ -200,6 +200,28 @@ Wenn die Hauptpflegeperson verhindert ist – durch Urlaub, Krankheit oder ander
 
 export const NEWS: ContentItem[] = [
   {
+    slug: "pflegereform-2026-reformplaene-der-bundesregierung",
+    titel: "Pflegereform 2026: Reformpläne der Bundesregierung",
+    beschreibung: "Bundesregierung plant umfassende Änderungen",
+    kategorie: "Politik",
+    lesezeit: "3 Min.",
+    datum: "August 2026",
+    typ: "news",
+    inhalt: `## Pflegereform 2026: Ein Überblick über die Pläne der Bundesregierung
+Die Bundesregierung plant eine umfassende **Pflegereform**, um das deutsche **Pflegesystem** zu stabilisieren. Die Reform soll insbesondere die **pflegende Angehörige** entlasten und die **Pflegeleistungen** verbessern.
+
+## Hintergrund
+Der Bedarf an **Pflegepersonal** steigt kontinuierlich, während gleichzeitig ein Mangel an qualifizierten Pflegekräften besteht. Die **Pflegekasse** steht vor großen finanziellen Herausforderungen, da die Ausgaben für die **Pflegeversicherung** stetig steigen.
+
+## Reformpläne
+Die Bundesregierung plant, das **Pflegekompetenzgesetz** zu überarbeiten, um den **Pflegeberuf** attraktiver zu machen. Zudem sollen die **Pflegesätze** angepasst werden, um eine faire Vergütung für die Pflegekräfte zu gewährleisten. Die Reform soll auch die **Verhinderungspflege** und die **Kurzzeitpflege** verbessern.
+
+## Auswirkungen auf pflegende Angehörige
+Die Reform soll insbesondere die **pflegenden Angehörigen** entlasten, indem sie eine bessere Unterstützung durch die **Pflegekasse** erhalten. Zudem sollen die **Pflegeleistungen** verbessert werden, um eine bessere Versorgung der Pflegebedürftigen zu gewährleisten.
+
+Quelle: BMG, Juli 2026`,
+  },
+  {
     slug: "pflegereform-bundesregierung-plant-umfassende-aenderungen",
     titel: "Pflegereform: Bundesregierung plant umfassende Änderungen",
     beschreibung: "Reform soll Pflegebedürftige und Beitragszahler betreffen",
