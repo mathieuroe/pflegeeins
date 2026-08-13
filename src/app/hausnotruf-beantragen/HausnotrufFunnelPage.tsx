@@ -622,14 +622,14 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         <div className="space-y-4">
           <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer *</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer (optional)</label>
             <div className="relative">
               <CreditCard size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
               <input type="text" value={versichertennummer} onChange={e => setVersichertennummer(e.target.value.toUpperCase())}
                 placeholder="z. B. A123456789" disabled={sozialamtVersichert}
                 className={`input pl-8 text-sm font-mono tracking-wider ${sozialamtVersichert ? "opacity-50" : ""}`} maxLength={10} />
             </div>
-            <p className="text-[10px] text-gray-400 mt-1">Steht auf der Krankenversicherungskarte (10 Zeichen)</p>
+            <p className="text-[10px] text-gray-400 mt-1">Steht auf der Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.</p>
           </div>
           <label className="flex items-center gap-3 cursor-pointer">
             <div onClick={() => setSozialamtVersichert(!sozialamtVersichert)}
@@ -896,7 +896,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         setStep(5);
       } else if (step === 6) {
         if (!krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
-        if (!versichertennummer && !sozialamtVersichert) { setError("Bitte gib deine Versichertennummer an."); return; }
+        // Versichertennummer ist optional – Nutzer kann sie später nachreichen
         setStep(7);
       } else if (step === 7) {
         if (!vorname || !nachname || !geburtsdatum || !tel || !email || !strasse || !hausnummer || !plz || !ort || !bundesland) {

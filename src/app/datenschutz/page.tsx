@@ -105,7 +105,20 @@ export default function DatenschutzPage() {
           </div>
 
           <div>
-            <h2 className="font-semibold text-gray-900 mb-1">8. Deine Rechte</h2>
+            <h2 className="font-semibold text-gray-900 mb-1">8. Pflegegrad-Rechner und Gesundheitsdaten</h2>
+            <p className="mb-2">
+              Unser Pflegegrad-Rechner erfasst Angaben zur körperlichen und kognitiven Situation einer pflegebedürftigen Person. Diese Angaben stellen besondere Kategorien personenbezogener Daten im Sinne von Art. 9 Abs. 1 DSGVO (Gesundheitsdaten) dar.
+            </p>
+            <p className="mb-2">
+              Die Verarbeitung dieser Daten erfolgt ausschließlich auf Grundlage deiner ausdrücklichen Einwilligung gemäß Art. 9 Abs. 2 lit. a DSGVO, die du durch Aktivierung der Einwilligungs-Checkbox im Formular erteilst. Ohne Einwilligung werden keine Ergebnisse übermittelt oder gespeichert.
+            </p>
+            <p>
+              Die Angaben werden verwendet, um dir deine persönliche Leistungsübersicht per E-Mail zuzusenden. Eine Weitergabe an Dritte erfolgt nicht. Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen (info@liva-pflege.de). Bereits übersandte Ergebnisse können auf Anfrage gelöscht werden.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="font-semibold text-gray-900 mb-1">9. Deine Rechte</h2>
             <p className="mb-2">Du hast gegenüber uns folgende Rechte hinsichtlich deiner personenbezogenen Daten:</p>
             <ul className="list-disc list-inside space-y-1 text-gray-600">
               <li>Auskunft (Art. 15 DSGVO)</li>
@@ -126,7 +139,7 @@ export default function DatenschutzPage() {
           </div>
 
           <div>
-            <h2 className="font-semibold text-gray-900 mb-1">9. Aktualität dieser Erklärung</h2>
+            <h2 className="font-semibold text-gray-900 mb-1">10. Aktualität dieser Erklärung</h2>
             <p>
               Stand: Juni 2026. Die jeweils aktuelle Version findest du unter liva-pflege.de/datenschutz.
             </p>

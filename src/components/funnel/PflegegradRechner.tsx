@@ -436,16 +436,21 @@ export default function PflegegradRechner({ onErgebnis }: Props) {
 
   const selectOpt = useCallback((qid: string, idx: number) => {
     setAnswers(a => ({ ...a, [qid]: idx }));
-    // Wenn letzte Frage beantwortet → direkt Ergebnis übergeben
+    const updatedAnswers = { ...answers, [qid]: idx };
+    // PG-5-Automatik: Sonderfall-Frage mit "Ja" beantwortet → sofort Ergebnis
+    if (cur.type === "q" && cur.q.role === "special" && idx === 1) {
+      const R = computeResult(updatedAnswers);
+      setTimeout(() => onErgebnis(R.pg, R.total), 260);
+      return;
+    }
     const nextStep = step + 1;
     if (nextStep >= STEPS.length) {
-      const updatedAnswers = { ...answers, [qid]: idx };
       const R = computeResult(updatedAnswers);
       setTimeout(() => onErgebnis(R.pg, R.total), 260);
     } else {
       setTimeout(() => goTo(nextStep), 260);
     }
-  }, [step, goTo, answers, onErgebnis]);
+  }, [step, goTo, answers, onErgebnis, cur]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {

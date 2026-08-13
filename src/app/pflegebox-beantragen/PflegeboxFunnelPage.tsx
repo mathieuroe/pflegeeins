@@ -310,7 +310,7 @@ function ProductCard({
         </div>
       )}
       <div className="relative w-full aspect-square bg-brand-light rounded-xl overflow-hidden">
-        <Image src={product.img} alt={product.name} fill className="object-contain p-3" />
+        <Image src={product.img} alt={product.name} fill className="object-contain p-3" loading="eager" />
       </div>
       <div className="flex-1">
         <p className="text-[11px] font-semibold text-gray-900 leading-tight">{product.name}</p>

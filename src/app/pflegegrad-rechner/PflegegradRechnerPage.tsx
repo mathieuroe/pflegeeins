@@ -67,6 +67,7 @@ export default function PflegegradRechnerPage() {
   const [ergebnis, setErgebnis] = useState<{ pflegegrad: number; punkte: number } | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -274,10 +275,26 @@ export default function PflegegradRechnerPage() {
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className="input w-full"
                     />
+                    <label className="flex items-start gap-2.5 cursor-pointer">
+                      <button
+                        type="button"
+                        role="checkbox"
+                        aria-checked={consent}
+                        onClick={() => setConsent(c => !c)}
+                        className={`mt-0.5 w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors ${consent ? "bg-brand border-brand" : "border-gray-300"}`}
+                      >
+                        {consent && <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                      </button>
+                      <span className="text-xs text-gray-500 leading-relaxed">
+                        Ich stimme der Verarbeitung meiner Daten gemäß{" "}
+                        <Link href="/datenschutz" className="text-brand hover:underline underline-offset-2" target="_blank">Datenschutzerklärung</Link>
+                        {" "}zu. Die Angaben zum Pflegegrad werden vertraulich behandelt (Art. 9 DSGVO).
+                      </span>
+                    </label>
                     <button
                       type="submit"
-                      disabled={submitting}
-                      className="btn-primary w-full py-3.5 justify-center text-base"
+                      disabled={submitting || !consent}
+                      className="btn-primary w-full py-3.5 justify-center text-base disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {submitting ? "Wird gesendet…" : <><Mail size={16} /> Ergebnis kostenlos erhalten</>}
                     </button>
