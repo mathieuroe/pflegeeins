@@ -58,51 +58,118 @@ export async function sendInternalLeadNotification(data: {
   tags?: string | null;
   source: string;
   timestamp: string;
-  // Erweiterte Felder
   vorname?: string | null;
   nachname?: string | null;
   geburtsdatum?: string | null;
   anrede?: string | null;
   adresse?: string | null;
-  krankenkasse?: string | null;
+  lieferadresse?: string | null;
+  bundesland?: string | null;
+  fuer_wen?: string | null;
   gruende?: string | null;
+  wer_pflegt?: string | null;
+  bereits_vorhanden?: string | null;
+  krankenkasse?: string | null;
+  versichertennummer?: string | null;
   hausnotruf?: boolean | null;
+  dbSaved?: boolean;
 }) {
   const row = (label: string, value: string | null | undefined) => value ? `
     <tr>
-      <td style="padding:6px 0;color:#5C7A6F;width:140px;vertical-align:top;">${label}</td>
-      <td style="padding:6px 0;color:#0F1F1A;font-weight:600;">${value}</td>
+      <td style="padding:5px 12px 5px 0;color:#5C7A6F;width:160px;vertical-align:top;font-size:13px;">${label}</td>
+      <td style="padding:5px 0;color:#0F1F1A;font-weight:600;font-size:13px;">${value}</td>
     </tr>` : "";
+
+  const section = (title: string, rows: string) => rows.trim() ? `
+    <p style="margin:20px 0 6px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">${title}</p>
+    <table cellpadding="0" cellspacing="0" style="width:100%;border-top:1px solid #E1F5EE;">
+      ${rows}
+    </table>` : "";
 
   const name = [data.anrede, data.vorname, data.nachname].filter(Boolean).join(" ") || null;
   const hausnotrufLabel = data.hausnotruf === true ? "Ja" : data.hausnotruf === false ? "Nein" : null;
+  const fuerWenLabel = data.fuer_wen === "ich" ? "Mich selbst" : data.fuer_wen === "angehoerige" ? "Angehörige/n" : data.fuer_wen ?? null;
+  const bereitsLabel = data.bereits_vorhanden === "ja" ? "Ja" : data.bereits_vorhanden === "nein" ? "Nein" : data.bereits_vorhanden ?? null;
+  const lieferInfo = data.lieferadresse && data.lieferadresse !== data.adresse ? data.lieferadresse : data.lieferadresse ? "= Wohnanschrift" : null;
+  const dbWarning = data.dbSaved === false ? `
+    <div style="margin:0 0 20px;padding:10px 16px;background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;font-size:13px;color:#92400E;">
+      ⚠️ <strong>Achtung:</strong> Dieser Lead wurde NICHT in der Datenbank gespeichert (DB-Fehler). Bitte manuell sichern!
+    </div>` : "";
 
   const html = wrapEmail(`
     <h2 style="margin:0 0 4px;font-size:18px;color:#0F1F1A;">Neuer Lead eingegangen</h2>
-    <p style="margin:0 0 20px;font-size:13px;color:#5C7A6F;">${data.source} · ${data.timestamp}</p>
-    <table cellpadding="0" cellspacing="0" style="width:100%;font-size:14px;">
+    <p style="margin:0 0 16px;font-size:13px;color:#5C7A6F;">${data.source} · ${new Date(data.timestamp).toLocaleString("de-DE")}</p>
+    ${dbWarning}
+    ${section("Kontakt", `
       ${row("Name", name)}
       ${row("E-Mail", data.email)}
       ${row("Telefon", data.phone)}
-      ${row("Adresse", data.adresse)}
-      ${row("PLZ", !data.adresse ? data.plz : null)}
       ${row("Geburtsdatum", data.geburtsdatum)}
+    `)}
+    ${section("Adresse", `
+      ${row("Wohnanschrift", data.adresse)}
+      ${row("Bundesland", data.bundesland)}
+      ${row("Lieferadresse", lieferInfo)}
+      ${!data.adresse ? row("PLZ", data.plz) : ""}
+    `)}
+    ${section("Pflegesituation", `
       ${row("Pflegegrad", data.pflegegrad)}
-      ${row("Krankenkasse", data.krankenkasse)}
-      ${row("Produkte / Interesse", data.gruende || data.tags)}
+      ${row("Antrag für", fuerWenLabel)}
+      ${row("Wer pflegt", data.wer_pflegt)}
+      ${row("Gerät bereits vorhanden", bereitsLabel)}
       ${row("Hausnotruf gewünscht", hausnotrufLabel)}
-    </table>
-    <div style="margin-top:24px;">
+    `)}
+    ${section("Versicherung", `
+      ${row("Krankenkasse", data.krankenkasse)}
+      ${row("Versichertennr.", data.versichertennummer)}
+    `)}
+    ${section("Interesse / Produkte", `
+      ${row("Auswahl", data.gruende || data.tags)}
+    `)}
+    <div style="margin-top:28px;">
       <a href="https://www.liva-pflege.de/admin" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600;">Im Admin öffnen →</a>
     </div>
   `);
 
   const subject = [
+    data.dbSaved === false ? "⚠️ DB-FEHLER –" : null,
     "Neuer Lead",
     name,
     data.tags ?? data.pflegegrad,
-    data.source,
-  ].filter(Boolean).join(" – ");
+    `[${data.source}]`,
+  ].filter(Boolean).join(" ");
+
+  const textLines = [
+    "=== NEUER LEAD ===",
+    `Quelle:           ${data.source}`,
+    `Zeitstempel:      ${new Date(data.timestamp).toLocaleString("de-DE")}`,
+    data.dbSaved === false ? "!!! DB-FEHLER: Lead nicht gespeichert !!!" : "",
+    "",
+    "--- KONTAKT ---",
+    name         ? `Name:             ${name}` : "",
+    data.email   ? `E-Mail:           ${data.email}` : "",
+    data.phone   ? `Telefon:          ${data.phone}` : "",
+    data.geburtsdatum ? `Geburtsdatum:     ${data.geburtsdatum}` : "",
+    "",
+    "--- ADRESSE ---",
+    data.adresse    ? `Wohnanschrift:    ${data.adresse}` : data.plz ? `PLZ:              ${data.plz}` : "",
+    data.bundesland ? `Bundesland:       ${data.bundesland}` : "",
+    lieferInfo      ? `Lieferadresse:    ${lieferInfo}` : "",
+    "",
+    "--- PFLEGESITUATION ---",
+    data.pflegegrad       ? `Pflegegrad:       ${data.pflegegrad}` : "",
+    fuerWenLabel          ? `Antrag für:       ${fuerWenLabel}` : "",
+    data.wer_pflegt       ? `Wer pflegt:       ${data.wer_pflegt}` : "",
+    bereitsLabel          ? `Gerät vorhanden:  ${bereitsLabel}` : "",
+    hausnotrufLabel       ? `Hausnotruf:       ${hausnotrufLabel}` : "",
+    "",
+    "--- VERSICHERUNG ---",
+    data.krankenkasse      ? `Krankenkasse:     ${data.krankenkasse}` : "",
+    data.versichertennummer ? `Versichertennr.:  ${data.versichertennummer}` : "",
+    "",
+    "--- INTERESSE / PRODUKTE ---",
+    (data.gruende || data.tags) ? `Auswahl:          ${data.gruende || data.tags}` : "",
+  ].filter(Boolean).join("\n");
 
   const transporter = getTransporter();
   await transporter.sendMail({
@@ -110,22 +177,7 @@ export async function sendInternalLeadNotification(data: {
     to: process.env.SMTP_USER,
     subject,
     html,
-    text: [
-      "Neuer Lead eingegangen",
-      "",
-      name ? `Name:         ${name}` : "",
-      data.email ? `E-Mail:       ${data.email}` : "",
-      data.phone ? `Telefon:      ${data.phone}` : "",
-      data.adresse ? `Adresse:      ${data.adresse}` : data.plz ? `PLZ:          ${data.plz}` : "",
-      data.geburtsdatum ? `Geburtsdatum: ${data.geburtsdatum}` : "",
-      data.pflegegrad ? `Pflegegrad:   ${data.pflegegrad}` : "",
-      data.krankenkasse ? `Krankenkasse: ${data.krankenkasse}` : "",
-      data.gruende ? `Produkte:     ${data.gruende}` : data.tags ? `Interesse:    ${data.tags}` : "",
-      data.hausnotruf != null ? `Hausnotruf:   ${hausnotrufLabel}` : "",
-      "",
-      `Herkunft:     ${data.source}`,
-      `Zeitstempel:  ${data.timestamp}`,
-    ].filter(Boolean).join("\n"),
+    text: textLines,
   });
 }
 

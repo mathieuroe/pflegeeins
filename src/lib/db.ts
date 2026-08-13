@@ -54,6 +54,10 @@ async function initNotesTable() {
 
 // ── Leads ────────────────────────────────────────────────
 
+async function tryInit() {
+  try { await initLeadsTable(); } catch { /* Tabelle existiert bereits – kein Problem */ }
+}
+
 export async function insertLead(data: {
   email: string;
   phone?: string | null;
@@ -81,7 +85,7 @@ export async function insertLead(data: {
   signature_data?: string | null;
 }) {
   if (!process.env.POSTGRES_URL) return;
-  await initLeadsTable();
+  await tryInit();
   await sql`
     INSERT INTO leads (
       email, phone, plz, source, pflegegrad, tags,

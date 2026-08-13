@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
   const source = path || funnel || "unbekannt";
   const resolvedTags = tags || (Array.isArray(interessen) ? interessen.join(", ") : interessen) || null;
 
+  let dbSaved = false;
   try {
     await insertLead({
       email, phone, plz, source, pflegegrad, tags: resolvedTags,
@@ -29,6 +30,7 @@ export async function POST(req: NextRequest) {
       krankenkasse, versichertennummer,
       signature_data: typeof signature === "string" ? signature : null,
     });
+    dbSaved = true;
   } catch (err) {
     console.error("[submit-lead] DB-Speicherung fehlgeschlagen:", err);
   }
@@ -36,8 +38,12 @@ export async function POST(req: NextRequest) {
   try {
     await sendInternalLeadNotification({
       email, phone, plz, pflegegrad, tags: resolvedTags ?? undefined, source, timestamp: ts,
-      vorname, nachname, geburtsdatum, anrede, adresse, krankenkasse, gruende,
+      vorname, nachname, geburtsdatum, anrede,
+      adresse, lieferadresse, bundesland,
+      fuer_wen, gruende, wer_pflegt, bereits_vorhanden,
+      krankenkasse, versichertennummer,
       hausnotruf: hausnotruf != null ? Boolean(hausnotruf) : null,
+      dbSaved,
     });
   } catch (err) {
     console.error("[submit-lead] interne E-Mail fehlgeschlagen:", err);
@@ -51,5 +57,5 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, dbSaved });
 }

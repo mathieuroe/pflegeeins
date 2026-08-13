@@ -368,7 +368,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         ? `${strasse} ${hausnummer}, ${plz} ${ort}`
         : `${lieferStrasse} ${lieferHausnummer}, ${lieferPlz} ${lieferOrt}`;
 
-      await fetch("/api/submit-lead", {
+      const res = await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -397,6 +397,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
           consent_timestamp: new Date().toISOString(),
         }),
       });
+      if (!res.ok) throw new Error("Server-Fehler beim Speichern");
       setStep("success");
     } catch {
       setError("Etwas ist schiefgelaufen. Bitte versuche es erneut.");
