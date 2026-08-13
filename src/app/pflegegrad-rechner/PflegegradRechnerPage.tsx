@@ -145,7 +145,10 @@ export default function PflegegradRechnerPage() {
             >
               <p className="text-sm font-semibold uppercase tracking-widest opacity-80 mb-2">Dein geschätztes Ergebnis</p>
               <h2 className="font-serif text-4xl font-bold mb-1">{pg!.titel}</h2>
-              <p className="text-sm opacity-70">{ergebnis.punkte} von 100 Punkten</p>
+              <p className="text-sm opacity-70">{ergebnis.punkte.toLocaleString("de-DE")} von 100 Punkten</p>
+              {ergebnis.pflegegrad === 5 && ergebnis.punkte < 90 && (
+                <p className="text-xs opacity-80 mt-1 leading-relaxed">Aufgrund der vollständigen Gebrauchsunfähigkeit von Armen und Beinen erfolgt die Einstufung in Pflegegrad 5 unabhängig von der Gesamtpunktzahl.</p>
+              )}
               <p className="text-sm opacity-90 mt-3 leading-relaxed">{pg!.beschreibung}</p>
             </div>
 
