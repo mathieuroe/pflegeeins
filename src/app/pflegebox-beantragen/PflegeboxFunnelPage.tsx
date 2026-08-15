@@ -877,12 +877,15 @@ function Step3({
   submitting,
 }: {
   form: FormData;
-  onSubmit: (versicherung: string, unterschrift: string) => void;
+  onSubmit: (versicherung: string, unterschrift: string, versicherungsnummer?: string) => void;
   onBack: () => void;
   submitting: boolean;
 }) {
   const [versicherung, setVersicherung] = useState("");
   const [krankenkasse, setKrankenkasse] = useState("");
+  const [versicherungsnummer, setVersicherungsnummer] = useState("");
+  const [sozialamtName, setSozialamtName] = useState("");
+  const [showPrivatModal, setShowPrivatModal] = useState(false);
   const [unterschrift, setUnterschrift] = useState("");
   const [signed, setSigned] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
@@ -890,19 +893,48 @@ function Step3({
 
   const VERSICHERUNG = ["gesetzlich versichert", "privat versichert", "Orts-/Sozialamt"];
 
+  function selectVersicherung(v: string) {
+    setVersicherung(v);
+    setKrankenkasse("");
+    if (v === "privat versichert") setShowPrivatModal(true);
+  }
+
   function handleSubmit() {
     if (!versicherung) { setError("Bitte Versicherungstyp auswählen."); return; }
     if (versicherung === "gesetzlich versichert" && !krankenkasse) { setError("Bitte Krankenkasse auswählen."); return; }
     if (!unterschrift.trim()) { setError("Bitte Vor- und Nachname eingeben."); return; }
     if (!signed) { setError("Bitte unterschreiben."); return; }
     if (!confirmed) { setError("Bitte bestätige die Kostenübernahme."); return; }
-    onSubmit(versicherung === "gesetzlich versichert" ? krankenkasse : versicherung, unterschrift);
+    const finalVersicherung =
+      versicherung === "gesetzlich versichert" ? krankenkasse :
+      versicherung === "Orts-/Sozialamt" ? (sozialamtName.trim() || "Orts-/Sozialamt") :
+      versicherung;
+    onSubmit(finalVersicherung, unterschrift, versicherungsnummer || undefined);
   }
 
   const sectionCls = "bg-white rounded-2xl border border-[#E0EDE7] p-5 mb-4";
+  const inputCls2 = "w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-colors";
 
   return (
     <div className="max-w-lg mx-auto px-4 sm:px-6 py-8">
+      {/* Privat-Modal */}
+      {showPrivatModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+          <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-gray-900 text-base">Privat versichert?</h3>
+              <button onClick={() => setShowPrivatModal(false)} className="p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer"><X size={16} /></button>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed mb-5">
+              Da du privat versichert bist, können wir nicht direkt mit deiner Pflegekasse abrechnen. Wir schicken dir eine Rechnung für die gelieferten Pflegehilfsmittel, die du anschließend bei deiner privaten Pflegeversicherung zur Kostenerstattung einreichen kannst. Bitte beachte, dass hierfür ein Pflegegrad vorliegen muss.
+            </p>
+            <button onClick={() => setShowPrivatModal(false)} className="btn-primary w-full justify-center py-3 text-sm cursor-pointer">
+              Ok
+            </button>
+          </div>
+        </div>
+      )}
+
       <button onClick={onBack} className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-brand transition-colors cursor-pointer mb-5">
         <ChevronLeft size={14} /> Zurück
       </button>
@@ -921,7 +953,7 @@ function Step3({
           {VERSICHERUNG.map((v) => (
             <label key={v} className="flex items-center gap-2.5 cursor-pointer group">
               <div
-                onClick={() => { setVersicherung(v); setKrankenkasse(""); }}
+                onClick={() => selectVersicherung(v)}
                 className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
                   versicherung === v ? "border-brand bg-brand" : "border-gray-300"
                 }`}
@@ -933,7 +965,33 @@ function Step3({
           ))}
         </div>
         {versicherung === "gesetzlich versichert" && (
-          <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
+          <>
+            <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
+            <div className="mt-3">
+              <label className="block text-xs font-medium text-gray-600 mb-1">Versicherungsnummer (optional)</label>
+              <input
+                type="text"
+                placeholder="Versicherungsnummer"
+                value={versicherungsnummer}
+                onChange={(e) => setVersicherungsnummer(e.target.value)}
+                className={inputCls2}
+              />
+              <p className="text-[10px] text-gray-400 mt-1">
+                Steht auf deiner Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.
+              </p>
+            </div>
+          </>
+        )}
+        {versicherung === "Orts-/Sozialamt" && (
+          <div className="mt-3">
+            <input
+              type="text"
+              placeholder="Orts-/Sozialamt"
+              value={sozialamtName}
+              onChange={(e) => setSozialamtName(e.target.value)}
+              className={inputCls2}
+            />
+          </div>
         )}
       </div>
 
@@ -1152,15 +1210,17 @@ export default function PflegeboxFunnelPage() {
   const [showUpsell, setShowUpsell] = useState(false);
   const [pendingVersicherung, setPendingVersicherung] = useState("");
   const [pendingUnterschrift, setPendingUnterschrift] = useState("");
+  const [pendingVersicherungsnummer, setPendingVersicherungsnummer] = useState("");
   const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step]);
 
-  function handleAntragSubmit(versicherung: string, unterschrift: string) {
+  function handleAntragSubmit(versicherung: string, unterschrift: string, versicherungsnummer?: string) {
     setPendingVersicherung(versicherung);
     setPendingUnterschrift(unterschrift);
+    setPendingVersicherungsnummer(versicherungsnummer ?? "");
     setShowUpsell(true);
   }
 
@@ -1186,6 +1246,7 @@ export default function PflegeboxFunnelPage() {
           geburtsdatum: form.geburtsdatum,
           adresse: `${form.strasse} ${form.hausnummer}, ${form.plz} ${form.ort}`,
           krankenkasse: pendingVersicherung,
+          versichertennummer: pendingVersicherungsnummer || undefined,
           signature: pendingUnterschrift,
           gruende: produkteListe,
           hausnotruf,
