@@ -326,6 +326,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
   const [lieferOrt, setLieferOrt] = useState("");
   // Step 9
   const [einwilligung, setEinwilligung] = useState(false);
+  const [consentError, setConsentError] = useState(false);
   // Step 10
   const [signatureData, setSignatureData] = useState<string | null>(null);
 
@@ -840,8 +841,8 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         </div>
 
         <label className="flex items-start gap-3 cursor-pointer mb-4">
-          <div onClick={() => setEinwilligung(!einwilligung)}
-            className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 cursor-pointer transition-colors ${einwilligung ? "bg-brand border-brand" : "border-gray-300"}`}>
+          <div onClick={() => { setEinwilligung(!einwilligung); setConsentError(false); }}
+            className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 cursor-pointer transition-colors ${einwilligung ? "bg-brand border-brand" : consentError ? "border-red-400 bg-red-50" : "border-gray-300"}`}>
             {einwilligung && <Check size={10} className="text-white" />}
           </div>
           <span className="text-xs text-gray-500 leading-relaxed">
@@ -917,7 +918,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         }
         setStep(9);
       } else if (step === 9) {
-        if (!einwilligung) { setError("Bitte stimme der Einwilligungserklärung zu."); return; }
+        if (!einwilligung) { setConsentError(true); setError("Bitte stimme der Einwilligungserklärung zu."); return; }
         setStep(10);
       } else if (step === 10) {
         handleSubmit();
