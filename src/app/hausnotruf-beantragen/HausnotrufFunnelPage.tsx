@@ -623,37 +623,8 @@ function FunnelModal({ onClose }: FunnelModalProps) {
       </div>
     );
 
-    // Step 6: Pflegeversicherung
+    // Step 6: Kontaktdaten
     if (step === 6) return (
-      <div>
-        <h2 className="font-serif text-xl sm:text-2xl text-gray-900 mb-1">Angaben zur Pflegeversicherung</h2>
-        <p className="text-sm text-gray-400 mb-5">Wir benötigen diese Daten für den Antrag bei deiner Pflegekasse.</p>
-        <div className="space-y-4">
-          <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
-          <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer (optional)</label>
-            <div className="relative">
-              <CreditCard size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
-              <input type="text" value={versichertennummer} onChange={e => setVersichertennummer(e.target.value.toUpperCase())}
-                placeholder="z. B. A123456789" disabled={sozialamtVersichert}
-                className={`input pl-8 text-sm font-mono tracking-wider ${sozialamtVersichert ? "opacity-50" : ""}`} maxLength={10} />
-            </div>
-            <p className="text-[10px] text-gray-400 mt-1">Steht auf der Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.</p>
-          </div>
-          <label className="flex items-center gap-3 cursor-pointer">
-            <div onClick={() => setSozialamtVersichert(!sozialamtVersichert)}
-              className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${sozialamtVersichert ? "bg-brand border-brand" : "border-gray-300"}`}>
-              {sozialamtVersichert && <Check size={10} className="text-white" />}
-            </div>
-            <span className="text-xs text-gray-600">Ich bin über das örtliche Amt / Sozialamt versichert</span>
-          </label>
-        </div>
-        {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
-      </div>
-    );
-
-    // Step 7: Kontaktdaten
-    if (step === 7) return (
       <div>
         <h2 className="font-serif text-xl sm:text-2xl text-gray-900 mb-1">Deine Kontaktdaten</h2>
         <p className="text-sm text-gray-400 mb-5">Angaben zur {fuerWen === "ich" ? "versicherten Person" : "pflegebedürftigen Person"} und Kontaktadresse.</p>
@@ -734,6 +705,35 @@ function FunnelModal({ onClose }: FunnelModalProps) {
               {BUNDESLAENDER.map(b => <option key={b}>{b}</option>)}
             </select>
           </div>
+        </div>
+        {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
+      </div>
+    );
+
+    // Step 7: Pflegeversicherung
+    if (step === 7) return (
+      <div>
+        <h2 className="font-serif text-xl sm:text-2xl text-gray-900 mb-1">Angaben zur Pflegeversicherung</h2>
+        <p className="text-sm text-gray-400 mb-5">Wir benötigen diese Daten für den Antrag bei deiner Pflegekasse.</p>
+        <div className="space-y-4">
+          <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer (optional)</label>
+            <div className="relative">
+              <CreditCard size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
+              <input type="text" value={versichertennummer} onChange={e => setVersichertennummer(e.target.value.toUpperCase())}
+                placeholder="z. B. A123456789" disabled={sozialamtVersichert}
+                className={`input pl-8 text-sm font-mono tracking-wider ${sozialamtVersichert ? "opacity-50" : ""}`} maxLength={10} />
+            </div>
+            <p className="text-[10px] text-gray-400 mt-1">Steht auf der Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.</p>
+          </div>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <div onClick={() => setSozialamtVersichert(!sozialamtVersichert)}
+              className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${sozialamtVersichert ? "bg-brand border-brand" : "border-gray-300"}`}>
+              {sozialamtVersichert && <Check size={10} className="text-white" />}
+            </div>
+            <span className="text-xs text-gray-600">Ich bin über das örtliche Amt / Sozialamt versichert</span>
+          </label>
         </div>
         {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
       </div>
@@ -913,13 +913,13 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         if (!werPflegt) { setError("Bitte wähle eine Option aus."); return; }
         setStep(5);
       } else if (step === 6) {
-        if (!krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
-        // Versichertennummer ist optional – Nutzer kann sie später nachreichen
-        setStep(7);
-      } else if (step === 7) {
         if (!vorname || !nachname || !geburtsdatum || !tel || !email || !strasse || !hausnummer || !plz || !ort || !bundesland) {
           setError("Bitte fülle alle Pflichtfelder aus."); return;
         }
+        setStep(7);
+      } else if (step === 7) {
+        if (!krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
+        // Versichertennummer ist optional – Nutzer kann sie später nachreichen
         setStep(8);
       } else if (step === 8) {
         if (lieferOption === "anders" && (!lieferStrasse || !lieferHausnummer || !lieferPlz || !lieferOrt)) {
