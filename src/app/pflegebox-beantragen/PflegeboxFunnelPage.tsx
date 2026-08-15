@@ -595,13 +595,13 @@ function Step2({
         </div>
         <div className="space-y-3">
           <select value={form.anrede} onChange={(e) => update("anrede", e.target.value)} className={inputCls}>
-            <option value="">Anrede</option>
+            <option value="">Anrede *</option>
             <option>Herr</option>
             <option>Frau</option>
             <option>Divers</option>
           </select>
-          <input type="text" placeholder="Vorname" value={form.vorname} onChange={(e) => update("vorname", e.target.value)} className={inputCls} autoComplete="given-name" />
-          <input type="text" placeholder="Nachname" value={form.nachname} onChange={(e) => update("nachname", e.target.value)} className={inputCls} autoComplete="family-name" />
+          <input type="text" placeholder="Vorname *" value={form.vorname} onChange={(e) => update("vorname", e.target.value)} className={inputCls} autoComplete="given-name" />
+          <input type="text" placeholder="Nachname *" value={form.nachname} onChange={(e) => update("nachname", e.target.value)} className={inputCls} autoComplete="family-name" />
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1">Geburtsdatum *</label>
             <div className="relative">
@@ -710,8 +710,8 @@ function Step2({
         </div>
         <p className="text-xs text-gray-400 mb-3">Wir benötigen diese Angaben, um dich bei Rückfragen kontaktieren zu können.</p>
         <div className="space-y-3">
-          <input type="tel" placeholder="Telefonnummer" value={form.telefon} onChange={(e) => update("telefon", e.target.value)} className={inputCls} autoComplete="tel" />
-          <input type="email" placeholder="E-Mail" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputCls} autoComplete="email" />
+          <input type="tel" placeholder="Telefonnummer *" value={form.telefon} onChange={(e) => update("telefon", e.target.value)} className={inputCls} autoComplete="tel" />
+          <input type="email" placeholder="E-Mail *" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputCls} autoComplete="email" />
         </div>
       </div>
 
