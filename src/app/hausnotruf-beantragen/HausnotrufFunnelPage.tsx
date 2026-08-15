@@ -531,10 +531,17 @@ function FunnelModal({ onClose }: FunnelModalProps) {
             </label>
           ))}
         </div>
-        <div className="mt-4 p-3.5 bg-amber-50 rounded-xl border border-amber-100">
+        <div className="mt-4 p-3.5 bg-amber-50 rounded-xl border border-amber-100 space-y-3">
           <p className="text-xs text-amber-700 leading-relaxed">
-            <strong>Noch kein Pflegegrad?</strong> Du kannst den Antrag trotzdem stellen – wir beraten dich kostenlos zu deinen Möglichkeiten. Wähle in dem Fall keinen Pflegegrad aus.
+            <strong>Noch kein Pflegegrad?</strong> Du kannst den Antrag trotzdem stellen – wir beraten dich kostenlos zu deinen Möglichkeiten.
           </p>
+          <label className={`flex items-center gap-3 px-4 py-3.5 rounded-xl border-2 cursor-pointer transition-all ${pflegegrad === "Kein Pflegegrad" ? "border-amber-400 bg-amber-100" : "border-amber-200 hover:border-amber-300 bg-white"}`}>
+            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${pflegegrad === "Kein Pflegegrad" ? "border-amber-500 bg-amber-500" : "border-gray-300"}`}>
+              {pflegegrad === "Kein Pflegegrad" && <div className="w-2 h-2 rounded-full bg-white" />}
+            </div>
+            <input type="radio" value="Kein Pflegegrad" checked={pflegegrad === "Kein Pflegegrad"} onChange={() => setPflegegrad("Kein Pflegegrad")} className="sr-only" />
+            <span className="text-sm font-semibold text-amber-800">Kein Pflegegrad</span>
+          </label>
         </div>
         {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
       </div>
@@ -887,7 +894,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
       if (step === "welcome") {
         setStep(1);
       } else if (step === 2) {
-        if (!pflegegrad) { setError("Bitte wähle einen Pflegegrad aus."); return; }
+        if (!pflegegrad) { setError("Bitte wähle einen Pflegegrad aus oder wähle \"Kein Pflegegrad\"."); return; }
         setStep(3);
       } else if (step === 3) {
         if (gruende.length === 0) { setError("Bitte wähle mindestens eine Option aus."); return; }
