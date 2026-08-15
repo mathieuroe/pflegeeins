@@ -417,35 +417,35 @@ function FunnelModal({ onClose }: FunnelModalProps) {
   // ── Render step content ──────────────────────────────
   function renderStep() {
     if (step === "success") return (
-      <div className="flex flex-col items-center text-center py-8 px-4">
-        <div className="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center mb-5">
-          <CheckCircle2 size={32} className="text-brand" />
+      <div className="flex flex-col items-center text-center py-4 px-4">
+        <div className="w-12 h-12 rounded-full bg-brand-light flex items-center justify-center mb-3">
+          <CheckCircle2 size={24} className="text-brand" />
         </div>
         <h3 className="font-serif text-2xl text-gray-900 mb-1">Antrag eingegangen!</h3>
-        <p className="text-brand font-semibold text-sm mb-3">Vielen Dank!</p>
-        <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-6">
+        <p className="text-brand font-semibold text-sm mb-2">Vielen Dank!</p>
+        <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-3">
           Wir melden uns <strong className="text-gray-700">innerhalb von 24 Stunden</strong> bei dir, klären alle Details und stellen den Antrag für dich bei deiner Pflegekasse.
         </p>
-        <div className="bg-brand-light rounded-2xl p-4 text-left w-full max-w-sm mb-6">
-          <p className="text-xs font-bold text-brand uppercase tracking-wider mb-3">Was jetzt passiert</p>
+        <div className="bg-brand-light rounded-2xl p-3 text-left w-full max-w-sm mb-3">
+          <p className="text-xs font-bold text-brand uppercase tracking-wider mb-2">Was jetzt passiert</p>
           {[
             "Wir rufen dich an und prüfen deine Angaben",
             "Wir beantragen die Kostenübernahme bei deiner Pflegekasse",
             "Der Antrag wird in der Regel innerhalb von 3–10 Tagen genehmigt",
-            "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung der Pflegekasse dein Hausnotruf-Gerät per Post nachhause. Einfach einstecken – fertig. Kein Techniker, kein WLAN, kein Telefon nötig.",
+            "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung der Pflegekasse dein Hausnotruf-Gerät per Post nachhause.",
             "Fragen? Ruf uns einfach an oder schreibe uns eine E-Mail",
           ].map((s, i) => (
-            <div key={i} className="flex items-start gap-2.5 mb-2 last:mb-0">
+            <div key={i} className="flex items-start gap-2.5 mb-1.5 last:mb-0">
               <span className="w-5 h-5 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
               <span className="text-sm text-gray-700">{s}</span>
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-3 w-full max-w-sm">
-          <a href="https://www.liva-pflege.de/" className="btn-primary w-full justify-center py-3 text-sm">
+        <div className="flex flex-col gap-2.5 w-full max-w-sm">
+          <a href="https://www.liva-pflege.de/" className="btn-primary w-full justify-center py-2.5 text-sm">
             Leistungs-Check starten
           </a>
-          <a href="/news" className="btn-secondary w-full justify-center py-3 text-sm">
+          <a href="/news" className="btn-secondary w-full justify-center py-2.5 text-sm">
             Zum Newsroom
           </a>
         </div>

@@ -1187,17 +1187,17 @@ function Step4({ onNext, onSkip }: { onNext: () => void; onSkip: () => void }) {
 
 function Step5() {
   return (
-    <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center">
-      <div className="w-20 h-20 rounded-full bg-brand-light flex items-center justify-center mx-auto mb-6">
-        <CheckCircle2 size={40} className="text-brand" />
+    <div className="max-w-md mx-auto px-4 sm:px-6 py-8 text-center">
+      <div className="w-14 h-14 rounded-full bg-brand-light flex items-center justify-center mx-auto mb-3">
+        <CheckCircle2 size={28} className="text-brand" />
       </div>
-      <h2 className="font-serif text-3xl text-gray-900 mb-1">Antrag eingegangen!</h2>
-      <p className="text-brand font-semibold text-sm mb-3">Vielen Dank!</p>
-      <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
+      <h2 className="font-serif text-2xl text-gray-900 mb-1">Antrag eingegangen!</h2>
+      <p className="text-brand font-semibold text-sm mb-2">Vielen Dank!</p>
+      <p className="text-gray-500 text-sm leading-relaxed mb-4 max-w-sm mx-auto">
         Wir melden uns <strong className="text-gray-700">innerhalb von 24 Stunden</strong> bei dir, klären alle Details und stellen den Antrag für dich bei deiner Pflegekasse.
       </p>
-      <div className="bg-brand-light rounded-2xl p-5 text-left mb-8">
-        <p className="text-xs font-bold text-brand uppercase tracking-wider mb-4">Was jetzt passiert</p>
+      <div className="bg-brand-light rounded-2xl p-4 text-left mb-4">
+        <p className="text-xs font-bold text-brand uppercase tracking-wider mb-2">Was jetzt passiert</p>
         {[
           "Wir rufen dich an und prüfen deine Angaben",
           "Wir beantragen die Kostenübernahme bei deiner Pflegekasse",
@@ -1205,7 +1205,7 @@ function Step5() {
           "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung der Pflegekasse deine Pflegehilfsmittel nachhause geliefert, jeden Monat.",
           "Fragen? Ruf uns einfach an oder schreibe uns eine E-Mail",
         ].map((s, i) => (
-          <div key={i} className="flex items-start gap-3 mb-3 last:mb-0">
+          <div key={i} className="flex items-start gap-3 mb-2 last:mb-0">
             <span className="w-5 h-5 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
               {i + 1}
             </span>
@@ -1213,11 +1213,11 @@ function Step5() {
           </div>
         ))}
       </div>
-      <div className="flex flex-col gap-3">
-        <a href="https://www.liva-pflege.de/" className="btn-primary justify-center py-3 text-sm inline-flex">
+      <div className="flex flex-col gap-2.5">
+        <a href="https://www.liva-pflege.de/" className="btn-primary justify-center py-2.5 text-sm inline-flex">
           Leistungs-Check starten
         </a>
-        <a href="/news" className="btn-secondary justify-center py-3 text-sm inline-flex">
+        <a href="/news" className="btn-secondary justify-center py-2.5 text-sm inline-flex">
           Zum Newsroom
         </a>
       </div>
