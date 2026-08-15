@@ -421,20 +421,34 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         <div className="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center mb-5">
           <CheckCircle2 size={32} className="text-brand" />
         </div>
-        <h3 className="font-serif text-2xl text-gray-900 mb-2">Antrag eingegangen!</h3>
+        <h3 className="font-serif text-2xl text-gray-900 mb-1">Antrag eingegangen!</h3>
+        <p className="text-brand font-semibold text-sm mb-3">Vielen Dank!</p>
         <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-6">
-          Wir melden uns <strong className="text-gray-700">innerhalb von 24 Stunden</strong> telefonisch bei dir. Wir klären alle Details und stellen den Antrag bei deiner Pflegekasse.
+          Wir melden uns <strong className="text-gray-700">innerhalb von 24 Stunden</strong> bei dir, klären alle Details und stellen den Antrag für dich bei deiner Pflegekasse.
         </p>
         <div className="bg-brand-light rounded-2xl p-4 text-left w-full max-w-sm mb-6">
           <p className="text-xs font-bold text-brand uppercase tracking-wider mb-3">Was jetzt passiert</p>
-          {["Wir rufen dich an und prüfen deine Angaben", "Wir beantragen die Kostenübernahme bei deiner Pflegekasse", "Das Gerät kommt per Post – einfach einstecken", "Fragen? Wir helfen telefonisch weiter"].map((s, i) => (
+          {[
+            "Wir rufen dich an und prüfen deine Angaben",
+            "Wir beantragen die Kostenübernahme bei deiner Pflegekasse",
+            "Der Antrag wird in der Regel innerhalb von 3–10 Tagen genehmigt",
+            "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung der Pflegekasse dein Hausnotruf-Gerät per Post nachhause. Einfach einstecken – fertig. Kein Techniker, kein WLAN, kein Telefon nötig.",
+            "Fragen? Ruf uns einfach an oder schreibe uns eine E-Mail",
+          ].map((s, i) => (
             <div key={i} className="flex items-start gap-2.5 mb-2 last:mb-0">
               <span className="w-5 h-5 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
               <span className="text-sm text-gray-700">{s}</span>
             </div>
           ))}
         </div>
-        <button onClick={onClose} className="btn-secondary px-8 py-3">Schließen</button>
+        <div className="flex flex-col gap-3 w-full max-w-sm">
+          <a href="https://www.liva-pflege.de/leistungen-check" className="btn-primary w-full justify-center py-3 text-sm">
+            Leistungs-Check starten
+          </a>
+          <a href="/news" className="btn-secondary w-full justify-center py-3 text-sm">
+            Zum Newsroom
+          </a>
+        </div>
       </div>
     );
 

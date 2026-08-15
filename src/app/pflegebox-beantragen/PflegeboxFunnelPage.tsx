@@ -1190,17 +1190,19 @@ function Step5() {
       <div className="w-20 h-20 rounded-full bg-brand-light flex items-center justify-center mx-auto mb-6">
         <CheckCircle2 size={40} className="text-brand" />
       </div>
-      <h2 className="font-serif text-3xl text-gray-900 mb-3">Antrag eingegangen!</h2>
+      <h2 className="font-serif text-3xl text-gray-900 mb-1">Antrag eingegangen!</h2>
+      <p className="text-brand font-semibold text-sm mb-3">Vielen Dank!</p>
       <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-        Wir melden uns <strong className="text-gray-700">innerhalb von 24 Stunden</strong> bei dir.
-        Deine Pflegekasse wird über deinen Antrag informiert – du musst nichts weiter tun.
+        Wir melden uns <strong className="text-gray-700">innerhalb von 24 Stunden</strong> bei dir, klären alle Details und stellen den Antrag für dich bei deiner Pflegekasse.
       </p>
       <div className="bg-brand-light rounded-2xl p-5 text-left mb-8">
         <p className="text-xs font-bold text-brand uppercase tracking-wider mb-4">Was jetzt passiert</p>
         {[
-          "Dein Antrag wird bei deiner Pflegekasse eingereicht",
-          "Wir melden uns telefonisch zur Bestätigung",
-          "Die erste Pflegebox kommt innerhalb weniger Tage",
+          "Wir rufen dich an und prüfen deine Angaben",
+          "Wir beantragen die Kostenübernahme bei deiner Pflegekasse",
+          "Der Antrag wird in der Regel innerhalb von 3–14 Tagen genehmigt",
+          "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung der Pflegekasse deine Pflegehilfsmittel nachhause geliefert, jeden Monat.",
+          "Fragen? Ruf uns einfach an oder schreibe uns eine E-Mail",
         ].map((s, i) => (
           <div key={i} className="flex items-start gap-3 mb-3 last:mb-0">
             <span className="w-5 h-5 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -1210,9 +1212,14 @@ function Step5() {
           </div>
         ))}
       </div>
-      <a href="/" className="btn-secondary text-sm px-6 py-3 inline-flex">
-        Zurück zur Startseite
-      </a>
+      <div className="flex flex-col gap-3">
+        <a href="https://www.liva-pflege.de/leistungen-check" className="btn-primary justify-center py-3 text-sm inline-flex">
+          Leistungs-Check starten
+        </a>
+        <a href="/news" className="btn-secondary justify-center py-3 text-sm inline-flex">
+          Zum Newsroom
+        </a>
+      </div>
     </div>
   );
 }
