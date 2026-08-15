@@ -490,21 +490,6 @@ function Step1({
               </div>
             )}
 
-            {/* Gratisartikel */}
-            <div className="border-t border-[#E0EDE7] pt-3 mb-4">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Gratisartikel</p>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                  <Package size={14} className="text-gray-400" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-[11px] font-semibold text-gray-700">Pflegemagazin &quot;leb&quot;</p>
-                  <p className="text-[10px] text-gray-400">Jeden Monat gratis in deiner Box</p>
-                </div>
-                <span className="text-[10px] font-bold text-brand">1</span>
-              </div>
-            </div>
-
             <button
               disabled={cart.length === 0}
               onClick={onNext}
