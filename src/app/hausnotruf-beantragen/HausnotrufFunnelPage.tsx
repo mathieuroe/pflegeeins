@@ -17,8 +17,20 @@ import BeratungsModal from "@/components/BeratungsModal";
 
 const TOTAL_STEPS = 10;
 
+const PRIVATE_KRANKENKASSEN = [
+  "Allianz Private Krankenversicherung","AXA Krankenversicherung","Barmenia Krankenversicherung",
+  "Bayerische Beamtenkrankenkasse (BBKK)","CENTRAL Krankenversicherung","Concordia Krankenversicherung",
+  "Continentale Krankenversicherung","Debeka Krankenversicherung","DKV – Deutsche Krankenversicherung",
+  "Ergo Krankenversicherung","Generali Deutschland Krankenversicherung","Gothaer Krankenversicherung",
+  "Hallesche Krankenversicherung","HanseMerkur Krankenversicherung","HUK-Coburg Krankenversicherung",
+  "Inter Krankenversicherung","Landeskrankenhilfe (LKH)","Münchener Verein Krankenversicherung",
+  "Nürnberger Krankenversicherung","Ottonova","Pax-Familienfürsorge Krankenversicherung",
+  "Postbeamtenkrankenkasse (PBeaKK)","R+V Krankenversicherung","SDK – Süddeutsche Krankenversicherung",
+  "Signal Iduna Krankenversicherung","Universa Krankenversicherung","uniVersa Krankenversicherung",
+  "Württembergische Krankenversicherung",
+];
+
 const KRANKENKASSEN = [
-  "Allianz Private Krankenversicherung",
   "Alte Oldenburger Krankenversicherung",
   "AOK Baden-Württemberg",
   "AOK Bayern",
@@ -136,12 +148,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 // KRANKENKASSE SEARCHABLE SELECT
 // ═══════════════════════════════════════════════════════
 
-function KrankenkasseSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function KrankenkasseSelect({ value, onChange, list = KRANKENKASSEN }: { value: string; onChange: (v: string) => void; list?: string[] }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const ref = useRef<HTMLDivElement>(null);
 
-  const filtered = KRANKENKASSEN.filter(k => k.toLowerCase().includes(search.toLowerCase()));
+  const filtered = list.filter(k => k.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
     function handler(e: MouseEvent) {
@@ -792,6 +804,23 @@ function FunnelModal({ onClose }: FunnelModalProps) {
             </>
           )}
 
+          {/* Privat: Private Krankenversicherungen + Versichertennummer */}
+          {versicherungstyp === "privat versichert" && (
+            <>
+              <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} list={PRIVATE_KRANKENKASSEN} />
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer (optional)</label>
+                <div className="relative">
+                  <CreditCard size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
+                  <input type="text" value={versichertennummer} onChange={e => setVersichertennummer(e.target.value.toUpperCase())}
+                    placeholder="z. B. A123456789"
+                    className="input pl-8 text-sm font-mono tracking-wider" maxLength={10} />
+                </div>
+                <p className="text-[10px] text-gray-400 mt-1">Steht auf deiner Versicherungskarte · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.</p>
+              </div>
+            </>
+          )}
+
           {/* Orts-/Sozialamt: Name-Eingabe */}
           {versicherungstyp === "Orts-/Sozialamt" && (
             <input
@@ -998,7 +1027,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         setStep(7);
       } else if (step === 7) {
         if (!versicherungstyp) { setError("Bitte wähle eine Versicherungsart aus."); return; }
-        if (versicherungstyp === "gesetzlich versichert" && !krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
+        if ((versicherungstyp === "gesetzlich versichert" || versicherungstyp === "privat versichert") && !krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
         setStep(8);
       } else if (step === 8) {
         if (lieferOption === "anders" && (!lieferStrasse || !lieferHausnummer || !lieferPlz || !lieferOrt)) {

@@ -14,8 +14,21 @@ const BUDGET_MAX = 42;
 const AFFILIATE_URL =
   "https://www.adcell.de/click.php?promoId=273407&slotId=149760&subId=pflegebox_funnel";
 
+const PRIVATE_KRANKENKASSEN = [
+  "Allianz Private Krankenversicherung","AXA Krankenversicherung","Barmenia Krankenversicherung",
+  "Bayerische Beamtenkrankenkasse (BBKK)","CENTRAL Krankenversicherung","Concordia Krankenversicherung",
+  "Continentale Krankenversicherung","Debeka Krankenversicherung","DKV – Deutsche Krankenversicherung",
+  "Ergo Krankenversicherung","Generali Deutschland Krankenversicherung","Gothaer Krankenversicherung",
+  "Hallesche Krankenversicherung","HanseMerkur Krankenversicherung","HUK-Coburg Krankenversicherung",
+  "Inter Krankenversicherung","Landeskrankenhilfe (LKH)","Münchener Verein Krankenversicherung",
+  "Nürnberger Krankenversicherung","Ottonova","Pax-Familienfürsorge Krankenversicherung",
+  "Postbeamtenkrankenkasse (PBeaKK)","R+V Krankenversicherung","SDK – Süddeutsche Krankenversicherung",
+  "Signal Iduna Krankenversicherung","Universa Krankenversicherung","uniVersa Krankenversicherung",
+  "Württembergische Krankenversicherung",
+];
+
 const KRANKENKASSEN = [
-  "Allianz Private Krankenversicherung","Alte Oldenburger Krankenversicherung",
+  "Alte Oldenburger Krankenversicherung",
   "AOK Baden-Württemberg","AOK Bayern","AOK Bremen Bremerhaven","AOK Hessen",
   "AOK Niedersachsen","AOK Nordost","AOK NordWest","AOK Plus (Sachsen/Thüringen)",
   "AOK Rheinland/Hamburg","AOK Rheinland-Pfalz/Saarland","AOK Sachsen-Anhalt",
@@ -31,11 +44,11 @@ const KRANKENKASSEN = [
   "TUI BKK","Viactiv Krankenkasse","WMF BKK",
 ];
 
-function KrankenkasseSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function KrankenkasseSelect({ value, onChange, list = KRANKENKASSEN }: { value: string; onChange: (v: string) => void; list?: string[] }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const ref = useRef<HTMLDivElement>(null);
-  const filtered = KRANKENKASSEN.filter(k => k.toLowerCase().includes(search.toLowerCase()));
+  const filtered = list.filter(k => k.toLowerCase().includes(search.toLowerCase()));
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
@@ -542,7 +555,10 @@ interface FormData {
   plz: string;
   ort: string;
   adresszusatz: string;
-  lieferadresse: string;
+  lieferStrasse: string;
+  lieferHausnummer: string;
+  lieferPlz: string;
+  lieferOrt: string;
   abweichendeLieferadresse: boolean;
   telefon: string;
   email: string;
@@ -722,7 +738,31 @@ function Step2({
             <span className="text-xs text-gray-600">Abweichende Lieferadresse</span>
           </label>
           {form.abweichendeLieferadresse && (
-            <input type="text" placeholder="Lieferadresse eingeben" value={form.lieferadresse} onChange={(e) => update("lieferadresse", e.target.value)} className={inputCls} />
+            <div className="space-y-3 pt-1">
+              <div className="grid grid-cols-3 gap-2">
+                <div className="col-span-2">
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Straße *</label>
+                  <div className="relative">
+                    <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand pointer-events-none" />
+                    <input type="text" value={form.lieferStrasse} onChange={(e) => update("lieferStrasse", e.target.value)} className={`${inputCls} pl-8`} autoComplete="shipping street-address" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Nr. *</label>
+                  <input type="text" value={form.lieferHausnummer} onChange={(e) => update("lieferHausnummer", e.target.value)} className={inputCls} autoComplete="off" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">PLZ *</label>
+                  <input type="text" inputMode="numeric" value={form.lieferPlz} onChange={(e) => update("lieferPlz", e.target.value)} className={inputCls} maxLength={5} autoComplete="shipping postal-code" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Stadt *</label>
+                  <input type="text" value={form.lieferOrt} onChange={(e) => update("lieferOrt", e.target.value)} className={inputCls} autoComplete="shipping address-level2" />
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -927,7 +967,7 @@ function Step3({
 
   function handleSubmit() {
     if (!versicherung) { setError("Bitte Versicherungstyp auswählen."); return; }
-    if (versicherung === "gesetzlich versichert" && !krankenkasse) { setError("Bitte Krankenkasse auswählen."); return; }
+    if ((versicherung === "gesetzlich versichert" || versicherung === "privat versichert") && !krankenkasse) { setError("Bitte Krankenkasse auswählen."); return; }
     if (!unterschrift.trim()) { setError("Bitte Vor- und Nachname eingeben."); return; }
     if (!signed) { setError("Bitte unterschreiben."); return; }
     if (!confirmed) { setConfirmedError(true); setError("Bitte bestätige die Kostenübernahme."); return; }
@@ -1004,6 +1044,24 @@ function Step3({
               />
               <p className="text-[10px] text-gray-400 mt-1">
                 Steht auf deiner Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.
+              </p>
+            </div>
+          </>
+        )}
+        {versicherung === "privat versichert" && (
+          <>
+            <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} list={PRIVATE_KRANKENKASSEN} />
+            <div className="mt-3">
+              <label className="block text-xs font-medium text-gray-600 mb-1">Versicherungsnummer (optional)</label>
+              <input
+                type="text"
+                placeholder="Versicherungsnummer"
+                value={versicherungsnummer}
+                onChange={(e) => setVersicherungsnummer(e.target.value)}
+                className={inputCls2}
+              />
+              <p className="text-[10px] text-gray-400 mt-1">
+                Steht auf deiner Versicherungskarte · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.
               </p>
             </div>
           </>
@@ -1230,7 +1288,7 @@ function Step5() {
 const EMPTY_FORM: FormData = {
   anrede: "", vorname: "", nachname: "", geburtsdatum: "",
   pflegegrad: "", strasse: "", hausnummer: "", plz: "", ort: "",
-  adresszusatz: "", lieferadresse: "",
+  adresszusatz: "", lieferStrasse: "", lieferHausnummer: "", lieferPlz: "", lieferOrt: "",
   abweichendeLieferadresse: false, telefon: "", email: "",
   bereitsVersorgt: false, onlineVerwalten: false, beratung: "",
 };
@@ -1278,6 +1336,9 @@ export default function PflegeboxFunnelPage() {
           nachname: form.nachname,
           geburtsdatum: form.geburtsdatum,
           adresse: `${form.strasse} ${form.hausnummer}, ${form.plz} ${form.ort}`,
+          lieferadresse: form.abweichendeLieferadresse && form.lieferStrasse
+            ? `${form.lieferStrasse} ${form.lieferHausnummer}, ${form.lieferPlz} ${form.lieferOrt}`
+            : undefined,
           krankenkasse: pendingVersicherung,
           versichertennummer: pendingVersicherungsnummer || undefined,
           signature: pendingUnterschrift,
