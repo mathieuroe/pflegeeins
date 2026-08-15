@@ -183,7 +183,12 @@ export async function sendInternalLeadNotification(data: {
 
 export async function sendLeadConfirmation(data: {
   email: string;
+  vorname?: string;
+  nachname?: string;
   pflegegrad?: string;
+  path?: string;
+  gruende?: string;
+  krankenkasse?: string;
   tags?: string;
   einrichtung?: {
     name: string;
@@ -196,85 +201,226 @@ export async function sendLeadConfirmation(data: {
     reaktionszeit: string;
   };
 }) {
-  const { einrichtung, tags, pflegegrad } = data;
+  const { einrichtung, tags, pflegegrad, vorname, nachname, path, gruende, krankenkasse } = data;
+  const firstName = vorname || "";
+  const greeting = firstName ? `Hallo ${firstName},` : "Hallo,";
 
-  // Pflegedienst-Vergleich: Einrichtungsdetails anzeigen
+  // ── Pflegedienst-Vergleich ────────────────────────────────────────────
   if (einrichtung) {
-    const einrichtungBlock = `
-      <div style="margin:24px 0;background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;">
-        <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.05em;">Deine angefragte Einrichtung</p>
-        <h3 style="margin:0 0 8px;font-size:17px;color:#0F1F1A;font-family:Georgia,serif;">${einrichtung.name}</h3>
-        ${einrichtung.bewertung ? `<p style="margin:0 0 8px;font-size:13px;color:#5C7A6F;">⭐ ${einrichtung.bewertung.toFixed(1)} / 5 (${einrichtung.anzahlBewertungen} Google-Bewertungen)</p>` : ""}
-        <p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">📍 ${einrichtung.adresse}</p>
-        ${einrichtung.telefon ? `<p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">📞 <a href="tel:${einrichtung.telefon}" style="color:${BRAND};text-decoration:none;">${einrichtung.telefon}</a></p>` : ""}
-        ${einrichtung.website ? `<p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">🌐 <a href="${einrichtung.website}" style="color:${BRAND};text-decoration:none;">${einrichtung.website}</a></p>` : ""}
-        ${einrichtung.leistungen.length ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Leistungen: ${einrichtung.leistungen.join(" · ")}</p>` : ""}
-        <p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Antwortet meist innerhalb von ${einrichtung.reaktionszeit}</p>
-      </div>`;
-
     const html = wrapEmail(`
-      <h2 style="margin:0 0 16px;font-size:20px;color:#0F1F1A;font-family:Georgia,serif;">Dein Ergebnis von liva</h2>
-      <p style="margin:0 0 16px;">
+      <h2 style="margin:0 0 16px;font-size:22px;color:#0F1F1A;font-family:Georgia,serif;">${greeting}</h2>
+      <p style="margin:0 0 16px;color:#374151;line-height:1.7;">
         Hier sind die Informationen zur Einrichtung, die du angefragt hast${pflegegrad ? ` (Pflegegrad ${pflegegrad})` : ""}:
       </p>
-      ${einrichtungBlock}
-      <p style="margin:16px 0 0;color:#5C7A6F;font-size:13px;">
-        Falls du Fragen hast oder weitere Einrichtungen vergleichen möchtest, antworte einfach auf diese E-Mail oder besuche uns auf <a href="https://www.liva-pflege.de" style="color:${BRAND};">liva-pflege.de</a>.
-      </p>
+      <div style="margin:24px 0;background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;">
+        <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine angefragte Einrichtung</p>
+        <h3 style="margin:8px 0;font-size:17px;color:#0F1F1A;font-family:Georgia,serif;">${einrichtung.name}</h3>
+        ${einrichtung.bewertung ? `<p style="margin:0 0 8px;font-size:13px;color:#5C7A6F;">${einrichtung.bewertung.toFixed(1)} / 5 (${einrichtung.anzahlBewertungen} Bewertungen)</p>` : ""}
+        <p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">${einrichtung.adresse}</p>
+        ${einrichtung.telefon ? `<p style="margin:4px 0;font-size:13px;"><a href="tel:${einrichtung.telefon}" style="color:${BRAND};text-decoration:none;">${einrichtung.telefon}</a></p>` : ""}
+        ${einrichtung.website ? `<p style="margin:4px 0;font-size:13px;"><a href="${einrichtung.website}" style="color:${BRAND};text-decoration:none;">${einrichtung.website}</a></p>` : ""}
+        ${einrichtung.leistungen.length ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Leistungen: ${einrichtung.leistungen.join(" · ")}</p>` : ""}
+      </div>
+      <p style="color:#5C7A6F;font-size:13px;margin:0;">Fragen? Antworte einfach auf diese E-Mail.</p>
     `);
-
     const transporter = getTransporter();
     await transporter.sendMail({
       from: `"liva" <${process.env.SMTP_USER}>`,
       to: data.email,
       subject: `Dein Ergebnis: ${einrichtung.name}`,
       html,
-      text: `Dein Ergebnis von liva\n\n${einrichtung.name}\n${einrichtung.adresse}\nliva-pflege.de`,
+      text: `${greeting}\n\n${einrichtung.name}\n${einrichtung.adresse}\nliva-pflege.de`,
     });
     return;
   }
 
-  // Alle anderen Funnels: generische Bestätigung mit Kontext aus Tags
-  const tagList = tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
+  const isHausnotruf = path?.includes("hausnotruf");
+  const isPflegebox = path?.includes("pflegebox");
 
-  const interestBlock = tagList.length ? `
-    <div style="margin:20px 0;background:#F6FAF8;border-radius:12px;padding:16px 20px;border:1px solid #C8E6D8;">
-      <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.05em;">Das hast du angefragt</p>
+  // ── Hausnotruf ────────────────────────────────────────────────────────
+  if (isHausnotruf) {
+    const steps = [
+      "Wir rufen dich an und prüfen deine Angaben",
+      "Wir beantragen die Kostenübernahme bei deiner Pflegekasse",
+      "Der Antrag wird in der Regel innerhalb von 3–10 Tagen genehmigt",
+      "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung dein Hausnotruf-Gerät per Post nachhause. Einfach einstecken – fertig. Kein Techniker, kein WLAN, kein Telefon nötig.",
+      "Fragen? Ruf uns einfach an oder schreibe uns eine E-Mail",
+    ];
+
+    const html = wrapEmail(`
+      <!-- Hero -->
+      <div style="text-align:center;padding:8px 0 28px;">
+        <div style="width:56px;height:56px;background:${BRAND_LIGHT};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <span style="font-size:24px;line-height:1;">✓</span>
+        </div>
+        <h1 style="margin:0 0 6px;font-size:26px;color:#0F1F1A;font-family:Georgia,serif;">Antrag eingegangen!</h1>
+        <p style="margin:0;font-size:15px;font-weight:600;color:${BRAND};">Vielen Dank für dein Vertrauen.</p>
+      </div>
+
+      <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.7;">${greeting}<br><br>
+        Wir melden uns <strong>innerhalb von 24 Stunden</strong> bei dir, klären alle Details und stellen den Antrag für dich bei deiner Pflegekasse.
+      </p>
+
+      <!-- Produktbild -->
+      <div style="border-radius:14px;overflow:hidden;margin-bottom:24px;">
+        <img src="https://www.easierlife.de/wp-content/uploads/2026/04/1080_1080_home_blau_1.jpg"
+          alt="easierLife HOME – Hausnotruf-Gerät" width="496" style="width:100%;max-width:496px;display:block;border:0;" />
+      </div>
+
+      ${krankenkasse ? `
+      <!-- Bestätigung -->
+      <div style="background:#F6FAF8;border-radius:12px;padding:16px 20px;border:1px solid #C8E6D8;margin-bottom:24px;">
+        <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Dein Antrag</p>
+        <p style="margin:4px 0;font-size:14px;color:#0F1F1A;">Hausnotruf – kostenloses Komplettpaket</p>
+        ${pflegegrad ? `<p style="margin:4px 0;font-size:13px;color:#5C7A6F;">Pflegegrad: ${pflegegrad}</p>` : ""}
+        <p style="margin:4px 0;font-size:13px;color:#5C7A6F;">Versicherung: ${krankenkasse}</p>
+      </div>` : ""}
+
+      <!-- Was jetzt passiert -->
+      <div style="background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;margin-bottom:28px;">
+        <p style="margin:0 0 16px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Was jetzt passiert</p>
+        ${steps.map((s, i) => `
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:${i < steps.length - 1 ? "12px" : "0"};">
+          <div style="min-width:22px;height:22px;background:${BRAND};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+            <span style="font-size:11px;font-weight:700;color:#fff;">${i + 1}</span>
+          </div>
+          <p style="margin:0;font-size:14px;color:#374151;line-height:1.6;">${s}</p>
+        </div>`).join("")}
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;margin-bottom:24px;">
+        <a href="https://www.liva-pflege.de/" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:600;">Weitere Leistungen entdecken →</a>
+      </div>
+
+      <p style="margin:0;color:#5C7A6F;font-size:13px;line-height:1.6;">Fragen? Antworte einfach auf diese E-Mail.</p>
+    `);
+
+    const transporter = getTransporter();
+    await transporter.sendMail({
+      from: `"liva" <${process.env.SMTP_USER}>`,
+      to: data.email,
+      subject: "Dein Hausnotruf-Antrag ist eingegangen ✓",
+      html,
+      text: [
+        `${greeting}`,
+        "",
+        "Dein Hausnotruf-Antrag ist eingegangen!",
+        "Wir melden uns innerhalb von 24 Stunden bei dir.",
+        "",
+        "Was jetzt passiert:",
+        ...steps.map((s, i) => `${i + 1}. ${s}`),
+        "",
+        "liva-pflege.de",
+      ].join("\n"),
+    });
+    return;
+  }
+
+  // ── Pflegebox ─────────────────────────────────────────────────────────
+  if (isPflegebox) {
+    const produktListe = gruende ? gruende.split(",").map((p) => p.trim()).filter(Boolean) : [];
+    const steps = [
+      "Wir rufen dich an und prüfen deine Angaben",
+      "Wir beantragen die Kostenübernahme bei deiner Pflegekasse",
+      "Der Antrag wird in der Regel innerhalb von 3–14 Tagen genehmigt",
+      "Du erhältst innerhalb von 3–5 Tagen nach Genehmigung deine Pflegehilfsmittel nachhause geliefert – jeden Monat.",
+      "Fragen? Ruf uns einfach an oder schreibe uns eine E-Mail",
+    ];
+
+    const html = wrapEmail(`
+      <!-- Hero -->
+      <div style="text-align:center;padding:8px 0 28px;">
+        <div style="width:56px;height:56px;background:${BRAND_LIGHT};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <span style="font-size:24px;line-height:1;">✓</span>
+        </div>
+        <h1 style="margin:0 0 6px;font-size:26px;color:#0F1F1A;font-family:Georgia,serif;">Antrag eingegangen!</h1>
+        <p style="margin:0;font-size:15px;font-weight:600;color:${BRAND};">Vielen Dank für dein Vertrauen.</p>
+      </div>
+
+      <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.7;">${greeting}<br><br>
+        Wir melden uns <strong>innerhalb von 24 Stunden</strong> bei dir, klären alle Details und stellen den Antrag für dich bei deiner Pflegekasse.
+      </p>
+
+      ${produktListe.length ? `
+      <!-- Ausgewählte Produkte -->
+      <div style="background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;margin-bottom:24px;">
+        <p style="margin:0 0 12px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine ausgewählten Pflegeprodukte</p>
+        ${produktListe.map((p) => `
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+          <span style="color:${BRAND};font-weight:700;font-size:14px;flex-shrink:0;">✓</span>
+          <p style="margin:0;font-size:14px;color:#0F1F1A;line-height:1.5;">${p}</p>
+        </div>`).join("")}
+        ${pflegegrad ? `<p style="margin:12px 0 0;font-size:12px;color:#5C7A6F;border-top:1px solid #C8E6D8;padding-top:10px;">Pflegegrad: ${pflegegrad}${krankenkasse ? ` · Versicherung: ${krankenkasse}` : ""}</p>` : ""}
+      </div>` : ""}
+
+      <!-- Was jetzt passiert -->
+      <div style="background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;margin-bottom:28px;">
+        <p style="margin:0 0 16px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Was jetzt passiert</p>
+        ${steps.map((s, i) => `
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:${i < steps.length - 1 ? "12px" : "0"};">
+          <div style="min-width:22px;height:22px;background:${BRAND};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+            <span style="font-size:11px;font-weight:700;color:#fff;">${i + 1}</span>
+          </div>
+          <p style="margin:0;font-size:14px;color:#374151;line-height:1.6;">${s}</p>
+        </div>`).join("")}
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;margin-bottom:24px;">
+        <a href="https://www.liva-pflege.de/" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:600;">Weitere Leistungen entdecken →</a>
+      </div>
+
+      <p style="margin:0;color:#5C7A6F;font-size:13px;line-height:1.6;">Fragen? Antworte einfach auf diese E-Mail.</p>
+    `);
+
+    const transporter = getTransporter();
+    await transporter.sendMail({
+      from: `"liva" <${process.env.SMTP_USER}>`,
+      to: data.email,
+      subject: "Deine Pflegebox ist beantragt ✓",
+      html,
+      text: [
+        `${greeting}`,
+        "",
+        "Deine Pflegebox ist beantragt!",
+        "Wir melden uns innerhalb von 24 Stunden bei dir.",
+        produktListe.length ? `\nDeine Produkte:\n${produktListe.map((p) => `- ${p}`).join("\n")}` : "",
+        "",
+        "Was jetzt passiert:",
+        ...steps.map((s, i) => `${i + 1}. ${s}`),
+        "",
+        "liva-pflege.de",
+      ].filter(Boolean).join("\n"),
+    });
+    return;
+  }
+
+  // ── Fallback: alle anderen Funnels ────────────────────────────────────
+  const tagList = tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
+  const html = wrapEmail(`
+    <h2 style="margin:0 0 12px;font-size:22px;color:#0F1F1A;font-family:Georgia,serif;">${greeting}</h2>
+    <p style="margin:0 0 16px;color:#374151;line-height:1.7;">
+      Wir haben deine Anfrage erhalten und melden uns <strong>innerhalb von 24 Stunden</strong> bei dir.
+    </p>
+    ${tagList.length ? `
+    <div style="background:#F6FAF8;border-radius:12px;padding:16px 20px;border:1px solid #C8E6D8;margin:20px 0;">
+      <p style="margin:0 0 8px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine Anfrage</p>
       ${tagList.map((t) => `<p style="margin:0 0 4px;font-size:14px;color:#0F1F1A;">✓ ${t}</p>`).join("")}
       ${pflegegrad ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Pflegegrad: ${pflegegrad}</p>` : ""}
-    </div>` : "";
-
-  const html = wrapEmail(`
-    <h2 style="margin:0 0 12px;font-size:20px;color:#0F1F1A;font-family:Georgia,serif;">Danke, dass du liva nutzt.</h2>
-    <p style="margin:0 0 16px;color:#374151;">
-      Wir haben deine Anfrage erhalten und melden uns in Kürze bei dir.
-    </p>
-    ${interestBlock}
-    <p style="margin:16px 0;color:#374151;">
-      In der Zwischenzeit kannst du auf <a href="https://www.liva-pflege.de" style="color:${BRAND};text-decoration:none;">liva-pflege.de</a> weitere Leistungen entdecken, die dir zustehen.
-    </p>
-    <div style="margin-top:24px;">
-      <a href="https://www.liva-pflege.de/leistungen" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600;">Alle Leistungen ansehen →</a>
+    </div>` : ""}
+    <div style="text-align:center;margin:24px 0;">
+      <a href="https://www.liva-pflege.de/" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:600;">Weitere Leistungen entdecken →</a>
     </div>
-    <p style="margin:24px 0 0;color:#5C7A6F;font-size:13px;">
-      Fragen? Antworte einfach auf diese E-Mail.
-    </p>
+    <p style="margin:0;color:#5C7A6F;font-size:13px;">Fragen? Antworte einfach auf diese E-Mail.</p>
   `);
 
   const transporter = getTransporter();
   await transporter.sendMail({
     from: `"liva" <${process.env.SMTP_USER}>`,
     to: data.email,
-    subject: tagList.length ? `Deine Anfrage: ${tagList.join(", ")}` : "Deine Anfrage bei liva",
+    subject: "Deine Anfrage bei liva ist eingegangen ✓",
     html,
-    text: [
-      "Danke, dass du liva nutzt.",
-      "",
-      "Wir haben deine Anfrage erhalten und melden uns in Kürze.",
-      tagList.length ? `\nDein Interesse: ${tagList.join(", ")}` : "",
-      pflegegrad ? `Pflegegrad: ${pflegegrad}` : "",
-      "",
-      "liva-pflege.de",
-    ].filter(Boolean).join("\n"),
+    text: `${greeting}\n\nDeine Anfrage ist eingegangen. Wir melden uns in Kürze.\n\nliva-pflege.de`,
   });
 }

@@ -51,7 +51,17 @@ export async function POST(req: NextRequest) {
 
   if (email) {
     try {
-      await sendLeadConfirmation({ email, pflegegrad, tags: resolvedTags ?? undefined, einrichtung });
+      await sendLeadConfirmation({
+        email,
+        vorname,
+        nachname,
+        pflegegrad,
+        path: source,
+        gruende,
+        krankenkasse,
+        tags: resolvedTags ?? undefined,
+        einrichtung,
+      });
     } catch (err) {
       console.error("[submit-lead] Bestätigungs-E-Mail fehlgeschlagen:", err);
     }
