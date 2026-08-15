@@ -303,9 +303,11 @@ function FunnelModal({ onClose }: FunnelModalProps) {
   // Step 5
   const [bereitsVorhanden, setBereitsVorhanden] = useState<"" | "ja" | "nein">("");
   // Step 6
+  const [versicherungstyp, setVersicherungstyp] = useState("");
   const [krankenkasse, setKrankenkasse] = useState("");
   const [versichertennummer, setVersichertennummer] = useState("");
-  const [sozialamtVersichert, setSozialamtVersichert] = useState(false);
+  const [sozialamtName, setSozialamtName] = useState("");
+  const [showPrivatModal, setShowPrivatModal] = useState(false);
   // Step 7
   const [anrede, setAnrede] = useState("");
   const [vorname, setVorname] = useState("");
@@ -369,6 +371,11 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         ? `${strasse} ${hausnummer}, ${plz} ${ort}`
         : `${lieferStrasse} ${lieferHausnummer}, ${lieferPlz} ${lieferOrt}`;
 
+      const finalKrankenkasse =
+        versicherungstyp === "gesetzlich versichert" ? krankenkasse :
+        versicherungstyp === "Orts-/Sozialamt" ? (sozialamtName.trim() || "Orts-/Sozialamt") :
+        versicherungstyp;
+
       const res = await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -380,7 +387,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
           gruende: gruende.join(", "),
           wer_pflegt: werPflegt,
           bereits_vorhanden: bereitsVorhanden,
-          krankenkasse, versichertennummer,
+          krankenkasse: finalKrankenkasse, versichertennummer,
           adresse: `${strasse} ${hausnummer}, ${plz} ${ort}, ${bundesland}`,
           lieferadresse: lieferAdresse,
           bundesland, anrede,
@@ -389,7 +396,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
             "Hausnotruf Bestellung",
             pflegegrad,
             `Für: ${fuerWen === "ich" ? "mich selbst" : "Angehörige/n"}`,
-            krankenkasse,
+            finalKrankenkasse,
             `| ${vorname} ${nachname}`,
           ].filter(Boolean).join(" "),
           timestamp: new Date().toISOString(),
@@ -711,29 +718,76 @@ function FunnelModal({ onClose }: FunnelModalProps) {
     );
 
     // Step 7: Pflegeversicherung
+    const VERSICHERUNG_TYPEN = ["gesetzlich versichert", "privat versichert", "Orts-/Sozialamt"];
     if (step === 7) return (
       <div>
+        {/* Privat-Modal */}
+        {showPrivatModal && (
+          <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/40 px-4">
+            <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-gray-900 text-base">Privat versichert?</h3>
+                <button onClick={() => setShowPrivatModal(false)} className="p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer"><X size={16} /></button>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed mb-5">
+                Da du privat versichert bist, können wir nicht direkt mit deiner Pflegekasse abrechnen. Nach Lieferung des Geräts erhältst du eine Rechnung, die du bei deiner privaten Pflegeversicherung einreichen kannst. Bitte beachte, dass hierfür ein Pflegegrad vorliegen muss.
+              </p>
+              <button onClick={() => setShowPrivatModal(false)} className="flex items-center justify-center gap-2 w-full px-6 py-3 rounded-full bg-brand text-white text-sm font-semibold hover:bg-brand-hover transition-all cursor-pointer">
+                Ok
+              </button>
+            </div>
+          </div>
+        )}
+
         <h2 className="font-serif text-xl sm:text-2xl text-gray-900 mb-1">Angaben zur Pflegeversicherung</h2>
         <p className="text-sm text-gray-400 mb-5">Wir benötigen diese Daten für den Antrag bei deiner Pflegekasse.</p>
         <div className="space-y-4">
-          <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
-          <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer (optional)</label>
-            <div className="relative">
-              <CreditCard size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
-              <input type="text" value={versichertennummer} onChange={e => setVersichertennummer(e.target.value.toUpperCase())}
-                placeholder="z. B. A123456789" disabled={sozialamtVersichert}
-                className={`input pl-8 text-sm font-mono tracking-wider ${sozialamtVersichert ? "opacity-50" : ""}`} maxLength={10} />
-            </div>
-            <p className="text-[10px] text-gray-400 mt-1">Steht auf der Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.</p>
+          {/* Versicherungstyp */}
+          <div className="space-y-2">
+            {VERSICHERUNG_TYPEN.map((v) => (
+              <label key={v} className="flex items-center gap-2.5 cursor-pointer group">
+                <div
+                  onClick={() => {
+                    setVersicherungstyp(v);
+                    setKrankenkasse("");
+                    if (v === "privat versichert") setShowPrivatModal(true);
+                  }}
+                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${versicherungstyp === v ? "border-brand bg-brand" : "border-gray-300"}`}
+                >
+                  {versicherungstyp === v && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                </div>
+                <span className="text-sm text-gray-700">{v}</span>
+              </label>
+            ))}
           </div>
-          <label className="flex items-center gap-3 cursor-pointer">
-            <div onClick={() => setSozialamtVersichert(!sozialamtVersichert)}
-              className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${sozialamtVersichert ? "bg-brand border-brand" : "border-gray-300"}`}>
-              {sozialamtVersichert && <Check size={10} className="text-white" />}
-            </div>
-            <span className="text-xs text-gray-600">Ich bin über das örtliche Amt / Sozialamt versichert</span>
-          </label>
+
+          {/* Gesetzlich: Krankenkasse + Versichertennummer */}
+          {versicherungstyp === "gesetzlich versichert" && (
+            <>
+              <KrankenkasseSelect value={krankenkasse} onChange={setKrankenkasse} />
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Versichertennummer (optional)</label>
+                <div className="relative">
+                  <CreditCard size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand" />
+                  <input type="text" value={versichertennummer} onChange={e => setVersichertennummer(e.target.value.toUpperCase())}
+                    placeholder="z. B. A123456789"
+                    className="input pl-8 text-sm font-mono tracking-wider" maxLength={10} />
+                </div>
+                <p className="text-[10px] text-gray-400 mt-1">Steht auf der Krankenversicherungskarte (10 Zeichen) · Nicht zur Hand? Kein Problem – du kannst sie später nachreichen.</p>
+              </div>
+            </>
+          )}
+
+          {/* Orts-/Sozialamt: Name-Eingabe */}
+          {versicherungstyp === "Orts-/Sozialamt" && (
+            <input
+              type="text"
+              placeholder="Orts-/Sozialamt"
+              value={sozialamtName}
+              onChange={e => setSozialamtName(e.target.value)}
+              className="input w-full text-sm"
+            />
+          )}
         </div>
         {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
       </div>
@@ -808,7 +862,11 @@ function FunnelModal({ onClose }: FunnelModalProps) {
                 : <>{lieferStrasse} {lieferHausnummer}<br />{lieferPlz} {lieferOrt}</>
               }
             </p>
-            <p className="text-xs text-gray-400 mt-2">{krankenkasse}</p>
+            <p className="text-xs text-gray-400 mt-2">
+              {versicherungstyp === "gesetzlich versichert" ? krankenkasse :
+               versicherungstyp === "Orts-/Sozialamt" ? (sozialamtName.trim() || "Orts-/Sozialamt") :
+               versicherungstyp}
+            </p>
           </div>
 
           {/* Bestellübersicht */}
@@ -925,8 +983,8 @@ function FunnelModal({ onClose }: FunnelModalProps) {
         }
         setStep(7);
       } else if (step === 7) {
-        if (!krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
-        // Versichertennummer ist optional – Nutzer kann sie später nachreichen
+        if (!versicherungstyp) { setError("Bitte wähle eine Versicherungsart aus."); return; }
+        if (versicherungstyp === "gesetzlich versichert" && !krankenkasse) { setError("Bitte wähle eine Krankenkasse aus."); return; }
         setStep(8);
       } else if (step === 8) {
         if (lieferOption === "anders" && (!lieferStrasse || !lieferHausnummer || !lieferPlz || !lieferOrt)) {
