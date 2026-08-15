@@ -399,20 +399,45 @@ export async function sendLeadConfirmation(data: {
   // ── Fallback: alle anderen Funnels ────────────────────────────────────
   const tagList = tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [];
   const html = wrapEmail(`
-    <h2 style="margin:0 0 12px;font-size:22px;color:#0F1F1A;font-family:Georgia,serif;">${greeting}</h2>
-    <p style="margin:0 0 16px;color:#374151;line-height:1.7;">
-      Wir haben deine Anfrage erhalten und melden uns <strong>innerhalb von 24 Stunden</strong> bei dir.
-    </p>
-    ${tagList.length ? `
-    <div style="background:#F6FAF8;border-radius:12px;padding:16px 20px;border:1px solid #C8E6D8;margin:20px 0;">
-      <p style="margin:0 0 8px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine Anfrage</p>
-      ${tagList.map((t) => `<p style="margin:0 0 4px;font-size:14px;color:#0F1F1A;">✓ ${t}</p>`).join("")}
-      ${pflegegrad ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Pflegegrad: ${pflegegrad}</p>` : ""}
-    </div>` : ""}
-    <div style="text-align:center;margin:24px 0;">
-      <a href="https://www.liva-pflege.de/" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:600;">Weitere Leistungen entdecken →</a>
+    <!-- Hero -->
+    <div style="text-align:center;padding:8px 0 28px;">
+      <div style="width:56px;height:56px;background:${BRAND_LIGHT};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
+        <span style="font-size:24px;line-height:1;">✓</span>
+      </div>
+      <h1 style="margin:0 0 6px;font-size:26px;color:#0F1F1A;font-family:Georgia,serif;">Danke, dass du liva nutzt.</h1>
+      <p style="margin:0;font-size:15px;font-weight:600;color:${BRAND};">Vielen Dank für dein Vertrauen.</p>
     </div>
-    <p style="margin:0;color:#5C7A6F;font-size:13px;">Fragen? Antworte einfach auf diese E-Mail.</p>
+
+    <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.7;">${greeting}<br><br>
+      Schön, dass du da bist. Wir haben deine Anfrage erhalten und melden uns <strong>innerhalb von 24 Stunden</strong> bei dir – zu genau dem Thema, das dich beschäftigt.
+    </p>
+
+    ${tagList.length ? `
+    <!-- Anfrage-Übersicht -->
+    <div style="background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;margin-bottom:24px;">
+      <p style="margin:0 0 12px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine Anfrage</p>
+      ${tagList.map((t) => `
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+        <span style="color:${BRAND};font-weight:700;font-size:14px;flex-shrink:0;">✓</span>
+        <p style="margin:0;font-size:14px;color:#0F1F1A;line-height:1.5;">${t}</p>
+      </div>`).join("")}
+      ${pflegegrad ? `<p style="margin:12px 0 0;font-size:12px;color:#5C7A6F;border-top:1px solid #C8E6D8;padding-top:10px;">Pflegegrad: ${pflegegrad}</p>` : ""}
+    </div>` : ""}
+
+    <!-- Trennlinie -->
+    <p style="margin:0 0 24px;color:#374151;font-size:14px;line-height:1.7;">
+      Während du wartest: Auf <a href="https://www.liva-pflege.de/" style="color:${BRAND};text-decoration:none;font-weight:600;">liva-pflege.de</a> findest du alle Leistungen, die dir als Pflegebedürftiger oder pflegende Person zustehen – kostenlos und ohne Bürokratie.
+    </p>
+
+    <!-- CTAs -->
+    <div style="text-align:center;margin-bottom:12px;">
+      <a href="https://www.liva-pflege.de/" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:600;">Leistungs-Check starten →</a>
+    </div>
+    <div style="text-align:center;margin-bottom:28px;">
+      <a href="https://www.liva-pflege.de/news" style="display:inline-block;background:#ffffff;color:${BRAND};text-decoration:none;padding:12px 28px;border-radius:100px;font-size:14px;font-weight:600;border:2px solid ${BRAND};">Zum Newsroom</a>
+    </div>
+
+    <p style="margin:0;color:#5C7A6F;font-size:13px;line-height:1.6;">Fragen? Antworte einfach auf diese E-Mail.</p>
   `);
 
   const transporter = getTransporter();
@@ -421,6 +446,15 @@ export async function sendLeadConfirmation(data: {
     to: data.email,
     subject: "Deine Anfrage bei liva ist eingegangen ✓",
     html,
-    text: `${greeting}\n\nDeine Anfrage ist eingegangen. Wir melden uns in Kürze.\n\nliva-pflege.de`,
+    text: [
+      `${greeting}`,
+      "",
+      "Danke, dass du liva nutzt.",
+      "Wir melden uns innerhalb von 24 Stunden bei dir.",
+      tagList.length ? `\nDeine Anfrage:\n${tagList.map((t) => `- ${t}`).join("\n")}` : "",
+      pflegegrad ? `Pflegegrad: ${pflegegrad}` : "",
+      "",
+      "liva-pflege.de",
+    ].filter(Boolean).join("\n"),
   });
 }
