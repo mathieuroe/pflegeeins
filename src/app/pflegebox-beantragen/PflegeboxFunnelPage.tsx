@@ -886,7 +886,7 @@ function Step3({
   const [versicherungsnummer, setVersicherungsnummer] = useState("");
   const [sozialamtName, setSozialamtName] = useState("");
   const [showPrivatModal, setShowPrivatModal] = useState(false);
-  const [unterschrift, setUnterschrift] = useState("");
+  const [unterschrift, setUnterschrift] = useState(`${form.vorname} ${form.nachname}`.trim());
   const [signed, setSigned] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [error, setError] = useState("");

@@ -863,6 +863,15 @@ function FunnelModal({ onClose }: FunnelModalProps) {
       <div>
         <h2 className="font-serif text-xl sm:text-2xl text-gray-900 mb-1">Unterschreiben</h2>
         <p className="text-sm text-gray-400 mb-5">Mit deiner Unterschrift bestätigst du die Richtigkeit deiner Angaben und den Antrag auf Kostenübernahme.</p>
+        <div className="mb-4">
+          <label className="block text-xs text-gray-500 mb-1">Vor- und Nachname (Druckbuchstaben)</label>
+          <input
+            type="text"
+            value={`${vorname} ${nachname}`.trim()}
+            readOnly
+            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 bg-gray-50 cursor-default outline-none"
+          />
+        </div>
         <SignatureCanvas onSign={setSignatureData} />
         {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
         <p className="text-[10px] text-gray-400 mt-4 flex items-center gap-1"><Lock size={9} /> Deine Unterschrift wird verschlüsselt übertragen</p>
