@@ -1214,7 +1214,7 @@ function Step5() {
         ))}
       </div>
       <div className="flex flex-col gap-3">
-        <a href="https://www.liva-pflege.de/leistungen-check" className="btn-primary justify-center py-3 text-sm inline-flex">
+        <a href="https://www.liva-pflege.de/" className="btn-primary justify-center py-3 text-sm inline-flex">
           Leistungs-Check starten
         </a>
         <a href="/news" className="btn-secondary justify-center py-3 text-sm inline-flex">

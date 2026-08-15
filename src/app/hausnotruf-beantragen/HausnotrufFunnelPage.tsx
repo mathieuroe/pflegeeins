@@ -442,7 +442,7 @@ function FunnelModal({ onClose }: FunnelModalProps) {
           ))}
         </div>
         <div className="flex flex-col gap-3 w-full max-w-sm">
-          <a href="https://www.liva-pflege.de/leistungen-check" className="btn-primary w-full justify-center py-3 text-sm">
+          <a href="https://www.liva-pflege.de/" className="btn-primary w-full justify-center py-3 text-sm">
             Leistungs-Check starten
           </a>
           <a href="/news" className="btn-secondary w-full justify-center py-3 text-sm">
