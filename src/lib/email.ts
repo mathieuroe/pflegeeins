@@ -208,20 +208,46 @@ export async function sendLeadConfirmation(data: {
   // ── Pflegedienst-Vergleich ────────────────────────────────────────────
   if (einrichtung) {
     const html = wrapEmail(`
-      <h2 style="margin:0 0 16px;font-size:22px;color:#0F1F1A;font-family:Georgia,serif;">${greeting}</h2>
-      <p style="margin:0 0 16px;color:#374151;line-height:1.7;">
-        Hier sind die Informationen zur Einrichtung, die du angefragt hast${pflegegrad ? ` (Pflegegrad ${pflegegrad})` : ""}:
-      </p>
-      <div style="margin:24px 0;background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;">
-        <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine angefragte Einrichtung</p>
-        <h3 style="margin:8px 0;font-size:17px;color:#0F1F1A;font-family:Georgia,serif;">${einrichtung.name}</h3>
-        ${einrichtung.bewertung ? `<p style="margin:0 0 8px;font-size:13px;color:#5C7A6F;">${einrichtung.bewertung.toFixed(1)} / 5 (${einrichtung.anzahlBewertungen} Bewertungen)</p>` : ""}
-        <p style="margin:0 0 4px;font-size:13px;color:#0F1F1A;">${einrichtung.adresse}</p>
-        ${einrichtung.telefon ? `<p style="margin:4px 0;font-size:13px;"><a href="tel:${einrichtung.telefon}" style="color:${BRAND};text-decoration:none;">${einrichtung.telefon}</a></p>` : ""}
-        ${einrichtung.website ? `<p style="margin:4px 0;font-size:13px;"><a href="${einrichtung.website}" style="color:${BRAND};text-decoration:none;">${einrichtung.website}</a></p>` : ""}
-        ${einrichtung.leistungen.length ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Leistungen: ${einrichtung.leistungen.join(" · ")}</p>` : ""}
+      <!-- Hero -->
+      <div style="text-align:center;padding:8px 0 28px;">
+        <div style="width:56px;height:56px;background:${BRAND_LIGHT};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <span style="font-size:24px;line-height:1;">✓</span>
+        </div>
+        <h1 style="margin:0 0 6px;font-size:26px;color:#0F1F1A;font-family:Georgia,serif;">Dein Ergebnis ist da.</h1>
+        <p style="margin:0;font-size:15px;font-weight:600;color:${BRAND};">Vielen Dank für dein Vertrauen.</p>
       </div>
-      <p style="color:#5C7A6F;font-size:13px;margin:0;">Fragen? Antworte einfach auf diese E-Mail.</p>
+
+      <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.7;">${greeting}<br><br>
+        Wir haben die passende Einrichtung für dich gefunden${pflegegrad ? ` (Pflegegrad ${pflegegrad})` : ""}. Hier sind alle Informationen auf einen Blick:
+      </p>
+
+      <!-- Einrichtungs-Card -->
+      <div style="background:#F6FAF8;border-radius:12px;padding:20px;border:1px solid #C8E6D8;margin-bottom:24px;">
+        <p style="margin:0 0 8px;font-size:11px;font-weight:700;color:${BRAND};text-transform:uppercase;letter-spacing:0.08em;">Deine angefragte Einrichtung</p>
+        <h3 style="margin:0 0 8px;font-size:18px;color:#0F1F1A;font-family:Georgia,serif;line-height:1.4;">${einrichtung.name}</h3>
+        ${einrichtung.bewertung ? `<p style="margin:0 0 10px;font-size:13px;color:#5C7A6F;">${einrichtung.bewertung.toFixed(1)} / 5 &nbsp;(${einrichtung.anzahlBewertungen} Google-Bewertungen)</p>` : ""}
+        <div style="border-top:1px solid #C8E6D8;padding-top:12px;margin-top:4px;">
+          <p style="margin:0 0 6px;font-size:13px;color:#0F1F1A;">${einrichtung.adresse}</p>
+          ${einrichtung.telefon ? `<p style="margin:0 0 6px;font-size:13px;"><a href="tel:${einrichtung.telefon}" style="color:${BRAND};text-decoration:none;font-weight:500;">${einrichtung.telefon}</a></p>` : ""}
+          ${einrichtung.website ? `<p style="margin:0 0 6px;font-size:13px;word-break:break-all;"><a href="${einrichtung.website}" style="color:${BRAND};text-decoration:none;">${einrichtung.website}</a></p>` : ""}
+          ${einrichtung.leistungen.length ? `<p style="margin:8px 0 0;font-size:12px;color:#5C7A6F;">Leistungen: ${einrichtung.leistungen.join(" · ")}</p>` : ""}
+          ${einrichtung.reaktionszeit ? `<p style="margin:6px 0 0;font-size:12px;color:#5C7A6F;">Antwortet meist innerhalb von ${einrichtung.reaktionszeit}</p>` : ""}
+        </div>
+      </div>
+
+      <p style="margin:0 0 24px;color:#374151;font-size:14px;line-height:1.7;">
+        Wir melden uns <strong>innerhalb von 24 Stunden</strong> bei dir, um alle weiteren Schritte gemeinsam zu klären. Du musst nichts weiter tun.
+      </p>
+
+      <!-- CTAs -->
+      <div style="text-align:center;margin-bottom:12px;">
+        <a href="https://www.liva-pflege.de/" style="display:inline-block;background:${BRAND};color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:600;">Leistungs-Check starten →</a>
+      </div>
+      <div style="text-align:center;margin-bottom:28px;">
+        <a href="https://www.liva-pflege.de/news" style="display:inline-block;background:#ffffff;color:${BRAND};text-decoration:none;padding:12px 28px;border-radius:100px;font-size:14px;font-weight:600;border:2px solid ${BRAND};">Zum Newsroom</a>
+      </div>
+
+      <p style="margin:0;color:#5C7A6F;font-size:13px;line-height:1.6;">Fragen? Antworte einfach auf diese E-Mail.</p>
     `);
     const transporter = getTransporter();
     await transporter.sendMail({
@@ -229,7 +255,7 @@ export async function sendLeadConfirmation(data: {
       to: data.email,
       subject: `Dein Ergebnis: ${einrichtung.name}`,
       html,
-      text: `${greeting}\n\n${einrichtung.name}\n${einrichtung.adresse}\nliva-pflege.de`,
+      text: `${greeting}\n\n${einrichtung.name}\n${einrichtung.adresse}${einrichtung.telefon ? `\n${einrichtung.telefon}` : ""}\n\nliva-pflege.de`,
     });
     return;
   }
