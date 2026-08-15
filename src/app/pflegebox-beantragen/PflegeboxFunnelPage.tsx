@@ -407,7 +407,32 @@ function Step1({
       {infoProduct && (
         <InfoModal product={infoProduct} onClose={() => setInfoProduct(null)} />
       )}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      {/* Mobile sticky bottom bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#E0EDE7] px-4 pt-3 pb-4 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+        <div className="flex items-center justify-between mb-1 text-xs">
+          <span className={pct >= 100 ? "text-brand font-semibold" : "text-gray-500"}>
+            {cart.length === 0
+              ? "Noch keine Produkte"
+              : `${cart.reduce((s, i) => s + i.qty, 0)} Produkt${cart.reduce((s, i) => s + i.qty, 0) !== 1 ? "e" : ""} · ${fmtEur(total)}`}
+          </span>
+          <span className={`font-bold tabular-nums ${pct >= 100 ? "text-brand" : "text-gray-500"}`}>{pct}%</span>
+        </div>
+        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden mb-3">
+          <div
+            className="h-full rounded-full transition-all duration-300"
+            style={{ width: `${pct}%`, background: "#0F6E56" }}
+          />
+        </div>
+        <button
+          disabled={cart.length === 0}
+          onClick={onNext}
+          className="btn-primary w-full justify-center py-3 text-sm disabled:opacity-40 cursor-pointer"
+        >
+          Weiter <ArrowRight size={15} />
+        </button>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 pb-36 md:pb-8">
         <div className="grid md:grid-cols-[1fr_300px] gap-6 items-start">
           {/* Left: Product Grid */}
           <div>
@@ -430,8 +455,8 @@ function Step1({
             </div>
           </div>
 
-          {/* Right: Cart */}
-          <div className="md:sticky md:top-[calc(3.5rem+45px)] bg-white rounded-2xl border border-[#E0EDE7] p-5 shadow-sm">
+          {/* Right: Cart – desktop only */}
+          <div className="hidden md:block md:sticky md:top-[calc(3.5rem+45px)] bg-white rounded-2xl border border-[#E0EDE7] p-5 shadow-sm">
             <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Meine Pflegebox</p>
 
             {/* Budget bar */}
