@@ -732,28 +732,10 @@ function Step2({
         </label>
       </div>
 
-      {/* 6: Online verwalten */}
+      {/* 6: Beratung */}
       <div className={sectionCls}>
         <div className="flex items-center gap-2.5 mb-2">
           <div className="w-7 h-7 rounded-full bg-brand text-white text-xs font-bold flex items-center justify-center flex-shrink-0">6</div>
-          <p className="font-semibold text-gray-900 text-sm">Pflegebox online verwalten?</p>
-        </div>
-        <p className="text-xs text-gray-400 mb-3">Du kannst Lieferungen aussetzen, Produkte ändern und deine Daten anpassen.</p>
-        <label className="flex items-center gap-2 cursor-pointer">
-          <div
-            onClick={() => update("onlineVerwalten", !form.onlineVerwalten)}
-            className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${form.onlineVerwalten ? "bg-brand border-brand" : "border-gray-300"}`}
-          >
-            {form.onlineVerwalten && <CheckCircle2 size={10} className="text-white" />}
-          </div>
-          <span className="text-xs text-gray-600">Ja, ich möchte ein Benutzerkonto erstellen und meine Pflegebox online verwalten</span>
-        </label>
-      </div>
-
-      {/* 7: Beratung */}
-      <div className={sectionCls}>
-        <div className="flex items-center gap-2.5 mb-2">
-          <div className="w-7 h-7 rounded-full bg-brand text-white text-xs font-bold flex items-center justify-center flex-shrink-0">7</div>
           <p className="font-semibold text-gray-900 text-sm">Benötigst du ein Beratungsgespräch zu den Pflegehilfsmitteln?</p>
         </div>
         <p className="text-xs text-gray-400 mb-3">
