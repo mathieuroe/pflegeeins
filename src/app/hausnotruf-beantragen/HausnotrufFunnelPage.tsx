@@ -884,7 +884,14 @@ function FunnelModal({ onClose }: FunnelModalProps) {
   // ── Footer buttons per step ──────────────────────────
   function renderFooter() {
     if (step === "success") return null;
-    if (step === 5) return null; // auto-advance, no footer
+    if (step === 5) return (
+      <div className="flex items-center p-4 sm:px-6 border-t border-gray-100 bg-white">
+        <button type="button" onClick={goBack}
+          className="flex items-center gap-1.5 px-5 py-2.5 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all cursor-pointer">
+          <ChevronLeft size={14} /> Zurück
+        </button>
+      </div>
+    );
     if (step === 1) return (
       <div className="flex items-center p-4 sm:px-6 border-t border-gray-100 bg-white">
         <button type="button" onClick={goBack}
