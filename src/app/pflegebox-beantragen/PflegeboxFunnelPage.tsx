@@ -914,6 +914,7 @@ function Step3({
   const [unterschrift, setUnterschrift] = useState(`${form.vorname} ${form.nachname}`.trim());
   const [signed, setSigned] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [confirmedError, setConfirmedError] = useState(false);
   const [error, setError] = useState("");
 
   const VERSICHERUNG = ["gesetzlich versichert", "privat versichert", "Orts-/Sozialamt"];
@@ -929,7 +930,7 @@ function Step3({
     if (versicherung === "gesetzlich versichert" && !krankenkasse) { setError("Bitte Krankenkasse auswählen."); return; }
     if (!unterschrift.trim()) { setError("Bitte Vor- und Nachname eingeben."); return; }
     if (!signed) { setError("Bitte unterschreiben."); return; }
-    if (!confirmed) { setError("Bitte bestätige die Kostenübernahme."); return; }
+    if (!confirmed) { setConfirmedError(true); setError("Bitte bestätige die Kostenübernahme."); return; }
     const finalVersicherung =
       versicherung === "gesetzlich versichert" ? krankenkasse :
       versicherung === "Orts-/Sozialamt" ? (sozialamtName.trim() || "Orts-/Sozialamt") :
@@ -1043,8 +1044,8 @@ function Step3({
         <SignatureCanvas onSign={setSigned} />
         <label className="flex items-start gap-2.5 cursor-pointer mt-4">
           <div
-            onClick={() => setConfirmed(!confirmed)}
-            className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${confirmed ? "bg-brand border-brand" : "border-gray-300"}`}
+            onClick={() => { setConfirmed(!confirmed); setConfirmedError(false); }}
+            className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${confirmed ? "bg-brand border-brand" : confirmedError ? "border-red-400 bg-red-50" : "border-gray-300"}`}
           >
             {confirmed && <CheckCircle2 size={10} className="text-white" />}
           </div>
